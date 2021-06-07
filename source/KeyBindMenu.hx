@@ -223,20 +223,7 @@ class KeyBindMenu extends FlxSubState
 
         var notAllowed:Array<String> = [];
 
-        for(x in keys){
-            if(x != tempKey){notAllowed.push(x);}
-        }
-
         for(x in blacklist){notAllowed.push(x);}
-
-        if(curSelected != 4){
-
-            for(x in keyText){
-                if(x != keyText[curSelected]){notAllowed.push(x);}
-            }
-            
-        }
-        else {for(x in keyText){notAllowed.push(x);}}
 
         trace(notAllowed);
 
@@ -245,15 +232,17 @@ class KeyBindMenu extends FlxSubState
                 var oK = keys[x];
                 if(oK == r)
                     keys[x] = null;
+                if (notAllowed.contains(oK))
+                    return;
             }
 
         if(shouldReturn){
             keys[curSelected] = r;
-            FlxG.sound.play(Paths.sound('Hover','clown'));
+            FlxG.sound.play(Paths.sound('scrollMenu'));
         }
         else{
             keys[curSelected] = tempKey;
-            FlxG.sound.play(Paths.sound('confirm','clown'));
+            FlxG.sound.play(Paths.sound('scrollMenu'));
             keyWarning.alpha = 1;
             warningTween.cancel();
             warningTween = FlxTween.tween(keyWarning, {alpha: 0}, 0.5, {ease: FlxEase.circOut, startDelay: 2});
