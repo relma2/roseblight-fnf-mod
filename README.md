@@ -5,7 +5,9 @@
 # Friday Blight Funkin' : Roseblight mod
 
 ## Friday Night Funkin'
-**Friday Night Funkin'** is a rhythm game originally made for Ludum Dare 47 "Stuck In a Loop". This **mod** is a crossover with
+**Friday Night Funkin'** is a rhythm game originally made for Ludum Dare 47 "Stuck In a Loop". This **mod** is a crossover with [Roseblight](https://aplovestudio.itch.io/roseblight) ; a story driven game in development about a gardener investigating a crash-landed alien and repairing the bond with his alter ego.
+
+###*[Seriously play it its amazing](https://aplovestudio.itch.io/roseblight)*
 
 Links: **[itch.io page](https://ninja-muffin24.itch.io/funkin) ⋅ [Newgrounds](https://www.newgrounds.com/portal/view/770371) ⋅ [source code on GitHub](https://github.com/ninjamuffin99/Funkin)**
 **[Roseblight Game](https://aplovestudio.itch.io/roseblight) ⋅ [source code on GitHub](https://github.com/relma2/roseblight-fnf-mod)**
