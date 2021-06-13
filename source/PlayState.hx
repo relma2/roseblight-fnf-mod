@@ -335,6 +335,8 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
+			//case 'himbo':
+				//dialogue = CoolUtil.coolTextFile(Paths.txt('himbo/himboDialogue'));
 		}
 
 		switch(SONG.stage)
@@ -661,6 +663,17 @@ class PlayState extends MusicBeatState
 								add(waveSpriteFG);
 						*/
 			}
+			/*
+			// were gonna call this hypothetical stage gray
+			case "gray":
+			{
+
+			}
+			case "grayEvil":
+			{
+
+			}
+			*/
 			case 'stage':
 				{
 						defaultCamZoom = 0.9;
@@ -773,6 +786,9 @@ class PlayState extends MusicBeatState
 				dad.x -= 150;
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
+			/*
+			case 'himbo':
+				*/
 		}
 
 
@@ -810,12 +826,12 @@ class PlayState extends MusicBeatState
 				add(evilTrail);
 				// evilTrail.scrollFactor.set(1.1, 1.1);
 				}
-
-
 				boyfriend.x += 200;
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
+			//case 'gray':
+			//case 'grayEvil':
 		}
 
 		add(gf);
@@ -1035,6 +1051,8 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
+				// case himbo:
+				// this is presumably the part where we animate cutscenes
 				default:
 					startCountdown();
 			}
@@ -1137,6 +1155,8 @@ class PlayState extends MusicBeatState
 			}
 		});
 	}
+
+	// relma2: TODO: add cutscenes in funcions here??
 
 	var startTimer:FlxTimer;
 	var perfectMode:Bool = false;
