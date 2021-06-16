@@ -337,6 +337,10 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 			//case 'himbo':
 				//dialogue = CoolUtil.coolTextFile(Paths.txt('himbo/himboDialogue'));
+			//case 'autolullaby':
+				//dialogue = CoolUtil.coolTextFile(Paths.txt('autolullaby/autolullabyDialogue'));
+			//case 'aplovecraft':
+				//dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue'));
 		}
 
 		switch(SONG.stage)
@@ -663,17 +667,11 @@ class PlayState extends MusicBeatState
 								add(waveSpriteFG);
 						*/
 			}
-			/*
+			
 			// were gonna call this hypothetical stage gray
+			// placeholder for normal stage
 			case "gray":
-			{
-
-			}
 			case "grayEvil":
-			{
-
-			}
-			*/
 			case 'stage':
 				{
 						defaultCamZoom = 0.9;
