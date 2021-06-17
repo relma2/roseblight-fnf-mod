@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ![FridayBlightFunkinLogo](art/thumbnailNewer.png)
 
 *TODO: add those little CI/CD badges*
@@ -41,6 +40,7 @@ Links: **[GameBanana mod page](https://gamebanana.com/gamefiles/16761) â‹… [play
 ### Roseblight Mod
  - [Relma](https://github.com/relma2)
  - [Ë](https://github.com/izzonac)
+ - [SuperEclipse](https://github.com/SundayMoonday)
 
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
 
