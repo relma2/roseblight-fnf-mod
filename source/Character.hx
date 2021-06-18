@@ -498,6 +498,26 @@ class Character extends FlxSprite
 				addOffset("singDOWN-alt", -30, -27);
 
 				playAnim('idle');
+			
+			//case 'nite':
+			//case 'blayk':
+			case 'blite':
+			{
+				tex = Paths.getSparrowAtlas('characters/blite');
+				frames = tex;
+				animation.addByPrefix('idle', 'idle', 24, false);
+				animation.addByPrefix('singUP', 'note sing up', 24, false);
+				animation.addByPrefix('singDOWN', 'note sing down', 24, false);
+				animation.addByPrefix('singLEFT', 'note sing left', 24, false);
+				animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
+
+				addOffset('idle');
+				addOffset("singUP", -20);
+				addOffset("singRIGHT", -51);
+				addOffset("singLEFT", -30);
+				addOffset("singDOWN", -40);
+				playAnim('idle');
+			}
 		}
 
 		dance();
