@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ![FridayBlightFunkinLogo](art/thumbnailNewer.png)
 
 *TODO: add those little CI/CD badges*
@@ -20,17 +19,11 @@ rel: Ok so uh... this is kinda gonna be info thats specific to the mod itself: :
 ### Major TODO items
 - Desaturate stage asset for the ahokau palette (50% done)
 - Mod Qrystal over girlfriend (skin; no actual code) (80% done)
-- Change backup dancer to barble
-- Desturate Boyfriend??
-- Create Playable week on the "stage" background as placeholder with placeholder music and maybe placeholder dad
-- Figure out how to work in the Roseblight ad into the mod
-- Create placeholder dialogue??
-- Implement Pausa notes
-
+Consult week-structure.md for full TODO list
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
 
-Links: **[GameBanana mod page](https://gamebanana.com/gamefiles/16761) ⋅ [play in browser](https://funkin.puyo.xyz) ⋅ [latest stable release](https://github.com/KadeDev/Kade-Engine/releases/latest) ⋅ [latest development build (windows)](https://ci.appveyor.com/project/KadeDev/kade-engine-windows/build/artifacts) ⋅ [latest development build (macOS)](https://ci.appveyor.com/project/KadeDev/kade-engine-macos/build/artifacts) ⋅ [latest development build (linux)](https://ci.appveyor.com/project/KadeDev/kade-engine-linux/build/artifacts)**
+Links: ** GameBanana mod page TODO <C-k>Sb other links** 
 
 # Credits
 ### Friday Night Funkin'
@@ -41,6 +34,7 @@ Links: **[GameBanana mod page](https://gamebanana.com/gamefiles/16761) ⋅ [play
 ### Roseblight Mod
  - [Relma](https://github.com/relma2)
  - [�](https://github.com/izzonac)
+ - [SuperEclipse](https://github.com/SundayMoonday)
 
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
 

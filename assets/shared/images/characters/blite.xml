@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="blite.png">
+	<!-- Created with Adobe Animate version 20.0.0.17400 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="note sing left0000" x="1430" y="0" height="500" width="525"/>
+	<SubTexture name="note sing right0000" height="500" x="1955" y="0" width="525"/>
+	<SubTexture name="note sing up0000" height="500"x="460" y="0" width="435"/>
+	<SubTexture name="note sing down0000" height="500" x="895" y="0" width="435"/>
+	<SubTexture name="idle0000" height="500" x="0" y="0" width="435"/>
+</TextureAtlas>

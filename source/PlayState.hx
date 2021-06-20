@@ -344,8 +344,8 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 			//case 'himbo':
 				//dialogue = CoolUtil.coolTextFile(Paths.txt('himbo/himboDialogue'));
-			//case 'autolullaby':
-				//dialogue = CoolUtil.coolTextFile(Paths.txt('autolullaby/autolullabyDialogue'));
+			//case 'brainjail':
+				//dialogue = CoolUtil.coolTextFile(Paths.txt('brainjail/brainjailDialogue'));
 			//case 'aplovecraft':
 				//dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue'));
 		}
@@ -361,10 +361,12 @@ class PlayState extends MusicBeatState
 				case 4: stageCheck = 'limo';
 				case 5: if (songLowercase == 'winter-horrorland') {stageCheck = 'mallEvil';} else {stageCheck = 'mall';}
 				case 6: if (songLowercase == 'thorns') {stageCheck = 'schoolEvil';} else {stageCheck = 'school';}
+				case 7: if (songLowercase == 'aplovecraft') {stageCheck = 'grayEvil';} else {stageCheck = 'gray';}
 				//i should check if its stage (but this is when none is found in chart anyway)
 			}
 		} else {stageCheck = SONG.stage;}
 
+		trace("relma2 -- song stage is: " + stageCheck);
 		switch(stageCheck)
 		{
 			case 'halloween': 
@@ -692,9 +694,7 @@ class PlayState extends MusicBeatState
 			
 			// were gonna call this hypothetical stage gray
 			// placeholder for normal stage
-			case "gray":
-			case "grayEvil":
-			case 'stage':
+			case 'stage' | 'gray' | 'grayEvil':
 				{
 						defaultCamZoom = 0.9;
 						curStage = 'stage';
@@ -819,7 +819,7 @@ class PlayState extends MusicBeatState
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 			/*
-			case 'himbo':
+			case 'blayk' | 'nite' | 'blite':
 				*/
 		}
 
@@ -1213,6 +1213,7 @@ class PlayState extends MusicBeatState
 		switch (songLowercase) {
 			case 'dad-battle': songLowercase = 'dadbattle';
 			case 'philly-nice': songLowercase = 'philly';
+			case 'brain-jail': songLowercase = 'brainjail';
 		}
 		if (executeModchart)
 		{
@@ -1433,6 +1434,7 @@ class PlayState extends MusicBeatState
 				switch (songLowercase) {
 					case 'dad-battle': songLowercase = 'dadbattle';
 					case 'philly-nice': songLowercase = 'philly';
+					case 'brain-jail': songLowercase = 'brainjail';
 				}
 
 			var songPath = 'assets/data/' + songLowercase + '/';
