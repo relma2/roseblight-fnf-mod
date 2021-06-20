@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="glow.png">
+	<SubTexture name="glow0000" x="0" y="0" height="500" width="600"/>
+	<SubTexture name="glow0001" height="500" x="600" y="0" width="600"/>
+	<SubTexture name="glow0002" height="500"x="1200" y="0" width="600"/>
+	<SubTexture name="glow0003" height="500" x="1800" y="0" width="600"/>
+</TextureAtlas>
