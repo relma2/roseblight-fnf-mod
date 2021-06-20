@@ -708,7 +708,26 @@ class PlayState extends MusicBeatState
 			
 			// were gonna call this hypothetical stage gray
 			// placeholder for normal stage
-			case 'stage' | 'gray' | 'grayEvil':
+			case 'gray' | 'grayEvil':
+				{
+					curStage = 'gray'
+					var bg:FlxSprite = new FlxSprite(-400, -500).loadGraphic(Paths.image('background_mountain.png','week7'));
+					bg.antialiasing = true;
+					bg.scrollFactor.set(0.2, 0.2);
+					bg.active = false;
+					bg.setGraphicSize(Std.int(bg.width * 0.8));
+					bg.updateHitbox();
+					add(bg);
+
+					var marmar:FlxSprite = new FlxSprite(1500, -500).loadGraphic(Paths.image('glow','week7'));
+					marmar.frames = Paths.getSparrowAtlas('glow','week7');
+					marmar.animation.addByPrefix('glow', 'glow', 24, true);
+					marmar.animation.play('glow');
+					marmar.antialiasing = true;
+					marmar.scrollFactor.set(0.2,0.2);
+					add(marmar);
+				}
+			case 'stage':
 				{
 						defaultCamZoom = 0.9;
 						curStage = 'stage';
