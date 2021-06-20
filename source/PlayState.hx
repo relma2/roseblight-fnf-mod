@@ -697,11 +697,11 @@ class PlayState extends MusicBeatState
 			// placeholder for normal stage
 			case 'gray' | 'grayEvil':
 			{
-				defaultCamZoom = 0.70;
-				var xOffset:Int = -1200;
-				var yOffset:Int = -500;
+				defaultCamZoom = 0.80;
+				var xOffset:Int = -1000;
+				var yOffset:Int = -400;
 				curStage = 'grayEvil';
-				var bg:FlxSprite = new FlxSprite(xOffset, yOffset+100);
+				var bg:FlxSprite = new FlxSprite(-1100, -400);
 				var mtn = Paths.image('griswell/mountain','week7');
 				trace("relma2 -- path returned is  " + mtn);
 				bg.loadGraphic(mtn);
@@ -709,23 +709,26 @@ class PlayState extends MusicBeatState
 				bg.antialiasing = true;
 				bg.scrollFactor.set(0.1,0.1);
 				bg.active = false;
-				bg.setGraphicSize(Std.int(bg.width * 0.7));
+				bg.setGraphicSize(Std.int(bg.width * 0.6));
 				bg.updateHitbox();
 				add(bg);
 
-				var marmar:FlxSprite = new FlxSprite(700, 0).loadGraphic(Paths.image('griswell/glow','week7'), true);
+				var marmar:FlxSprite = new FlxSprite(500, -300).loadGraphic(Paths.image('griswell/glow','week7'), true);
 				marmar.frames = Paths.getSparrowAtlas('griswell/glow','week7');
 				marmar.animation.addByPrefix('glow', 'glow', 24, true);
 				marmar.animation.play('glow');
 				marmar.antialiasing = true;
+				marmar.setGraphicSize(Std.int(marmar.width * 0.8));
 				marmar.scrollFactor.set(0.1,0.1);
 				add(marmar);
 
-				var shop:FlxSprite = new FlxSprite(xOffset, yOffset).loadGraphic(Paths.image("griswell/shop", 'week7'));
+				var shop:FlxSprite = new FlxSprite(-1200, -600).loadGraphic(Paths.image("griswell/shop", 'week7'));
 				shop.antialiasing = true;
-				shop.scrollFactor.set(1,0.8);
-				shop.setGraphicSize(Std.int(shop.width * 0.6));
+				shop.scrollFactor.set(1,0.5);
+				shop.setGraphicSize(Std.int(shop.width * 0.7));
 				add(shop);
+
+				// add similarly for topbop.png
 			}
 			case 'stage':
 				{
@@ -2179,10 +2182,10 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				if (curStage.contains('gray')
+				if (curStage.contains('gray'))
 					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, dad.getMidpoint().y - 100 + offsetY);
 				else
-					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
+					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y + 100 + offsetY);
 
 				#if windows
 				if (luaModchart != null)
