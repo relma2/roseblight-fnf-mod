@@ -710,7 +710,7 @@ class PlayState extends MusicBeatState
 			// placeholder for normal stage
 			case 'gray' | 'grayEvil':
 				{
-					curStage = 'gray'
+					curStage = 'gray';
 					var bg:FlxSprite = new FlxSprite(-400, -500).loadGraphic(Paths.image('background_mountain.png','week7'));
 					bg.antialiasing = true;
 					bg.scrollFactor.set(0.2, 0.2);
