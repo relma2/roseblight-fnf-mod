@@ -33,7 +33,7 @@ Links: ** GameBanana mod page TODO <C-k>Sb other links**
 
 ### Roseblight Mod
  - [Relma](https://github.com/relma2)
- - [Ë](https://github.com/izzonac)
+ - [ï¿½](https://github.com/izzonac)
  - [SuperEclipse](https://github.com/SundayMoonday)
 
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
