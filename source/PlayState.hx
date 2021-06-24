@@ -3,6 +3,7 @@ package;
 import Replay.Ana;
 import Replay.Analysis;
 import webm.WebmPlayer;
+import haxe.macro.ExampleJSGenerator;
 import flixel.input.keyboard.FlxKey;
 import haxe.Exception;
 import openfl.geom.Matrix;
@@ -13,7 +14,6 @@ import flixel.graphics.FlxGraphic;
 import openfl.utils.AssetManifest;
 import openfl.utils.AssetLibrary;
 import flixel.system.FlxAssets;
-
 import lime.app.Application;
 import lime.media.AudioContext;
 import lime.media.AudioManager;
@@ -577,7 +577,7 @@ class PlayState extends MusicBeatState
 					var evilSnow:FlxSprite = new FlxSprite(-200, 700).loadGraphic(Paths.image("christmas/evilSnow",'week5'));
 						evilSnow.antialiasing = true;
 					add(evilSnow);
-					}
+			}
 			case 'school':
 			{
 					curStage = 'school';
@@ -709,24 +709,37 @@ class PlayState extends MusicBeatState
 			// were gonna call this hypothetical stage gray
 			// placeholder for normal stage
 			case 'gray' | 'grayEvil':
-				{
-					curStage = 'gray';
-					var bg:FlxSprite = new FlxSprite(-400, -500).loadGraphic(Paths.image('background_mountain.png','week7'));
-					bg.antialiasing = true;
-					bg.scrollFactor.set(0.2, 0.2);
-					bg.active = false;
-					bg.setGraphicSize(Std.int(bg.width * 0.8));
-					bg.updateHitbox();
-					add(bg);
+			{
+				defaultCamZoom = 0.70;
+				var xOffset:Int = -1200;
+				var yOffset:Int = -500;
+				curStage = 'grayEvil';
+				var bg:FlxSprite = new FlxSprite(xOffset, yOffset+100);
+				var mtn = Paths.image('griswell/mountain','week7');
+				trace("relma2 -- path returned is  " + mtn);
+				bg.loadGraphic(mtn);
+				trace("relma2 -- image loaded is " + bg.width + " px by " + bg.height + " px");
+				bg.antialiasing = true;
+				bg.scrollFactor.set(0.1,0.1);
+				bg.active = false;
+				bg.setGraphicSize(Std.int(bg.width * 0.7));
+				bg.updateHitbox();
+				add(bg);
 
-					var marmar:FlxSprite = new FlxSprite(1500, -500).loadGraphic(Paths.image('glow','week7'));
-					marmar.frames = Paths.getSparrowAtlas('glow','week7');
-					marmar.animation.addByPrefix('glow', 'glow', 24, true);
-					marmar.animation.play('glow');
-					marmar.antialiasing = true;
-					marmar.scrollFactor.set(0.2,0.2);
-					add(marmar);
-				}
+				var marmar:FlxSprite = new FlxSprite(700, 0).loadGraphic(Paths.image('griswell/glow','week7'), true);
+				marmar.frames = Paths.getSparrowAtlas('griswell/glow','week7');
+				marmar.animation.addByPrefix('glow', 'glow', 24, true);
+				marmar.animation.play('glow');
+				marmar.antialiasing = true;
+				marmar.scrollFactor.set(0.1,0.1);
+				add(marmar);
+
+				var shop:FlxSprite = new FlxSprite(xOffset, yOffset).loadGraphic(Paths.image("griswell/shop", 'week7'));
+				shop.antialiasing = true;
+				shop.scrollFactor.set(1,0.8);
+				shop.setGraphicSize(Std.int(shop.width * 0.6));
+				add(shop);
+			}
 			case 'stage':
 				{
 						defaultCamZoom = 0.9;
@@ -851,9 +864,8 @@ class PlayState extends MusicBeatState
 				dad.x -= 150;
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
-			/*
 			case 'blayk' | 'nite' | 'blite':
-				*/
+				dad.x -= 500;
 		}
 
 
@@ -895,8 +907,8 @@ class PlayState extends MusicBeatState
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
-			//case 'gray':
-			//case 'grayEvil':
+			case 'gray' | 'grayEvil':
+				boyfriend.x += 200;
 		}
 
 		add(gf);
@@ -2229,7 +2241,10 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
+				if (curStage.contains('gray'))
+					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+				else
+					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
 
 				#if windows
 				if (luaModchart != null)
