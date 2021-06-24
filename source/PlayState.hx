@@ -697,11 +697,9 @@ class PlayState extends MusicBeatState
 			// placeholder for normal stage
 			case 'gray' | 'grayEvil':
 			{
-				defaultCamZoom = 0.80;
-				var xOffset:Int = -1000;
-				var yOffset:Int = -400;
+				defaultCamZoom = 0.70;
 				curStage = 'grayEvil';
-				var bg:FlxSprite = new FlxSprite(-1100, -400);
+				var bg:FlxSprite = new FlxSprite(-1100, -200);
 				var mtn = Paths.image('griswell/mountain','week7');
 				trace("relma2 -- path returned is  " + mtn);
 				bg.loadGraphic(mtn);
@@ -709,7 +707,7 @@ class PlayState extends MusicBeatState
 				bg.antialiasing = true;
 				bg.scrollFactor.set(0.1,0.1);
 				bg.active = false;
-				bg.setGraphicSize(Std.int(bg.width * 0.6));
+				bg.setGraphicSize(Std.int(bg.width * 0.8));
 				bg.updateHitbox();
 				add(bg);
 
@@ -722,13 +720,22 @@ class PlayState extends MusicBeatState
 				marmar.scrollFactor.set(0.1,0.1);
 				add(marmar);
 
-				var shop:FlxSprite = new FlxSprite(-1200, -600).loadGraphic(Paths.image("griswell/shop", 'week7'));
+				var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
 				shop.antialiasing = true;
 				shop.scrollFactor.set(1,0.5);
 				shop.setGraphicSize(Std.int(shop.width * 0.7));
 				add(shop);
 
-				// add similarly for topbop.png
+				upperBoppers = new FlxSprite(-400, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
+				//upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week5');
+				//upperBoppers.animation.addByPrefix('bop', "animation name in atlas", 24, false);
+				upperBoppers.antialiasing = true;
+				upperBoppers.scrollFactor.set(1, 0.6);
+				upperBoppers.updateHitbox();
+				upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.7));
+				if(FlxG.save.data.distractions) {
+					add(upperBoppers);
+				}
 			}
 			case 'stage':
 				{
@@ -855,7 +862,8 @@ class PlayState extends MusicBeatState
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 			case 'blayk' | 'nite' | 'blite':
-				dad.x -= 500;
+				dad.x += 0;
+				camPos.y += 200;
 		}
 
 
@@ -898,7 +906,9 @@ class PlayState extends MusicBeatState
 				gf.x += 180;
 				gf.y += 300;
 			case 'gray' | 'grayEvil':
-				boyfriend.x += 200;
+				boyfriend.x += 250;
+				gf.x += 150;
+				gf.y += 50;
 		}
 
 		add(gf);
@@ -3592,6 +3602,12 @@ class PlayState extends MusicBeatState
 				if(FlxG.save.data.distractions){
 					bgGirls.dance();
 				}
+
+			case 'gray' | 'grayEvil':
+				if(FlxG.save.data.distractions){
+					//upperBoppers.animation.play('bop', true);
+				}
+			
 
 			case 'mall':
 				if(FlxG.save.data.distractions){
