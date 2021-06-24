@@ -499,9 +499,7 @@ class Character extends FlxSprite
 
 				playAnim('idle');
 			
-			//case 'nite':
-			//case 'blayk':
-			case 'blite':
+			case 'blayk' | 'nite' | 'blite':
 			{
 				tex = Paths.getSparrowAtlas('characters/blite');
 				frames = tex;
