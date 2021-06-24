@@ -1,5 +1,7 @@
 package;
 
+import flixel.util.FlxPath;
+import flixel.addons.display.FlxBackdrop;
 import haxe.macro.ExampleJSGenerator;
 import flixel.input.keyboard.FlxKey;
 import haxe.Exception;
@@ -28,6 +30,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.effects.chainable.FlxEffectSprite;
@@ -695,10 +698,10 @@ class PlayState extends MusicBeatState
 			
 			// were gonna call this hypothetical stage gray
 			// placeholder for normal stage
-			case 'gray' | 'grayEvil':
+			case 'gray':
 			{
 				defaultCamZoom = 0.70;
-				curStage = 'grayEvil';
+				curStage = 'gray';
 				var bg:FlxSprite = new FlxSprite(-1100, -200);
 				var mtn = Paths.image('griswell/mountain','week7');
 				trace("relma2 -- path returned is  " + mtn);
@@ -735,6 +738,49 @@ class PlayState extends MusicBeatState
 				upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.7));
 				if(FlxG.save.data.distractions) {
 					add(upperBoppers);
+				}
+			}
+
+			case 'grayEvil':
+			{
+				defaultCamZoom = 0.70;
+				curStage = 'grayEvil';
+				var bg:FlxSprite = new FlxSprite(-1100, -200);
+				var mtn = Paths.image('griswell/mountain','week7');
+				bg.loadGraphic(mtn);
+				bg.antialiasing = true;
+				bg.scrollFactor.set(0.1,0.1);
+				bg.active = false;
+				bg.setGraphicSize(Std.int(bg.width * 0.8));
+				bg.updateHitbox();
+				add(bg);
+
+				var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
+				shop.antialiasing = true;
+				shop.scrollFactor.set(1,0.5);
+				shop.setGraphicSize(Std.int(shop.width * 0.7));
+				add(shop);
+
+				var dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3,0.2,true,true, 4, 4);
+				dither.antialiasing = false;
+				dither.useScaleHack = true;
+				dither.path = new FlxPath().start([new FlxPoint(200, 200), new FlxPoint(400, 400)], 30, FlxPath.LOOP_FORWARD);
+				dither.updateHitbox();
+				add(dither);
+
+				var yUp = -100;
+				var yDown = 0;
+				var grpChains = new FlxTypedGroup<FlxSprite>();
+				add(grpChains);
+
+				for (i in 0...7)
+				{
+					var chain:FlxSprite = new FlxSprite((400 * i) + 100, -500);
+					chain.frames = Paths.getSparrowAtlas('griswell/chains','week7');
+					chain.animation.addByPrefix('chain', 'chain', 4, true);
+					chain.animation.play('chain');
+					chain.scrollFactor.set(0.8, 0.2);
+					grpChains.add(chain);
 				}
 			}
 			case 'stage':
