@@ -383,7 +383,6 @@ class PlayState extends MusicBeatState
 			}
 		} else {stageCheck = SONG.stage;}
 
-		trace("relma2 -- song stage is: " + stageCheck);
 		switch(stageCheck)
 		{
 			case 'halloween': 
@@ -717,9 +716,7 @@ class PlayState extends MusicBeatState
 				curStage = 'gray';
 				var bg:FlxSprite = new FlxSprite(-1100, -200);
 				var mtn = Paths.image('griswell/mountain','week7');
-				trace("relma2 -- path returned is  " + mtn);
 				bg.loadGraphic(mtn);
-				trace("relma2 -- image loaded is " + bg.width + " px by " + bg.height + " px");
 				bg.antialiasing = true;
 				bg.scrollFactor.set(0.1,0.1);
 				bg.active = false;
@@ -732,7 +729,7 @@ class PlayState extends MusicBeatState
 				marmar.animation.addByPrefix('glow', 'glow', 24, true);
 				marmar.animation.play('glow');
 				marmar.antialiasing = true;
-				marmar.setGraphicSize(Std.int(marmar.width * 0.8));
+				marmar.setGraphicSize(Std.int(marmar.width * 0.7));
 				marmar.scrollFactor.set(0.1,0.1);
 				add(marmar);
 
@@ -741,6 +738,18 @@ class PlayState extends MusicBeatState
 				shop.scrollFactor.set(1,0.5);
 				shop.setGraphicSize(Std.int(shop.width * 0.7));
 				add(shop);
+
+				if(FlxG.save.data.distractions){
+					grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
+					add(grpLimoDancers);
+
+					for (i in 0...5)
+					{
+							var dancer:BackgroundDancer = new BackgroundDancer((500 * i) - 300, 300, 7);
+							dancer.scrollFactor.set(1,0.6);
+							grpLimoDancers.add(dancer);
+					}
+				}
 
 				upperBoppers = new FlxSprite(-400, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
 				//upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week5');
@@ -774,12 +783,13 @@ class PlayState extends MusicBeatState
 				shop.setGraphicSize(Std.int(shop.width * 0.7));
 				add(shop);
 
-				var dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3,0.2,true,true, 4, 4);
+				var dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3,0.2,true,true, 3, 3);
 				dither.antialiasing = false;
-				dither.useScaleHack = true;
-				dither.path = new FlxPath().start([new FlxPoint(200, 200), new FlxPoint(400, 400)], 30, FlxPath.LOOP_FORWARD);
+				dither.blend = "multiply";
+				dither.path = new FlxPath().start([new FlxPoint(0, 0), new FlxPoint(-100, -100)], 100, FlxPath.FORWARD);
 				dither.updateHitbox();
 				add(dither);
+				dither.path = new FlxPath().start([new FlxPoint(-100, -100), new FlxPoint(-200, -200)], 25, FlxPath.LOOP_FORWARD);
 
 				var yUp = -100;
 				var yDown = 0;
@@ -788,10 +798,10 @@ class PlayState extends MusicBeatState
 
 				for (i in 0...7)
 				{
-					var chain:FlxSprite = new FlxSprite((400 * i) + 100, -500);
+					var chain:FlxSprite = new FlxSprite((500 * i) - 200, -900);
 					chain.frames = Paths.getSparrowAtlas('griswell/chains','week7');
 					chain.animation.addByPrefix('chain', 'chain', 4, true);
-					chain.animation.play('chain');
+					chain.animation.play('chain', true, true, 0);
 					chain.scrollFactor.set(0.8, 0.2);
 					grpChains.add(chain);
 				}
@@ -3899,12 +3909,6 @@ class PlayState extends MusicBeatState
 					bgGirls.dance();
 				}
 
-			case 'gray' | 'grayEvil':
-				if(FlxG.save.data.distractions){
-					//upperBoppers.animation.play('bop', true);
-				}
-			
-
 			case 'mall':
 				if(FlxG.save.data.distractions){
 					upperBoppers.animation.play('bop', true);
@@ -3919,8 +3923,16 @@ class PlayState extends MusicBeatState
 							dancer.dance();
 						});
 		
-						if (FlxG.random.bool(10) && fastCarCanDrive)
-							fastCarDrive();
+					if (FlxG.random.bool(10) && fastCarCanDrive)
+						fastCarDrive();
+				}
+
+			case 'gray':
+				if(FlxG.save.data.distractions){
+					grpLimoDancers.forEach(function(dancer:BackgroundDancer)
+						{
+							dancer.dance();
+						});
 				}
 			case "philly":
 				if(FlxG.save.data.distractions){
