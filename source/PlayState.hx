@@ -980,7 +980,7 @@ class PlayState extends MusicBeatState
 			case 'gray' | 'grayEvil':
 				boyfriend.x += 250;
 				gf.x += 150;
-				gf.y += 50;
+				gf.y -= 100;
 		}
 
 		add(gf);
