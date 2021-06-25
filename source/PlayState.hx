@@ -752,8 +752,8 @@ class PlayState extends MusicBeatState
 				}
 
 				upperBoppers = new FlxSprite(-400, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
-				//upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week5');
-				//upperBoppers.animation.addByPrefix('bop', "animation name in atlas", 24, false);
+				upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week7');
+				upperBoppers.animation.addByPrefix('bop', "topbop", 24, false);
 				upperBoppers.antialiasing = true;
 				upperBoppers.scrollFactor.set(1, 0.6);
 				upperBoppers.updateHitbox();
@@ -3932,6 +3932,7 @@ class PlayState extends MusicBeatState
 
 			case 'gray':
 				if(FlxG.save.data.distractions){
+					upperBoppers.animation.play('bop', true);
 					grpLimoDancers.forEach(function(dancer:BackgroundDancer)
 						{
 							dancer.dance();
