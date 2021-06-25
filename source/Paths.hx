@@ -23,14 +23,8 @@ class Paths
 
 		if (currentLevel != null)
 		{
-			//trace("relma2 -- current level is  " + currentLevel);
 			var levelPath = getLibraryPathForce(file, currentLevel);
-			if (file.indexOf('mountain') != -1)
-				trace("relma2 -- path img is" + levelPath); 
-			if (OpenFlAssets.exists(levelPath, type)) {
-				if (file.indexOf('mountain') != -1)
-					trace("relma2 -- loaded week asset " + file);
-				return levelPath;
+			return levelPath;
 			}
 
 			levelPath = getLibraryPathForce(file, "shared");
@@ -123,8 +117,6 @@ class Paths
 
 	inline static public function image(key:String, ?library:String)
 	{
-		if (key.indexOf('mountain') != -1)
-			trace("relma2 -- called paths.image for mountain");
 		return getPath('images/$key.png', IMAGE, library);
 	}
 
