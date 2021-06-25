@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:2e56d69e62600b6c82db2e75ad4d3e69:3f67e51f1156c07dc1f90cfc4c6b68bc:52c4982583cdf0d8d3585210490b4466$ -->
+<TextureAtlas imagePath="glow.png" width="1832" height="448">
+    <SubTexture name="glow0000" x="0" y="0" width="454" height="443"/>
+    <SubTexture name="glow0001" x="458" y="0" width="458" height="448"/>
+    <SubTexture name="glow0002" x="916" y="0" width="458" height="448"/>
+    <SubTexture name="glow0003" x="1374" y="0" width="458" height="448"/>
+</TextureAtlas>
