@@ -25,13 +25,11 @@ class Paths
 		{
 			var levelPath = getLibraryPathForce(file, currentLevel);
 			return levelPath;
-			}
 
 			levelPath = getLibraryPathForce(file, "shared");
 			if (OpenFlAssets.exists(levelPath, type))
 				return levelPath;
 		}
-
 		return getPreloadPath(file);
 	}
 

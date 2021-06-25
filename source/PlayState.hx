@@ -745,9 +745,9 @@ class PlayState extends MusicBeatState
 
 					for (i in 0...5)
 					{
-							var dancer:BackgroundDancer = new BackgroundDancer((500 * i) - 300, 300, 7);
-							dancer.scrollFactor.set(1,0.6);
-							grpLimoDancers.add(dancer);
+						var dancer:BackgroundDancer = new BackgroundDancer((500 * i) - 300, 300, 7);
+						dancer.scrollFactor.set(1,0.6);
+						grpLimoDancers.add(dancer);
 					}
 				}
 
