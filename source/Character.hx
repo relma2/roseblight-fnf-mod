@@ -32,6 +32,7 @@ class Character extends FlxSprite
 		{
 			case 'gf':
 				// GIRLFRIEND CODE
+				trace("relma2--- entered gf case");
 				tex = Paths.getSparrowAtlas('characters/GF_assets');
 				frames = tex;
 				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
@@ -43,7 +44,7 @@ class Character extends FlxSprite
 				animation.addByIndices('danceLeft', 'GF Dancing Beat', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 				animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 				animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", [0, 1, 2, 3], "", 24);
-				animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
+				animation.addByIndices('hairFall', "QF Dancing Beat Blowing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
 				animation.addByPrefix('scared', 'GF FEAR', 24);
 
 				addOffset('cheer');
@@ -61,6 +62,7 @@ class Character extends FlxSprite
 				addOffset('scared', -2, -17);
 
 				playAnim('danceRight');
+				trace("relma2--- exited gf case");
 
 			case 'gf-christmas':
 				tex = Paths.getSparrowAtlas('characters/gfChristmas');
@@ -581,19 +583,24 @@ class Character extends FlxSprite
 	 */
 	public function dance()
 	{
+		trace("relma2- gf dance enter");
 		if (!debugMode)
 		{
 			switch (curCharacter)
 			{
 				case 'gf':
-					if (!animation.curAnim.name.startsWith('hair'))
+					trace("relma2- gf case entered");
+					if (animation.curAnim == null || !animation.curAnim.name.startsWith('hair'))
 					{
+						trace("relma2- hair if statement entered");
 						danced = !danced;
 
 						if (danced)
 							playAnim('danceRight');
 						else
 							playAnim('danceLeft');
+
+						trace("relma2- dance right/left played");
 					}
 
 				case 'gf-christmas':
@@ -639,6 +646,7 @@ class Character extends FlxSprite
 					playAnim('idle');
 			}
 		}
+		trace("relma2- gf dance exited");
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
