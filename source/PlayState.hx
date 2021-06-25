@@ -3,6 +3,9 @@ package;
 import Replay.Ana;
 import Replay.Analysis;
 import webm.WebmPlayer;
+import flixel.util.FlxPath;
+import flixel.addons.display.FlxBackdrop;
+import haxe.macro.ExampleJSGenerator;
 import flixel.input.keyboard.FlxKey;
 import haxe.Exception;
 import openfl.geom.Matrix;
@@ -13,7 +16,6 @@ import flixel.graphics.FlxGraphic;
 import openfl.utils.AssetManifest;
 import openfl.utils.AssetLibrary;
 import flixel.system.FlxAssets;
-
 import lime.app.Application;
 import lime.media.AudioContext;
 import lime.media.AudioManager;
@@ -30,6 +32,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.effects.chainable.FlxEffectSprite;
@@ -380,7 +383,6 @@ class PlayState extends MusicBeatState
 			}
 		} else {stageCheck = SONG.stage;}
 
-		trace("relma2 -- song stage is: " + stageCheck);
 		switch(stageCheck)
 		{
 			case 'halloween': 
@@ -577,7 +579,7 @@ class PlayState extends MusicBeatState
 					var evilSnow:FlxSprite = new FlxSprite(-200, 700).loadGraphic(Paths.image("christmas/evilSnow",'week5'));
 						evilSnow.antialiasing = true;
 					add(evilSnow);
-					}
+			}
 			case 'school':
 			{
 					curStage = 'school';
@@ -708,7 +710,103 @@ class PlayState extends MusicBeatState
 			
 			// were gonna call this hypothetical stage gray
 			// placeholder for normal stage
-			case 'stage' | 'gray' | 'grayEvil':
+			case 'gray':
+			{
+				defaultCamZoom = 0.70;
+				curStage = 'gray';
+				var bg:FlxSprite = new FlxSprite(-1100, -200);
+				var mtn = Paths.image('griswell/mountain','week7');
+				bg.loadGraphic(mtn);
+				bg.antialiasing = true;
+				bg.scrollFactor.set(0.1,0.1);
+				bg.active = false;
+				bg.setGraphicSize(Std.int(bg.width * 0.8));
+				bg.updateHitbox();
+				add(bg);
+
+				var marmar:FlxSprite = new FlxSprite(500, -300).loadGraphic(Paths.image('griswell/glow','week7'), true);
+				marmar.frames = Paths.getSparrowAtlas('griswell/glow','week7');
+				marmar.animation.addByPrefix('glow', 'glow', 24, true);
+				marmar.animation.play('glow');
+				marmar.antialiasing = true;
+				marmar.setGraphicSize(Std.int(marmar.width * 0.7));
+				marmar.scrollFactor.set(0.1,0.1);
+				add(marmar);
+
+				var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
+				shop.antialiasing = true;
+				shop.scrollFactor.set(1,0.5);
+				shop.setGraphicSize(Std.int(shop.width * 0.7));
+				add(shop);
+
+				if(FlxG.save.data.distractions){
+					grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
+					add(grpLimoDancers);
+
+					for (i in 0...5)
+					{
+						var dancer:BackgroundDancer = new BackgroundDancer((500 * i) - 300, 300, 7);
+						dancer.scrollFactor.set(1,0.6);
+						grpLimoDancers.add(dancer);
+					}
+				}
+
+				upperBoppers = new FlxSprite(-400, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
+				//upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week5');
+				//upperBoppers.animation.addByPrefix('bop', "animation name in atlas", 24, false);
+				upperBoppers.antialiasing = true;
+				upperBoppers.scrollFactor.set(1, 0.6);
+				upperBoppers.updateHitbox();
+				upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.7));
+				if(FlxG.save.data.distractions) {
+					add(upperBoppers);
+				}
+			}
+
+			case 'grayEvil':
+			{
+				defaultCamZoom = 0.70;
+				curStage = 'grayEvil';
+				var bg:FlxSprite = new FlxSprite(-1100, -200);
+				var mtn = Paths.image('griswell/mountain','week7');
+				bg.loadGraphic(mtn);
+				bg.antialiasing = true;
+				bg.scrollFactor.set(0.1,0.1);
+				bg.active = false;
+				bg.setGraphicSize(Std.int(bg.width * 0.8));
+				bg.updateHitbox();
+				add(bg);
+
+				var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
+				shop.antialiasing = true;
+				shop.scrollFactor.set(1,0.5);
+				shop.setGraphicSize(Std.int(shop.width * 0.7));
+				add(shop);
+
+				var dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3,0.2,true,true, 3, 3);
+				dither.antialiasing = false;
+				dither.blend = "multiply";
+				dither.path = new FlxPath().start([new FlxPoint(0, 0), new FlxPoint(-100, -100)], 100, FlxPath.FORWARD);
+				dither.updateHitbox();
+				add(dither);
+				dither.path = new FlxPath().start([new FlxPoint(-100, -100), new FlxPoint(-200, -200)], 25, FlxPath.LOOP_FORWARD);
+
+				var yUp = -100;
+				var yDown = 0;
+				var grpChains = new FlxTypedGroup<FlxSprite>();
+				add(grpChains);
+
+				for (i in 0...7)
+				{
+					var chain:FlxSprite = new FlxSprite((500 * i) - 200, -900);
+					chain.frames = Paths.getSparrowAtlas('griswell/chains','week7');
+					chain.animation.addByPrefix('chain', 'chain', 4, true);
+					chain.animation.play('chain', true, true, 0);
+					chain.scrollFactor.set(0.8, 0.2);
+					grpChains.add(chain);
+				}
+			}
+			case 'stage':
 				{
 						defaultCamZoom = 0.9;
 						curStage = 'stage';
@@ -832,9 +930,9 @@ class PlayState extends MusicBeatState
 				dad.x -= 150;
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
-			/*
 			case 'blayk' | 'nite' | 'blite':
-				*/
+				dad.x += 0;
+				camPos.y += 200;
 		}
 
 
@@ -876,8 +974,10 @@ class PlayState extends MusicBeatState
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
-			//case 'gray':
-			//case 'grayEvil':
+			case 'gray' | 'grayEvil':
+				boyfriend.x += 250;
+				gf.x += 150;
+				gf.y += 50;
 		}
 
 		add(gf);
@@ -2210,7 +2310,10 @@ class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y - 100 + offsetY);
+				if (curStage.contains('gray'))
+					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+				else
+					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y + 100 + offsetY);
 
 				#if windows
 				if (luaModchart != null)
@@ -3820,8 +3923,16 @@ class PlayState extends MusicBeatState
 							dancer.dance();
 						});
 		
-						if (FlxG.random.bool(10) && fastCarCanDrive)
-							fastCarDrive();
+					if (FlxG.random.bool(10) && fastCarCanDrive)
+						fastCarDrive();
+				}
+
+			case 'gray':
+				if(FlxG.save.data.distractions){
+					grpLimoDancers.forEach(function(dancer:BackgroundDancer)
+						{
+							dancer.dance();
+						});
 				}
 			case "philly":
 				if(FlxG.save.data.distractions){
