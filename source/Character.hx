@@ -288,6 +288,7 @@ class Character extends FlxSprite
 				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
 
 				animation.addByPrefix('scared', 'BF idle shaking', 24);
+				animation.addByPrefix('pausad', 'boyfriend pausad', 24, true);
 
 				addOffset('idle', -5);
 				addOffset("singUP", -29, 27);
@@ -303,6 +304,7 @@ class Character extends FlxSprite
 				addOffset('deathLoop', 37, 5);
 				addOffset('deathConfirm', 37, 69);
 				addOffset('scared', -4);
+				addOffset('pausad', -5);
 
 				playAnim('idle');
 

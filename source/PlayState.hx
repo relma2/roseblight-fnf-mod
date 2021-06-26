@@ -101,7 +101,11 @@ class PlayState extends MusicBeatState
 
 	// Notes that are "warning" -- i.e, hit them or die.
 	// Note how they are implemented as a hardcoded array instead of in the chart itself
-	var shootBeats:Array<Int> = [32, 48, 64, 80, 104, 120, 160];
+	public static var shootBeats:Array<Int> = [32, 48, 64, 80, 104, 120, 160];
+	public static var shootBeatDirections:Array<Int> = [1,2,3,0,2,2,1,2,3,0];
+	public static var pausaPenalty:Int = 20; 
+	// last beat that bf was "pausad" at
+	var lastBeatPausad:Int = -10;
 
 	var halloweenLevel:Bool = false;
 
@@ -237,7 +241,6 @@ class PlayState extends MusicBeatState
 	public function addObject(object:FlxBasic) { add(object); }
 	public function removeObject(object:FlxBasic) { remove(object); }
 
-
 	override public function create()
 	{
 		instance = this;
@@ -256,7 +259,6 @@ class PlayState extends MusicBeatState
 			goods = 0;
 		}
 		misses = 0;
-
 
 		highestCombo = 0;
 		repPresses = 0;
@@ -1503,7 +1505,8 @@ class PlayState extends MusicBeatState
 		var binds:Array<String> = [FlxG.save.data.leftBind,FlxG.save.data.downBind, FlxG.save.data.upBind, FlxG.save.data.rightBind];
 
 		var data = -1;
-		
+		// disable controls if frozen >:)
+		if (!boyfriend.pausad) {
 		switch(evt.keyCode) // arrow keys
 		{
 			case 37:
@@ -1520,6 +1523,7 @@ class PlayState extends MusicBeatState
 		{
 			if (binds[i].toLowerCase() == key.toLowerCase())
 				data = i;
+		}
 		}
 
 		if (evt.keyLocation == KeyLocation.NUM_PAD)
@@ -1756,7 +1760,7 @@ class PlayState extends MusicBeatState
 			{
 
 				var warnNoteTime = shootBeats[x];
-				var warnNote:Note = new Note(warnNoteTime * beatStepTime, 1, null, false, true, true);
+				var warnNote:Note = new Note(warnNoteTime * beatStepTime, shootBeatDirections[x], null, false, true, true);
 				warnNote.scrollFactor.set();
 				unspawnNotes.push(warnNote);
 				warnNote.mustPress = true;
@@ -2510,6 +2514,8 @@ class PlayState extends MusicBeatState
 			vocals.stop();
 			FlxG.sound.music.stop();
 
+			// unfreeze bf cuz he ded
+			boyfriend.pausad = false;
 			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
 			#if windows
@@ -2531,7 +2537,9 @@ class PlayState extends MusicBeatState
 		
 					vocals.stop();
 					FlxG.sound.music.stop();
-		
+					
+					// unfreeze bf cuz he ded
+					boyfriend.pausad = false;
 					openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		
 					#if windows
@@ -3289,8 +3297,8 @@ class PlayState extends MusicBeatState
 				#end
 		 
 				
-				// Prevent player input if botplay is on
-				if(PlayStateChangeables.botPlay)
+				// Prevent player input if botplay is on or u are chained
+				if(PlayStateChangeables.botPlay || boyfriend.pausad)
 				{
 					holdArray = [false, false, false, false];
 					pressArray = [false, false, false, false];
@@ -3507,7 +3515,6 @@ class PlayState extends MusicBeatState
 				// nada 
 			}
 
-
 			public function backgroundVideo(source:String) // for background videos
 				{
 					#if cpp
@@ -3582,6 +3589,10 @@ class PlayState extends MusicBeatState
 				{
 					saveNotes.push([daNote.strumTime,0,direction,166 * Math.floor((PlayState.rep.replay.sf / 60) * 1000) / 166]);
 					saveJudge.push("miss");
+				}
+				if (daNote.warning) {
+					boyfriend.pausad = true;
+					lastBeatPausad = curBeat;
 				}
 			}
 			else
@@ -3965,6 +3976,11 @@ class PlayState extends MusicBeatState
 				dad.playAnim('danceLeft');
 			if (curBeat % 2 == 0 && dad.animOffsets.exists('danceRight'))
 				dad.playAnim('danceRight');
+		}
+
+		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite') {
+			if (boyfriend.pausad && curBeat > lastBeatPausad + pausaPenalty)
+				boyfriend.pausad = false;
 		}
 
 		if (SONG.notes[Math.floor(curStep / 16)] != null)
