@@ -99,6 +99,10 @@ class PlayState extends MusicBeatState
 
 	public static var noteBools:Array<Bool> = [false, false, false, false];
 
+	// Notes that are "warning" -- i.e, hit them or die.
+	// Note how they are implemented as a hardcoded array instead of in the chart itself
+	var shootBeats:Array<Int> = [32, 48, 64, 80, 104, 120, 160];
+
 	var halloweenLevel:Bool = false;
 
 	var songLength:Float = 0;
@@ -802,6 +806,8 @@ class PlayState extends MusicBeatState
 				add(dither);
 				dither.path = new FlxPath().start([new FlxPoint(-100, -100), new FlxPoint(-200, -200)], 25, FlxPath.LOOP_FORWARD);
 
+				var pausaNote = new FlxSprite(80, 0).loadGraphic(Paths.image("warningNote","week7"));
+				
 				var yUp = -100;
 				var yDown = 0;
 				var grpChains = new FlxTypedGroup<FlxSprite>();
@@ -1743,9 +1749,20 @@ class PlayState extends MusicBeatState
 			daBeats += 1;
 		}
 
-		// trace(unspawnNotes.length);
-		// playerCounter += 1;
+		var beatStepTime = 600*(100/songData.bpm);
 
+		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == "blite"){
+		for (x in 0...shootBeats.length)
+			{
+
+				var warnNoteTime = shootBeats[x];
+				var warnNote:Note = new Note(warnNoteTime * beatStepTime, 1, null, false, true, true);
+				warnNote.scrollFactor.set();
+				unspawnNotes.push(warnNote);
+				warnNote.mustPress = true;
+				warnNote.x += FlxG.width / 2; // general offset
+			}
+		}
 		unspawnNotes.sort(sortByShit);
 
 		generatedMusic = true;
@@ -2624,6 +2641,12 @@ class PlayState extends MusicBeatState
 							}
 						}
 		
+					if(PlayStateChangeables.useDownscroll){
+						daNote.y = (strumLine.y + (Conductor.songPosition - daNote.strumTime) * (0.45 * (daNote.warning?1.25:1) * FlxMath.roundDecimal(PlayState.SONG.speed, 2)));
+					}
+					else {
+						daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * (daNote.warning?1.25:1) * FlxMath.roundDecimal(PlayState.SONG.speed, 2)));
+					}
 	
 					if (!daNote.mustPress && daNote.wasGoodHit)
 					{
@@ -2703,8 +2726,6 @@ class PlayState extends MusicBeatState
 							daNote.angle = strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].angle;
 						daNote.alpha = strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].alpha;
 					}
-					
-					
 
 					if (daNote.isSustainNote)
 						daNote.x += daNote.width / 2 + 17;

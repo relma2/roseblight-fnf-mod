@@ -18,6 +18,7 @@ class Note extends FlxSprite
 	public var strumTime:Float = 0;
 
 	public var mustPress:Bool = false;
+	public var warning:Bool = false;
 	public var noteData:Int = 0;
 	public var canBeHit:Bool = false;
 	public var tooLate:Bool = false;
@@ -37,9 +38,10 @@ class Note extends FlxSprite
 
 	public var rating:String = "shit";
 
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false)
+	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false, ?isWarning:Bool = false)
 	{
 		super();
+		this.warning = isWarning;
 
 		if (prevNote == null)
 			prevNote = this;
@@ -69,6 +71,7 @@ class Note extends FlxSprite
 			switch(PlayState.storyWeek) {case 6: noteTypeCheck = 'pixel';}
 		} else {noteTypeCheck = PlayState.SONG.noteStyle;}
 
+		if (!warning) {
 		switch (noteTypeCheck)
 		{
 			case 'pixel':
@@ -117,6 +120,13 @@ class Note extends FlxSprite
 				setGraphicSize(Std.int(width * 0.7));
 				updateHitbox();
 				antialiasing = true;
+		}
+		}
+		else{
+			loadGraphic(Paths.image("griswell/warningNote", "week7"));
+			setGraphicSize(Std.int(width * 0.7));
+			updateHitbox();
+			antialiasing = true;
 		}
 
 		switch (noteData)
@@ -227,12 +237,6 @@ class Note extends FlxSprite
 
 			if (strumTime <= Conductor.songPosition)
 				wasGoodHit = true;
-		}
-
-		if (tooLate)
-		{
-			if (alpha > 0.3)
-				alpha = 0.3;
 		}
 	}
 }
