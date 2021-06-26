@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:8e527ba55b8a8478e4f0fc3c65b62f74:f1f0f64789180dd5105faa4554ae93be:c2f8cb140a520516fec43883d049cb8a$ -->
+<TextureAtlas imagePath="topbop.png" width="2523" height="2523">
+    <SubTexture name="topbop0000" x="1" y="1457" width="2521" height="740"/>
+    <SubTexture name="topbop0001" x="1" y="723" width="2521" height="732" frameX="0" frameY="-8" frameWidth="2521" frameHeight="740"/>
+    <SubTexture name="topbop0002" x="1" y="1" width="2521" height="720" frameX="0" frameY="-20" frameWidth="2521" frameHeight="740"/>
+    <SubTexture name="topbop0003" x="1" y="1457" width="2521" height="740"/>
+    <SubTexture name="topbop0004" x="1" y="1457" width="2521" height="740"/>
+    <SubTexture name="topbop0005" x="1" y="1457" width="2521" height="740"/>
+    <SubTexture name="topbop0006" x="1" y="1457" width="2521" height="740"/>
+    <SubTexture name="topbop0007" x="1" y="1457" width="2521" height="740"/>
+</TextureAtlas>
