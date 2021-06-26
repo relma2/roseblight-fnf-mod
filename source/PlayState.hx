@@ -2,7 +2,9 @@ package;
 
 import Replay.Ana;
 import Replay.Analysis;
+#if cpp
 import webm.WebmPlayer;
+#end
 import flixel.util.FlxPath;
 import flixel.addons.display.FlxBackdrop;
 import haxe.macro.ExampleJSGenerator;
@@ -59,11 +61,8 @@ import lime.utils.Assets;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
-
 #if windows
 import Discord.DiscordClient;
-#end
-#if windows
 import Sys;
 import sys.FileSystem;
 #end
@@ -752,8 +751,8 @@ class PlayState extends MusicBeatState
 				}
 
 				upperBoppers = new FlxSprite(-400, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
-				//upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week5');
-				//upperBoppers.animation.addByPrefix('bop', "animation name in atlas", 24, false);
+				upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week7');
+				upperBoppers.animation.addByPrefix('bop', "topbop", 24, false);
 				upperBoppers.antialiasing = true;
 				upperBoppers.scrollFactor.set(1, 0.6);
 				upperBoppers.updateHitbox();
@@ -934,8 +933,6 @@ class PlayState extends MusicBeatState
 				dad.x += 0;
 				camPos.y += 200;
 		}
-
-
 		
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
 
@@ -977,7 +974,7 @@ class PlayState extends MusicBeatState
 			case 'gray' | 'grayEvil':
 				boyfriend.x += 250;
 				gf.x += 150;
-				gf.y += 50;
+				gf.y -= 100;
 		}
 
 		add(gf);
@@ -3929,6 +3926,7 @@ class PlayState extends MusicBeatState
 
 			case 'gray':
 				if(FlxG.save.data.distractions){
+					upperBoppers.animation.play('bop', true);
 					grpLimoDancers.forEach(function(dancer:BackgroundDancer)
 						{
 							dancer.dance();
