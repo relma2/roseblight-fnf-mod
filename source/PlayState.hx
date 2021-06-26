@@ -3590,7 +3590,7 @@ class PlayState extends MusicBeatState
 					saveNotes.push([daNote.strumTime,0,direction,166 * Math.floor((PlayState.rep.replay.sf / 60) * 1000) / 166]);
 					saveJudge.push("miss");
 				}
-				if (daNote.warning &&) {
+				if (daNote.warning) {
 					if (!boyfriend.pausad)
 						lastBeatPausad = curBeat; // no double penalty
 					boyfriend.pausad = true;
