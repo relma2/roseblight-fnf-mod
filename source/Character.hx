@@ -32,7 +32,6 @@ class Character extends FlxSprite
 		{
 			case 'gf':
 				// GIRLFRIEND CODE
-				trace("relma2--- entered gf case");
 				tex = Paths.getSparrowAtlas('characters/GF_assets');
 				frames = tex;
 				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
@@ -62,7 +61,6 @@ class Character extends FlxSprite
 				addOffset('scared', -2, -17);
 
 				playAnim('danceRight');
-				trace("relma2--- exited gf case");
 
 			case 'gf-christmas':
 				tex = Paths.getSparrowAtlas('characters/gfChristmas');
@@ -583,24 +581,19 @@ class Character extends FlxSprite
 	 */
 	public function dance()
 	{
-		trace("relma2- gf dance enter");
 		if (!debugMode)
 		{
 			switch (curCharacter)
 			{
 				case 'gf':
-					trace("relma2- gf case entered");
 					if (animation.curAnim == null || !animation.curAnim.name.startsWith('hair'))
 					{
-						trace("relma2- hair if statement entered");
 						danced = !danced;
 
 						if (danced)
 							playAnim('danceRight');
 						else
 							playAnim('danceLeft');
-
-						trace("relma2- dance right/left played");
 					}
 
 				case 'gf-christmas':
@@ -646,7 +639,6 @@ class Character extends FlxSprite
 					playAnim('idle');
 			}
 		}
-		trace("relma2- gf dance exited");
 	}
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
