@@ -103,7 +103,7 @@ class PlayState extends MusicBeatState
 	// Note how they are implemented as a hardcoded array instead of in the chart itself
 	public static var shootBeats:Array<Int> = [32, 48, 64, 80, 104, 120, 160];
 	public static var shootBeatDirections:Array<Int> = [1,2,3,0,2,2,1,2,3,0];
-	public static var pausaPenalty:Int = 20; 
+	public static var pausaPenalty:Int = 10; 
 	// last beat that bf was "pausad" at
 	var lastBeatPausad:Int = -10;
 
