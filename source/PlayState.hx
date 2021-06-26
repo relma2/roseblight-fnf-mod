@@ -886,12 +886,8 @@ class PlayState extends MusicBeatState
 				curGf = 'gf';
 		}
 
-		trace("relma2-- about to create gf");
-
 		gf = new Character(400, 130, curGf);
 		gf.scrollFactor.set(0.95, 0.95);
-
-		trace("relma2-- created gf");
 
 		dad = new Character(100, 100, SONG.player2);
 
@@ -938,7 +934,6 @@ class PlayState extends MusicBeatState
 				camPos.y += 200;
 		}
 		
-		trace("relma2-- positioned player2");
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
 
 		// REPOSITIONING PER STAGE
