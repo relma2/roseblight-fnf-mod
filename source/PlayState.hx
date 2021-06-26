@@ -2,7 +2,9 @@ package;
 
 import Replay.Ana;
 import Replay.Analysis;
+#if cpp
 import webm.WebmPlayer;
+#end
 import flixel.util.FlxPath;
 import flixel.addons.display.FlxBackdrop;
 import haxe.macro.ExampleJSGenerator;
@@ -59,11 +61,8 @@ import lime.utils.Assets;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
 import openfl.filters.ShaderFilter;
-
 #if windows
 import Discord.DiscordClient;
-#end
-#if windows
 import Sys;
 import sys.FileSystem;
 #end
