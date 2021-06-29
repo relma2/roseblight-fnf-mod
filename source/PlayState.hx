@@ -729,7 +729,7 @@ class PlayState extends MusicBeatState
 			// placeholder for normal stage
 			case 'gray':
 			{
-				defaultCamZoom = 0.70;
+				defaultCamZoom = 0.60;
 				curStage = 'gray';
 				var bg:FlxSprite = new FlxSprite(-1100, -200);
 				var mtn = Paths.image('griswell/mountain','week7');
@@ -752,7 +752,7 @@ class PlayState extends MusicBeatState
 
 				var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
 				shop.antialiasing = true;
-				shop.scrollFactor.set(1,0.5);
+				shop.scrollFactor.set(0.8,1);
 				shop.setGraphicSize(Std.int(shop.width * 0.7));
 				add(shop);
 
@@ -772,7 +772,7 @@ class PlayState extends MusicBeatState
 				upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop','week7');
 				upperBoppers.animation.addByPrefix('bop', "topbop", 24, false);
 				upperBoppers.antialiasing = true;
-				upperBoppers.scrollFactor.set(1, 0.6);
+				upperBoppers.scrollFactor.set(0.9, 1);
 				upperBoppers.updateHitbox();
 				upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.7));
 				if(FlxG.save.data.distractions) {
@@ -782,7 +782,7 @@ class PlayState extends MusicBeatState
 
 			case 'grayEvil':
 			{
-				defaultCamZoom = 0.70;
+				defaultCamZoom = 0.60;
 				curStage = 'grayEvil';
 				var bg:FlxSprite = new FlxSprite(-1100, -200);
 				var mtn = Paths.image('griswell/mountain','week7');
@@ -796,7 +796,7 @@ class PlayState extends MusicBeatState
 
 				var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
 				shop.antialiasing = true;
-				shop.scrollFactor.set(1,0.5);
+				shop.scrollFactor.set(1,1);
 				shop.setGraphicSize(Std.int(shop.width * 0.7));
 				add(shop);
 
@@ -821,7 +821,7 @@ class PlayState extends MusicBeatState
 					chain.frames = Paths.getSparrowAtlas('griswell/chains','week7');
 					chain.animation.addByPrefix('chain', 'chain', 4, true);
 					chain.animation.play('chain', true, true, 0);
-					chain.scrollFactor.set(0.8, 0.2);
+					chain.scrollFactor.set(0.8, 1);
 					grpChains.add(chain);
 				}
 			}
@@ -2439,7 +2439,7 @@ class PlayState extends MusicBeatState
 				}
 				#end
 				if (curStage.contains('gray'))
-					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, dad.getMidpoint().y - 100 + offsetY);
+					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, dad.getMidpoint().y + 50 + offsetY);
 				else
 					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y + 100 + offsetY);
 
