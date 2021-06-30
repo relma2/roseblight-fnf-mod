@@ -3612,8 +3612,10 @@ class PlayState extends MusicBeatState
 			songScore -= 10;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
-			// FlxG.log.add('played imss note');
+			if (daNote.warning) {
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9);
+				gf.playAnim('scared');
+			}
 
 			switch (direction)
 			{
@@ -3757,6 +3759,11 @@ class PlayState extends MusicBeatState
 				// the oldest notes are at the end and are removed first
 				if (!note.isSustainNote)
 					notesHitArray.unshift(Date.now());
+
+				if (note.warning) {
+					FlxG.sound.play(Paths.sound('pausa_sfx'), 0.7);
+					gf.playAnim('scared');
+				}
 
 				if (!resetMashViolation && mashViolations >= 1)
 					mashViolations--;
