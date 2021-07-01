@@ -498,4 +498,5 @@
 	<SubTexture name="boyfriend dodge0012" x="390" y="3038" width="380" height="403" frameX="0" frameY="-1" frameWidth="380" frameHeight="404"/>
 	<SubTexture name="boyfriend dodge0013" x="780" y="3038" width="380" height="403" frameX="0" frameY="-1" frameWidth="380" frameHeight="404"/>
 	<SubTexture name="boyfriend dodge0014" x="0" y="3038" width="380" height="403" frameX="0" frameY="-1" frameWidth="380" frameHeight="404"/>
+	<SubTexture name="boyfriend pausad0000" x="1180" y="3020" width="460" height="403" frameX="0" frameY="-1" frameWidth="380" frameHeight="404"/>
 </TextureAtlas>

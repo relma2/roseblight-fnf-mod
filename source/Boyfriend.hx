@@ -10,9 +10,12 @@ using StringTools;
 class Boyfriend extends Character
 {
 	public var stunned:Bool = false;
+	public var pausad:Bool = false;
 
 	public function new(x:Float, y:Float, ?char:String = 'bf')
 	{
+		if (char != 'bf')
+			this.pausad = false;
 		super(x, y, char, true);
 	}
 
@@ -39,5 +42,13 @@ class Boyfriend extends Character
 		}
 
 		super.update(elapsed);
+	}
+
+	override function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
+	{
+		if (pausad)
+			super.playAnim('pausad', Force, Reversed, Frame);
+		else
+			super.playAnim(AnimName, Force, Reversed, Frame);
 	}
 }
