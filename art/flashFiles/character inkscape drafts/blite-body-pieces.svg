@@ -26,14 +26,14 @@
      showgrid="false"
      units="px"
      inkscape:zoom="2"
-     inkscape:cx="237.25"
-     inkscape:cy="147.75"
+     inkscape:cx="255.25"
+     inkscape:cy="165.75"
      inkscape:window-width="1360"
      inkscape:window-height="705"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer34"
      inkscape:snap-nodes="false"
      inkscape:snap-bbox="true"
      inkscape:snap-global="true"
@@ -11258,7 +11258,6 @@
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="necc"
-     sodipodi:insensitive="true"
      style="display:inline;filter:url(#filter1864)">
     <path
        style="fill:#ffffff;stroke:#342f2f;stroke-width:0.449792;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
@@ -11443,7 +11442,6 @@
      inkscape:groupmode="layer"
      id="layer22"
      inkscape:label="trowel_head"
-     sodipodi:insensitive="true"
      style="display:inline">
     <path
        style="opacity:1;fill:#ffffff;stroke:#3f3a3a;stroke-width:0.449792;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4.3;stroke-dasharray:none;stroke-opacity:1"
