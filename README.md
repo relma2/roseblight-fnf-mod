@@ -32,18 +32,24 @@ TODO: Add Screenshots
   - [ ] Song 1
   - [ ] Song 2
   - [ ] Song 3
+
 ![div](art/div.png)
+
  - [ ] Add Dialogue  (written; not inserted ingame) (20% done)
  - [ ] Implement Cutscene 3 (bad work item; will specify later)
  - [ ] Add *one* placeholder gif that displays between "allright, you wanna dance?" and "let's dance"
+
 ![div](art/div.png)
+
  - [ ] Modchart OR Code
   - [ ] Nite's pointing and laughing when Combo missed
   - [ ] Blite puting straps on at end of song 1
   - [ ] Shop window breaking towards end of song 2
   - [ ] Pausa animation from Blite on Pausa notes
   - [ ] Notes shaking subtly on Pausa Notes
+
 ![div](art/div.png)
+
  - [ ] Fix Barble Animation (Low Priority)
  - [ ] Fix stage offsets (Low Priority)
 
