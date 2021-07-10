@@ -7,7 +7,7 @@
 
 ### *[Seriously play it its amazing](https://aplovestudio.itch.io/roseblight)*
 
-Links: **[Game Banana WIP Page]**(https://gamebanana.com/wips/56972) • **[Newgrounds]**(https://www.newgrounds.com/portal/view/770371) • **[Roseblight Game]**(https://aplovestudio.itch.io/roseblight) • **[source code on GitHub]**(https://github.com/relma2/roseblight-fnf-mod)**
+Links: [**Game Banana WIP Page**](https://gamebanana.com/wips/56972) • [**Newgrounds**](https://www.newgrounds.com/portal/view/770371) • [**Roseblight Game**](https://aplovestudio.itch.io/roseblight) • [**source code on GitHub**](https://github.com/relma2/roseblight-fnf-mod)
 > Uh oh! Your tryin to kiss ur HOT GOTH girlfriend, but ur MEAN alter ego is trying to REPRESS you!!
 
 ## Roseblight Mod
@@ -26,6 +26,8 @@ TODO: Add Screenshots
  - [x] Mod Qrystal over girlfriend (skin; no actual code) (done!)
 
  - [x] Implement Pausa Notes (done!; and with sfx and Q bein scared!!)
+ 
+![div](art/div.png)
 </details>
 
  - [ ] Compose/Chart
