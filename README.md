@@ -19,25 +19,30 @@ TODO: Add Screenshots
 ### Major TODO items
 <details>
 <summary> Completed Items </summary>
+
  - [x] Desaturate stage asset for the ahokau palette (done!)
 
  - [x] Mod Qrystal over girlfriend (skin; no actual code) (done!)
 
  - [x] Implement Pausa Notes (done!; and with sfx and Q bein scared!!)
 </details>
+
  - [ ] Compose/Chart
-	- [ ] Song 1
-	- [ ] Song 2
-	- [ ] Song 3
+ - [ ] Song 1
+ - [ ] Song 2
+ - [ ] Song 3
+---
  - [ ] Add Dialogue  (written; not inserted ingame) (20% done)
  - [ ] Implement Cutscene 3 (bad work item; will specify later)
  - [ ] Add *one* placeholder gif that displays between "allright, you wanna dance?" and "let's dance"
+---
  - [ ] Modchart OR Code
-	- [ ] Nite's pointing and laughing when Combo missed
-	- [ ] Blite puting straps on at end of song 1
-	- [ ] Shop window breaking towards end of song 2
-	- [ ] Pausa animation from Blite on Pausa notes
-	- [ ] Notes shaking subtly on Pausa Notes
+ - [ ] Nite's pointing and laughing when Combo missed
+ - [ ] Blite puting straps on at end of song 1
+ - [ ] Shop window breaking towards end of song 2
+ - [ ] Pausa animation from Blite on Pausa notes
+ - [ ] Notes shaking subtly on Pausa Notes
+---
  - [ ] Fix Barble Animation (Low Priority)
  - [ ] Fix stage offsets (Low Priority)
 
