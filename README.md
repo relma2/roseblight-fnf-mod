@@ -1,7 +1,5 @@
 ![FridayBlightFunkinLogo](art/thumbnailNewer.png)
 
-*TODO: add those little CI/CD badges*
-
 # Friday Blight Funkin' : Roseblight mod
 
 ## Friday Night Funkin'
@@ -21,25 +19,27 @@ TODO: Add Screenshots
 ### Major TODO items
 <details>
 <summary> Completed Items </summary>
-- [x] Desaturate stage asset for the ahokau palette (done!)
-- [x] Mod Qrystal over girlfriend (skin; no actual code) (done!)
-- [x] Implement Pausa Notes (done!; and with sfx and Q bein scared!!)
+ - [x] Desaturate stage asset for the ahokau palette (done!)
+
+ - [x] Mod Qrystal over girlfriend (skin; no actual code) (done!)
+
+ - [x] Implement Pausa Notes (done!; and with sfx and Q bein scared!!)
 </details>
-- [ ] Compose/Chart
+ - [ ] Compose/Chart
 	- [ ] Song 1
 	- [ ] Song 2
-	- [ ]Song 3
-- [ ] Add Dialogue  (written; not inserted ingame) (20% done)
-- [ ] Implement Cutscene 3 (bad work item; will specify later)
-- [ ] Add *one* placeholder gif that displays between "allright, you wanna dance?" and "let's dance"
-- [ ] Modchart OR Code
+	- [ ] Song 3
+ - [ ] Add Dialogue  (written; not inserted ingame) (20% done)
+ - [ ] Implement Cutscene 3 (bad work item; will specify later)
+ - [ ] Add *one* placeholder gif that displays between "allright, you wanna dance?" and "let's dance"
+ - [ ] Modchart OR Code
 	- [ ] Nite's pointing and laughing when Combo missed
 	- [ ] Blite puting straps on at end of song 1
 	- [ ] Shop window breaking towards end of song 2
 	- [ ] Pausa animation from Blite on Pausa notes
 	- [ ] Notes shaking subtly on Pausa Notes
-- [ ] Fix Barble Animation (Low Priority)
-- [ ] Fix stage offsets (Low Priority)
+ - [ ] Fix Barble Animation (Low Priority)
+ - [ ] Fix stage offsets (Low Priority)
 
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
@@ -52,6 +52,7 @@ TODO: Add Screenshots
  - Hazel
  - [Ikkrine](https://twitter.com/rexkuroblack?lang=en)
  - Kazooby
+
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
 
 ### Friday Night Funkin'
