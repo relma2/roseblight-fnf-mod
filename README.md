@@ -36,6 +36,7 @@ Links: ** GameBanana mod page TODO <C-k>Sb other links**
  - [�](https://github.com/izzonac)
  - [SuperEclipse](https://github.com/SundayMoonday)
 
+ - [Kirbos](https://github.com/Kirbos); charter
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
 
 ### Kade Engine
