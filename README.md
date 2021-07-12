@@ -66,8 +66,8 @@ TODO: Add Screenshots
  - Hazel
  - [Ikkrine](https://twitter.com/rexkuroblack?lang=en)
  - Kazooby
-
  - [Kirbos](https://github.com/Kirbos); charter
+
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
 
 ### Friday Night Funkin'
