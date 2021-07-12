@@ -30,8 +30,8 @@ TODO: Add Screenshots
 ![div](art/div.png)
 </details>
 
- - [ ] Compose/Chart
-  - [ ] Song 1
+ - [ ] Compose/Chart (30% done)
+  - [x] Song 1
   - [ ] Song 2
   - [ ] Song 3
 
