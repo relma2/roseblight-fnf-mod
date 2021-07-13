@@ -1,0 +1,20 @@
+{
+	"name": "aplovecraft",
+	"songName": "aplovecraft",
+	"penalty": 5,
+	"easy": {
+		"beats": [],
+		"directions": [],
+		"penalties":[]
+	},
+	"medium": {
+		"beats": [],
+		"directions": [],
+		"penalties":[]
+	},
+	"hard": {
+		"beats": [],
+		"directions": [],
+		"penalties":[]
+	}
+}
