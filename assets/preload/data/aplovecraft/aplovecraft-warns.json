@@ -1,20 +1,17 @@
 {
 	"name": "aplovecraft",
 	"songName": "aplovecraft",
-	"penalty": 5,
+	"penalty": 10,
 	"easy": {
-		"beats": [],
-		"directions": [],
-		"penalties":[]
+		"beats": [32, 48, 64, 80, 104, 120, 160],
+		"directions": [1, 2, 3, 0, 2, 2, 1]
 	},
 	"medium": {
-		"beats": [],
-		"directions": [],
-		"penalties":[]
+		"beats": [32, 48, 64, 80, 104, 120, 160],
+		"directions": [1, 2, 3, 0, 2, 2, 1]
 	},
 	"hard": {
-		"beats": [],
-		"directions": [],
-		"penalties":[]
+		"beats": [32, 48, 64, 80, 104, 120, 160],
+		"directions": [1, 2, 3, 0, 2, 2, 1]
 	}
 }
