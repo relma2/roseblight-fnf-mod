@@ -3984,7 +3984,7 @@ class PlayState extends MusicBeatState
 		if (note.warning)
 		{
 			FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9);
-			gf.playAnim('scared', true);
+			gf.playAnim('scared');
 		}
 
 		if (!resetMashViolation && mashViolations >= 1)
