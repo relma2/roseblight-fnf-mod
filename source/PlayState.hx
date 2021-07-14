@@ -3838,7 +3838,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			if (daNote.warning)
 			{
-				FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9);
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9 * 1.9);
 				gf.playAnim('scared');
 			}
 
@@ -3983,7 +3983,7 @@ class PlayState extends MusicBeatState
 
 		if (note.warning)
 		{
-			FlxG.sound.play(Paths.sound('pausa_sfx'), 0.7);
+			FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9);
 			gf.playAnim('scared', true);
 		}
 
