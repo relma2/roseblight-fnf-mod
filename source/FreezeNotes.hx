@@ -73,7 +73,7 @@ class FreezeNotes
 		{
 			var warnNoteTime:Int = freeze.beats[x];
 			var warnNote:Note = new Note(warnNoteTime * beatStepTime, freeze.directions[x], null, false, true, true);
-			var myPenalty:Int = 0;
+			var myPenalty:Int = 5;
 			if (freeze.penalties == null || freeze.penalties.length < x + 1 || freeze.penalties[x] < 0)
 				myPenalty = this.globalPenalty;
 			else
