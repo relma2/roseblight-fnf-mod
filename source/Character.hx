@@ -503,7 +503,7 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 			case 'nite':
-				tex = Paths.getSparrowAtlas('characters/nite');
+				tex = Paths.getSparrowAtlas('characters/nite_assets');
 				frames = tex;
 				animation.addByPrefix('idle', 'nite_idle', 24, false);
 				animation.addByPrefix('idle-alt', 'nite_idle', 24, false);
@@ -515,6 +515,10 @@ class Character extends FlxSprite
 				animation.addByPrefix('singDOWN-alt', 'nite_down-alt', 24, false);
 				animation.addByPrefix('singLEFT-alt', 'nite_left-alt', 24, false);
 				animation.addByPrefix('singRIGHT-alt', 'nite_right', 24, false);
+
+				animation.addByPrefix('laugh', 'nite_laugh', 12, false);
+
+				addOffset('laugh', 0, 80);
 
 			case 'blayk' | 'blite':
 				{
@@ -660,7 +664,10 @@ class Character extends FlxSprite
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-		animation.play(AnimName, Force, Reversed, Frame);
+		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
+			trace("still laughing");
+		else
+			animation.play(AnimName, Force, Reversed, Frame);
 
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
