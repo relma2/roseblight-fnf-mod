@@ -484,12 +484,13 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Parent Right Note Dad', 24, false);
 
 				animation.addByPrefix('singUP-alt', 'Parent Up Note Mom', 24, false);
-
 				animation.addByPrefix('singDOWN-alt', 'Parent Down Note Mom', 24, false);
 				animation.addByPrefix('singLEFT-alt', 'Parent Left Note Mom', 24, false);
 				animation.addByPrefix('singRIGHT-alt', 'Parent Right Note Mom', 24, false);
+				animation.addByPrefix('idle-alt', 'Parent Christmas Idle', 24, false);
 
 				addOffset('idle');
+				addOffset('idle-alt');
 				addOffset("singUP", -47, 24);
 				addOffset("singRIGHT", -1, -23);
 				addOffset("singLEFT", -30, 16);
@@ -500,24 +501,42 @@ class Character extends FlxSprite
 				addOffset("singDOWN-alt", -30, -27);
 
 				playAnim('idle');
-			
-			case 'blayk' | 'nite' | 'blite':
-			{
-				tex = Paths.getSparrowAtlas('characters/blite');
-				frames = tex;
-				animation.addByPrefix('idle', 'idle', 24, false);
-				animation.addByPrefix('singUP', 'note sing up', 24, false);
-				animation.addByPrefix('singDOWN', 'note sing down', 24, false);
-				animation.addByPrefix('singLEFT', 'note sing left', 24, false);
-				animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
 
-				addOffset('idle');
-				addOffset("singUP", -20);
-				addOffset("singRIGHT", -51);
-				addOffset("singLEFT", -30);
-				addOffset("singDOWN", -40);
-				playAnim('idle');
-			}
+			case 'nite':
+				tex = Paths.getSparrowAtlas('characters/nite_assets');
+				frames = tex;
+				animation.addByPrefix('idle', 'nite_idle', 24, false);
+				animation.addByPrefix('idle-alt', 'nite_idle', 24, false);
+				animation.addByPrefix('singUP', 'nite_up', 24, false);
+				animation.addByPrefix('singDOWN', 'nite_down', 24, false);
+				animation.addByPrefix('singLEFT', 'nite_left', 24, false);
+				animation.addByPrefix('singRIGHT', 'nite_right', 24, false);
+				animation.addByPrefix('singUP-alt', 'nite_up-alt', 24, false);
+				animation.addByPrefix('singDOWN-alt', 'nite_down-alt', 24, false);
+				animation.addByPrefix('singLEFT-alt', 'nite_left-alt', 24, false);
+				animation.addByPrefix('singRIGHT-alt', 'nite_right', 24, false);
+
+				animation.addByPrefix('laugh', 'nite_laugh', 12, false);
+
+				addOffset('laugh', 0, 80);
+
+			case 'blayk' | 'blite':
+				{
+					tex = Paths.getSparrowAtlas('characters/blite');
+					frames = tex;
+					animation.addByPrefix('idle', 'idle', 24, false);
+					animation.addByPrefix('singUP', 'note sing up', 24, false);
+					animation.addByPrefix('singDOWN', 'note sing down', 24, false);
+					animation.addByPrefix('singLEFT', 'note sing left', 24, false);
+					animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
+
+					addOffset('idle');
+					addOffset("singUP", -20);
+					addOffset("singRIGHT", -51);
+					addOffset("singLEFT", -30);
+					addOffset("singDOWN", -40);
+					playAnim('idle');
+				}
 		}
 
 		dance();
@@ -645,7 +664,10 @@ class Character extends FlxSprite
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-		animation.play(AnimName, Force, Reversed, Frame);
+		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
+			trace("still laughing");
+		else
+			animation.play(AnimName, Force, Reversed, Frame);
 
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
