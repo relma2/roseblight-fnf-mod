@@ -66,6 +66,7 @@ class FreezeNotes
 
 	public function generateWarnNotes(difficulty:String, beatStepTime:Float, unspawn:Array<Note>, xOffset:Float = 0, X:Float = 0, Y:Float = 0):Void
 	{
+		difficulty = difficulty.toLowerCase();
 		trace("generating Warn Notes in chart for " + this.name + " at difficulty " + difficulty);
 		var freeze:SwagFreeze = difficulty == "easy" ? this.easy : (difficulty == "medium" ? this.medium : this.hard);
 

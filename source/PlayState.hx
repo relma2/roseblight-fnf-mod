@@ -3981,8 +3981,24 @@ class PlayState extends MusicBeatState
 
 		if (note.warning)
 		{
-			FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9);
-			gf.playAnim('scared');
+			if (note.rating == "shit" || (note.rating == "bad" && CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() == "hard"))
+			{
+				// still get frozen. git gud scrub
+				trace("git gud scrub");
+				if (!boyfriend.pausad)
+				{
+					lastBeatPausad = curBeat; // no double penalty
+					pausaPenalty = note.penalty;
+				}
+				boyfriend.pausad = true;
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9 * 1.9);
+				gf.playAnim('scared');
+			}
+			else
+			{
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 1.9);
+				gf.playAnim('scared');
+			}
 		}
 
 		if (!resetMashViolation && mashViolations >= 1)
