@@ -8,27 +8,23 @@ import lime.utils.Assets;
 
 using StringTools;
 
-typedef SwagFreeze =
-{
+typedef SwagFreeze = {
 	var beats:Array<Int>; // Beat numbers that "pausa notes" show up
 	var directions:Array<Int>; // Directions that freeeze notes go in
 	var penalties:Null<Array<Int>>; // Number of beats you get frozen for; if null uses global penalty
 }
 
-class FreezeNotes
-{
+class FreezeNotes {
 	var name:String = "test";
 	var globalPenalty:Int;
 	var easy:SwagFreeze;
 	var medium:SwagFreeze;
 	var hard:SwagFreeze;
 
-	public function new(jsonInput:String, ?folder:String)
-	{
+	public function new(jsonInput:String, ?folder:String) {
 		// pre lowercasing the folder name
 		var folderLowercase = StringTools.replace(folder, " ", "-").toLowerCase();
-		switch (folderLowercase)
-		{
+		switch (folderLowercase) {
 			case 'dad-battle':
 				folderLowercase = 'dadbattle';
 			case 'philly-nice':
@@ -64,14 +60,12 @@ class FreezeNotes
 		assert(this.hard.penalties == null || this.hard.penalties.length <= this.hard.directions.length);
 	}
 
-	public function generateWarnNotes(difficulty:String, beatStepTime:Float, unspawn:Array<Note>, xOffset:Float = 0, X:Float = 0, Y:Float = 0):Void
-	{
+	public function generateWarnNotes(difficulty:String, beatStepTime:Float, unspawn:Array<Note>, xOffset:Float = 0, X:Float = 0, Y:Float = 0):Void {
 		difficulty = difficulty.toLowerCase();
 		trace("generating Warn Notes in chart for " + this.name + " at difficulty " + difficulty);
-		var freeze:SwagFreeze = difficulty == "easy" ? this.easy : (difficulty == "medium" ? this.medium : this.hard);
+		var freeze:SwagFreeze = difficulty == "easy" ? this.easy : (difficulty == "normal" ? this.medium : this.hard);
 
-		for (x in 0...freeze.beats.length)
-		{
+		for (x in 0...freeze.beats.length) {
 			var warnNoteTime:Int = freeze.beats[x];
 			var warnNote:Note = new Note(warnNoteTime * beatStepTime, freeze.directions[x], null, false, true, true);
 			var myPenalty:Int = 5;
