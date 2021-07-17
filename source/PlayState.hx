@@ -201,6 +201,10 @@ class PlayState extends MusicBeatState {
 	var bottomBoppers:FlxSprite;
 	var santa:FlxSprite;
 
+	var dither:FlxBackdrop;
+	var grpChains:FlxTypedGroup<FlxSprite>;
+
+	// var grpChains2:FlxTypedGroup<FlxSprite>;
 	var fc:Bool = true;
 
 	var bgGirls:BackgroundGirls;
@@ -838,11 +842,13 @@ class PlayState extends MusicBeatState {
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
 						add(shop);
 
-						var dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3, 0.2, true, true, 3, 3);
+						dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3, 0.2, true, true, 3, 3);
 						dither.antialiasing = false;
 						dither.blend = "multiply";
 						dither.path = new FlxPath().start([new FlxPoint(0, 0), new FlxPoint(-100, -100)], 100, FlxPath.FORWARD);
 						dither.updateHitbox();
+						dither.centerOffsets();
+						dither.centerOrigin();
 						add(dither);
 						dither.path = new FlxPath().start([new FlxPoint(-100, -100), new FlxPoint(-200, -200)], 25, FlxPath.LOOP_FORWARD);
 
@@ -850,7 +856,7 @@ class PlayState extends MusicBeatState {
 
 						var yUp = -100;
 						var yDown = 0;
-						var grpChains = new FlxTypedGroup<FlxSprite>();
+						grpChains = new FlxTypedGroup<FlxSprite>();
 						add(grpChains);
 
 						for (i in 0...7) {
@@ -3698,10 +3704,18 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
-	var prevVolume = 1.0;
+	var prevVolume:Float = 1.0;
 
 	function freezeBoyfriend(pen:Int = 4) {
 		FlxG.sound.play(Paths.sound('pausa_sfx'), 7.0);
+		remove(dither);
+		remove(gf);
+		remove(dad);
+		remove(grpChains);
+		add(dad);
+		add(gf);
+		add(dither);
+		add(grpChains);
 		dad.playAnim('pausa', true);
 		gf.playAnim('scared', true);
 		boyfriend.playAnim('pausad', true);
@@ -3718,6 +3732,14 @@ class PlayState extends MusicBeatState {
 
 	function unfreezeBoyfriend() {
 		vocals.volume = 1;
+		remove(dither);
+		remove(gf);
+		remove(dad);
+		remove(grpChains);
+		add(dither);
+		add(grpChains);
+		add(gf);
+		add(dad);
 		FlxG.sound.music.volume = prevVolume;
 		boyfriend.pausad = false;
 	}
