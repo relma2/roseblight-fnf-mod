@@ -56,7 +56,7 @@ class StoryMenuState extends MusicBeatState {
 		"MOMMY MUST MURDER",
 		"RED SNOW",
 		"Hating Simulator ft. Moawling",
-		"Bind Me Tighter"
+		"RoseBondage"
 	];
 
 	var txtWeekTitle:FlxText;

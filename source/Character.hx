@@ -55,7 +55,7 @@ class Character extends FlxSprite {
 				addOffset('hairBlow', 45, -8);
 				addOffset('hairFall', 0, -9);
 
-				addOffset('scared', -2, -50);
+				addOffset('scared', -2, 0);
 
 				playAnim('danceRight');
 
