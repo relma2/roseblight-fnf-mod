@@ -106,6 +106,8 @@ class PlayState extends MusicBeatState {
 
 	// last beat that bf was "pausad" at
 	var lastBeatPausad:Int = -10;
+	// last conductor position bf was pausad at
+	var lastConductorPausad:Float = -5000;
 
 	var halloweenLevel:Bool = false;
 
@@ -2456,7 +2458,7 @@ class PlayState extends MusicBeatState {
 			FlxG.sound.music.stop();
 
 			// unfreeze bf cuz he ded
-			boyfriend.pausad = false;
+			unfreezeBoyfriend();
 			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
 			#if windows
@@ -2489,7 +2491,7 @@ class PlayState extends MusicBeatState {
 				FlxG.sound.music.stop();
 
 				// unfreeze bf cuz he ded
-				boyfriend.pausad = false;
+				unfreezeBoyfriend();
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
 				#if windows
@@ -2614,9 +2616,13 @@ class PlayState extends MusicBeatState {
 				}
 
 				if (PlayStateChangeables.useDownscroll) {
-					daNote.y = (strumLine.y + (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(PlayState.SONG.speed, 2)));
+					daNote.y = (strumLine.y
+						+ ((boyfriend.pausad ? lastConductorPausad : Conductor.songPosition)
+							- daNote.strumTime) * (0.45 * FlxMath.roundDecimal(PlayState.SONG.speed, 2)));
 				} else {
-					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(PlayState.SONG.speed, 2)));
+					daNote.y = (strumLine.y
+						- ((boyfriend.pausad ? lastConductorPausad : Conductor.songPosition)
+							- daNote.strumTime) * (0.45 * FlxMath.roundDecimal(PlayState.SONG.speed, 2)));
 				}
 
 				if (!daNote.mustPress && daNote.wasGoodHit) {
@@ -2662,7 +2668,7 @@ class PlayState extends MusicBeatState {
 
 					dad.holdTimer = 0;
 
-					if (SONG.needsVoices)
+					if (SONG.needsVoices && !boyfriend.pausad)
 						vocals.volume = 1;
 
 					daNote.active = false;
@@ -2900,7 +2906,8 @@ class PlayState extends MusicBeatState {
 		var noteDiff:Float = -(daNote.strumTime - Conductor.songPosition);
 		var wife:Float = EtternaFunctions.wife3(-noteDiff, Conductor.timeScale);
 		// boyfriend.playAnim('hey');
-		vocals.volume = 1;
+		if (!boyfriend.pausad)
+			vocals.volume = 1;
 		var placement:String = Std.string(combo);
 
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
@@ -3448,15 +3455,7 @@ class PlayState extends MusicBeatState {
 					saveJudge.push("miss");
 				}
 				if (daNote.warning) {
-					#if windows
-					if (luaModchart != null)
-						luaModchart.executeState('pausa', [true]);
-					#end
-					if (!boyfriend.pausad) {
-						lastBeatPausad = curBeat; // no double penalty
-						pausaPenalty = daNote.penalty;
-					}
-					boyfriend.pausad = true;
+					freezeBoyfriend(daNote.penalty);
 				}
 			} else if (!loadRep) {
 				saveNotes.push([
@@ -3612,20 +3611,12 @@ class PlayState extends MusicBeatState {
 			if (note.rating == "shit" || (note.rating == "bad" && CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() == "hard")) {
 				// still get frozen. git gud scrub
 				trace("git gud scrub");
-				#if windows
-				if (luaModchart != null)
-					luaModchart.executeState('pausa', [true]);
-				#end
-				if (!boyfriend.pausad) {
-					lastBeatPausad = curBeat; // no double penalty
-					pausaPenalty = note.penalty;
-				}
-				boyfriend.pausad = true;
+				freezeBoyfriend(note.penalty);
 			} else {
-				#if windows
-				if (luaModchart != null)
-					luaModchart.executeState('pausa', [false]);
-				#end
+				// eyyy look you dodged it
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 3.5);
+				dad.playAnim('pausa', true);
+				gf.playAnim('scared', true);
 			}
 		}
 
@@ -3673,7 +3664,8 @@ class PlayState extends MusicBeatState {
 			});
 
 			note.wasGoodHit = true;
-			vocals.volume = 1;
+			if (!boyfriend.pausad)
+				vocals.volume = 1;
 
 			note.kill();
 			notes.remove(note, true);
@@ -3704,6 +3696,30 @@ class PlayState extends MusicBeatState {
 				resetFastCar();
 			});
 		}
+	}
+
+	var prevVolume = 1.0;
+
+	function freezeBoyfriend(pen:Int = 4) {
+		FlxG.sound.play(Paths.sound('pausa_sfx'), 7.0);
+		dad.playAnim('pausa', true);
+		gf.playAnim('scared', true);
+		boyfriend.playAnim('pausad', true);
+		vocals.volume = 0;
+		prevVolume = FlxG.sound.music.volume;
+		FlxG.sound.music.volume = 0;
+		if (!boyfriend.pausad) {
+			lastBeatPausad = curBeat; // no double penalty
+			pausaPenalty = pen;
+			lastConductorPausad = Conductor.songPosition;
+		}
+		boyfriend.pausad = true;
+	}
+
+	function unfreezeBoyfriend() {
+		vocals.volume = 1;
+		FlxG.sound.music.volume = prevVolume;
+		boyfriend.pausad = false;
 	}
 
 	var trainMoving:Bool = false;
@@ -3838,7 +3854,7 @@ class PlayState extends MusicBeatState {
 
 		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite') {
 			if (boyfriend.pausad && curBeat > lastBeatPausad + pausaPenalty)
-				boyfriend.pausad = false; // free boyfriend
+				unfreezeBoyfriend();
 		}
 
 		if (SONG.notes[Math.floor(curStep / 16)] != null) {

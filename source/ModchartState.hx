@@ -621,9 +621,8 @@ class ModchartState {
 			getActorByName(id).playAnim(anim, force, reverse);
 		});
 
-		Lua_helper.add_callback(lua, "playPausa", function(loud:Bool) {
-			var v = 1.9;
-			FlxG.sound.play(Paths.sound('pausa_sfx'), loud ? v * v : v);
+		Lua_helper.add_callback(lua, "playSound", function(name:String, volume:Float) {
+			FlxG.sound.play(Paths.sound(name), volume);
 		});
 
 		Lua_helper.add_callback(lua, "setActorAlpha", function(alpha:Float, id:String) {
