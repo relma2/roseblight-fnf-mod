@@ -45,7 +45,6 @@ import flixel.util.FlxTimer;
 import haxe.EnumTools;
 import haxe.Exception;
 import haxe.Json;
-import haxe.macro.ExampleJSGenerator;
 import lime.app.Application;
 import lime.graphics.Image;
 import lime.media.AudioContext;
@@ -67,6 +66,9 @@ import openfl.utils.AssetType;
 
 using StringTools;
 
+#if !web
+import haxe.macro.ExampleJSGenerator;
+#end
 #if cpp
 import webm.WebmPlayer;
 #end
