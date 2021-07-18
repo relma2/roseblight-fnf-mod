@@ -3714,10 +3714,10 @@ class PlayState extends MusicBeatState {
 		remove(gf);
 		remove(dad);
 		remove(grpChains);
-		add(dad);
-		add(gf);
-		add(dither);
 		add(grpChains);
+		add(gf);
+		add(dad);
+		add(dither);
 		dad.playAnim('pausa', true);
 		gf.playAnim('scared', true);
 		boyfriend.playAnim('pausad', true);
@@ -3742,7 +3742,7 @@ class PlayState extends MusicBeatState {
 		add(grpChains);
 		add(gf);
 		add(dad);
-		FlxG.sound.music.volume = prevVolume;
+		FlxG.sound.music.volume = prevVolume < 0.2 ? 1 : prevVolume;
 		boyfriend.pausad = false;
 	}
 
