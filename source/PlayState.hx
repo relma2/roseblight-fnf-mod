@@ -807,8 +807,6 @@ class PlayState extends MusicBeatState
 						 */
 					}
 
-				// were gonna call this hypothetical stage gray
-				// placeholder for normal stage
 				case 'gray':
 					{
 						defaultCamZoom = 0.60;
@@ -878,7 +876,7 @@ class PlayState extends MusicBeatState
 						bg.updateHitbox();
 						add(bg);
 
-						var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
+						var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
 						shop.antialiasing = true;
 						shop.scrollFactor.set(1, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
