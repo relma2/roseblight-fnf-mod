@@ -58,7 +58,7 @@ class Character extends FlxSprite
 				addOffset('hairBlow', 45, -8);
 				addOffset('hairFall', 0, -9);
 
-				addOffset('scared', -2, -50);
+				addOffset('scared', -2, 0);
 
 				playAnim('danceRight');
 
@@ -529,12 +529,14 @@ class Character extends FlxSprite
 					animation.addByPrefix('singDOWN', 'note sing down', 24, false);
 					animation.addByPrefix('singLEFT', 'note sing left', 24, false);
 					animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
+					animation.addByPrefix('pausa', 'blite pausa', 24, false);
 
 					addOffset('idle');
 					addOffset("singUP", -20);
 					addOffset("singRIGHT", -51);
 					addOffset("singLEFT", -30);
 					addOffset("singDOWN", -40);
+					addOffset("pausa", -51);
 					playAnim('idle');
 				}
 		}
@@ -579,7 +581,6 @@ class Character extends FlxSprite
 				dadVar = 6.1;
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
 			{
-				trace('dance');
 				dance();
 				holdTimer = 0;
 			}
