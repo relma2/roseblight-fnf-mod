@@ -31,8 +31,9 @@ class DialogueBox extends FlxSpriteGroup
 	var portraitLeft:FlxSprite;
 	var portraitRight:FlxSprite;
 
-	var handSelect:FlxSprite;
 	var bgFade:FlxSprite;
+
+	var isPixel:Bool = true;
 
 	public function new(talkingRight:Bool = true, ?dialogueList:Array<String>)
 	{
@@ -70,38 +71,31 @@ class DialogueBox extends FlxSpriteGroup
 				box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-pixel');
 				box.animation.addByPrefix('normalOpen', 'Text Box Appear', 24, false);
 				box.animation.addByIndices('normal', 'Text Box Appear', [4], "", 24);
+				isPixel = true;
 			case 'roses':
 				hasDialog = true;
 				FlxG.sound.play(Paths.sound('ANGRY_TEXT_BOX'));
-
 				box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-senpaiMad');
 				box.animation.addByPrefix('normalOpen', 'SENPAI ANGRY IMPACT SPEECH', 24, false);
 				box.animation.addByIndices('normal', 'SENPAI ANGRY IMPACT SPEECH', [4], "", 24);
+				isPixel = true;
 
 			case 'thorns':
 				hasDialog = true;
 				box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-evil');
 				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
 				box.animation.addByIndices('normal', 'Spirit Textbox spawn', [11], "", 24);
+				isPixel = true;
 
 				var face:FlxSprite = new FlxSprite(320, 170).loadGraphic(Paths.image('weeb/spiritFaceForward'));
 				face.setGraphicSize(Std.int(face.width * 6));
 				add(face);
-			case 'himbo':
+			case 'himbo' | 'brainjail' | 'aplovecraft':
 				hasDialog = true;
 				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
 				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
 				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
-			case 'brainjail':
-				hasDialog = true;
-				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
-				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
-				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
-			case 'aplovecraft':
-				hasDialog = true;
-				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
-				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
-				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
+				isPixel = false;
 		}
 
 		this.dialogueList = dialogueList;
@@ -136,12 +130,10 @@ class DialogueBox extends FlxSpriteGroup
 		box.updateHitbox();
 		add(box);
 
-		box.setPosition(0, 300);
+		if (!isPixel)
+			box.setPosition(0, 400);
 		box.screenCenter(X);
 		portraitLeft.screenCenter(X);
-
-		handSelect = new FlxSprite(FlxG.width * 0.9, FlxG.height * 0.9).loadGraphic(Paths.image('weeb/pixelUI/hand_textbox'));
-		add(handSelect);
 
 		if (!talkingRight)
 		{
@@ -150,12 +142,12 @@ class DialogueBox extends FlxSpriteGroup
 
 		dropText = new FlxText(242, 502, Std.int(FlxG.width * 0.6), "", 32);
 		dropText.font = 'Pixel Arial 11 Bold';
-		dropText.color = 0xFF625D5d;
+		dropText.color = 0xFFD0CAC6;
 		add(dropText);
 
 		swagDialogue = new FlxTypeText(240, 500, Std.int(FlxG.width * 0.6), "", 32);
 		swagDialogue.font = 'Pixel Arial 11 Bold';
-		swagDialogue.color = 0xFFD0CAC6;
+		swagDialogue.color = 0xFF625D5d;
 		swagDialogue.sounds = [FlxG.sound.load(Paths.sound('pixelText'), 0.6)];
 		add(swagDialogue);
 
@@ -282,6 +274,6 @@ class DialogueBox extends FlxSpriteGroup
 
 	function scaleAsset(ass:FlxSprite):Void
 	{
-		ass.setGraphicSize(Std.int(PlayState.storyWeek == 6 ? ass.width * PlayState.daPixelZoom * 0.9 : ass.width));
+		ass.setGraphicSize(Std.int(isPixel ? ass.width * PlayState.daPixelZoom * 0.9 : ass.width));
 	}
 }

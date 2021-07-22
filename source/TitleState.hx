@@ -26,11 +26,9 @@ import flixel.util.FlxTimer;
 import io.newgrounds.NG;
 import lime.app.Application;
 import openfl.Assets;
-
 #if windows
 import Discord.DiscordClient;
 #end
-
 #if cpp
 import sys.thread.Thread;
 #end
@@ -56,7 +54,7 @@ class TitleState extends MusicBeatState
 		#if polymod
 		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
 		#end
-		
+
 		#if sys
 		if (!sys.FileSystem.exists(Sys.getCwd() + "/assets/replays"))
 			sys.FileSystem.createDirectory(Sys.getCwd() + "/assets/replays");
@@ -66,16 +64,16 @@ class TitleState extends MusicBeatState
 		{
 			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
 		}
-		
+
 		PlayerSettings.init();
 
 		#if windows
 		DiscordClient.initialize();
 
-		Application.current.onExit.add (function (exitCode) {
+		Application.current.onExit.add(function(exitCode)
+		{
 			DiscordClient.shutdown();
-		 });
-		 
+		});
 		#end
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
@@ -99,7 +97,7 @@ class TitleState extends MusicBeatState
 
 		// var file:SMFile = SMFile.loadFile("file.sm");
 		// this was testing things
-		
+
 		Highscore.load();
 
 		if (FlxG.save.data.weekUnlocked != null)
@@ -171,7 +169,8 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-		if(Main.watermarks) {
+		if (Main.watermarks)
+		{
 			logoBl = new FlxSprite(-150, -100);
 			logoBl.frames = Paths.getSparrowAtlas('KadeEngineLogoBumpin');
 			logoBl.antialiasing = true;
@@ -180,7 +179,9 @@ class TitleState extends MusicBeatState
 			logoBl.updateHitbox();
 			// logoBl.screenCenter();
 			// logoBl.color = FlxColor.BLACK;
-		} else {
+		}
+		else
+		{
 			logoBl = new FlxSprite(-150, -100);
 			logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 			logoBl.antialiasing = true;
@@ -196,7 +197,7 @@ class TitleState extends MusicBeatState
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = true;
-		gfDance.scale.set(0.75,0.75);
+		gfDance.scale.set(0.75, 0.75);
 		add(gfDance);
 		add(logoBl);
 
@@ -316,15 +317,19 @@ class TitleState extends MusicBeatState
 			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
 				// Get current version of Kade Engine
-				
+
 				var http = new haxe.Http("https://raw.githubusercontent.com/KadeDev/Kade-Engine/master/version.downloadMe");
 				var returnedData:Array<String> = [];
-				
-				http.onData = function (data:String)
+
+				http.onData = function(data:String)
 				{
-					returnedData[0] = data.substring(0, data.indexOf(';'));
+					// I DONT WANNA CHECK FOR UPDATES FUCK YOU
+					// returnedData[0] = data.substring(0, data.indexOf(';'));
+					returnedData[0] = "1.5.4";
 					returnedData[1] = data.substring(data.indexOf('-'), data.length);
-				  	if (!MainMenuState.kadeEngineVer.contains(returnedData[0].trim()) && !OutdatedSubState.leftState && MainMenuState.nightly == "")
+					if (!MainMenuState.kadeEngineVer.contains(returnedData[0].trim())
+						&& !OutdatedSubState.leftState
+						&& MainMenuState.nightly == "")
 					{
 						trace('outdated lmao! ' + returnedData[0] + ' != ' + MainMenuState.kadeEngineVer);
 						OutdatedSubState.needVer = returnedData[0];
@@ -336,12 +341,13 @@ class TitleState extends MusicBeatState
 						FlxG.switchState(new MainMenuState());
 					}
 				}
-				
-				http.onError = function (error) {
-				  trace('error: $error');
-				  FlxG.switchState(new MainMenuState()); // fail but we go anyway
+
+				http.onError = function(error)
+				{
+					trace('error: $error');
+					FlxG.switchState(new MainMenuState()); // fail but we go anyway
 				}
-				
+
 				http.request();
 			});
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);

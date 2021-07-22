@@ -3115,7 +3115,15 @@ class PlayState extends MusicBeatState
 					{
 						// this technically skips results screen in story mode, but its hacky
 						dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftPostDialogue'));
-						schoolIntro(new DialogueBox(false, dialogue));
+						var doof = new DialogueBox(false, dialogue);
+						doof.scrollFactor.set();
+						doof.cameras = [camHUD];
+						doof.finishThing = function():Void
+						{
+							FlxG.sound.playMusic(Paths.music('freakyMenu'));
+							FlxG.switchState(new MainMenuState());
+						};
+						schoolIntro(doof);
 					}
 					else if (FlxG.save.data.scoreScreen)
 						openSubState(new ResultsScreen());
@@ -3155,6 +3163,8 @@ class PlayState extends MusicBeatState
 							songFormat = 'Dadbattle';
 						case 'Philly-Nice':
 							songFormat = 'Philly';
+						case 'Brain-Jail':
+							songFormat = 'Brainjail';
 					}
 
 					var poop:String = Highscore.formatSong(songFormat, storyDifficulty);
