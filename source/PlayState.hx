@@ -3039,7 +3039,9 @@ class PlayState extends MusicBeatState
 		}
 
 		if (isStoryMode)
+		{
 			campaignMisses = misses;
+		}
 
 		if (!loadRep)
 			rep.SaveReplay(saveNotes, saveJudge, replayAna);
@@ -3109,7 +3111,13 @@ class PlayState extends MusicBeatState
 
 					FlxG.sound.music.stop();
 					vocals.stop();
-					if (FlxG.save.data.scoreScreen)
+					if (curSong.toLowerCase() == 'aplovecraft')
+					{
+						// this technically skips results screen in story mode, but its hacky
+						dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftPostDialogue'));
+						schoolIntro(new DialogueBox(false, dialogue));
+					}
+					else if (FlxG.save.data.scoreScreen)
 						openSubState(new ResultsScreen());
 					else
 					{
