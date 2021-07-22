@@ -418,12 +418,12 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
-				// case 'himbo':
-				// dialogue = CoolUtil.coolTextFile(Paths.txt('himbo/himboDialogue'));
-				// case 'brainjail':
-				// dialogue = CoolUtil.coolTextFile(Paths.txt('brainjail/brainjailDialogue'));
-				// case 'aplovecraft':
-				// dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue'));
+			case 'himbo':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('himbo/himboDialogue'));
+			case 'brainjail':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('brainjail/brainjailDialogue'));
+			case 'aplovecraft':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue'));
 		}
 
 		// defaults if no stage was found in chart
@@ -1332,6 +1332,12 @@ class PlayState extends MusicBeatState
 					FlxG.sound.play(Paths.sound('ANGRY'));
 					schoolIntro(doof);
 				case 'thorns':
+					schoolIntro(doof);
+				case 'brainjail':
+					schoolIntro(doof);
+				case 'himbo':
+					schoolIntro(doof);
+				case 'aplovecraft':
 					schoolIntro(doof);
 				// case himbo:
 				// this is presumably the part where we animate cutscenes
