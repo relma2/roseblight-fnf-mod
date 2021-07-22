@@ -81,12 +81,27 @@ class DialogueBox extends FlxSpriteGroup
 			case 'thorns':
 				hasDialog = true;
 				box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-evil');
-				box.animation.addByPrefix('normalOpen', 'Spirit Textbox spawn', 24, false);
+				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
 				box.animation.addByIndices('normal', 'Spirit Textbox spawn', [11], "", 24);
 
 				var face:FlxSprite = new FlxSprite(320, 170).loadGraphic(Paths.image('weeb/spiritFaceForward'));
 				face.setGraphicSize(Std.int(face.width * 6));
 				add(face);
+			case 'himbo':
+				hasDialog = true;
+				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
+				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
+				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
+			case 'brainjail':
+				hasDialog = true;
+				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
+				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
+				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
+			case 'aplovecraft':
+				hasDialog = true;
+				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
+				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
+				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
 		}
 
 		this.dialogueList = dialogueList;
