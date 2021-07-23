@@ -1,6 +1,7 @@
 export/
 .vscode/
 assets/preload/data/milf/modchart.lua
+art/rb_ports/*
 *.swp
 *.swo
 *~
