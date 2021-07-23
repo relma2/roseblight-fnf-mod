@@ -131,7 +131,7 @@ class DialogueBox extends FlxSpriteGroup
 		add(box);
 
 		if (!isPixel)
-			box.setPosition(0, 400);
+			box.setPosition(0, 325);
 		box.screenCenter(X);
 		portraitLeft.screenCenter(X);
 
