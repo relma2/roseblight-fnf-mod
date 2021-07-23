@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:4c371b8d75f5d67dab9b128e36a0f3d3:0ad4a3a9e97d4e3f20d42f03ef0af2c9:83178bd9af15d51d51a1a7d9d19f7f2e$ -->
+<TextureAtlas imagePath="portraits.png" width="2048" height="2048">
+    <SubTexture name="bf-angry0000" x="967" y="1" width="250" height="208" frameX="0" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="bf-angry0001" x="1219" y="1" width="274" height="208" frameX="0" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="bf-angry0002" x="1495" y="1" width="279" height="208" frameX="-8" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="bf-angry0003" x="1" y="209" width="279" height="208" frameX="-21" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="bf0000" x="1776" y="1" width="244" height="208" frameX="0" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="bf0001" x="282" y="209" width="263" height="208" frameX="0" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="bf0002" x="547" y="209" width="279" height="208" frameX="-6" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="bf0003" x="828" y="211" width="279" height="208" frameX="-21" frameY="-42" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykangry0000" x="1122" y="653" width="200" height="234" frameX="-87" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykangry0001" x="1" y="867" width="200" height="234" frameX="-61" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykangry0002" x="441" y="873" width="200" height="234" frameX="-50" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykangry0003" x="643" y="875" width="200" height="234" frameX="-32" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykannoyed0000" x="845" y="883" width="200" height="234" frameX="-95" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykannoyed0001" x="1047" y="889" width="200" height="234" frameX="-63" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykannoyed0002" x="1047" y="889" width="200" height="234" frameX="-47" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykannoyed0003" x="1249" y="889" width="200" height="234" frameX="-32" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blayknerv0000" x="1451" y="889" width="200" height="234" frameX="-87" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blayknerv0001" x="1653" y="889" width="200" height="234" frameX="-63" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blayknerv0002" x="1" y="1103" width="200" height="234" frameX="-47" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blayknerv0003" x="203" y="1103" width="200" height="234" frameX="-32" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykstun0000" x="405" y="1109" width="200" height="234" frameX="-76" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykstun0001" x="607" y="1111" width="200" height="234" frameX="-58" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykstun0002" x="809" y="1119" width="200" height="234" frameX="-46" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-blaykstun0003" x="1011" y="1125" width="200" height="234" frameX="-32" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nite0000" x="1537" y="211" width="225" height="222" frameX="-65" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nite0001" x="1764" y="211" width="225" height="222" frameX="-49" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nite0002" x="1" y="419" width="225" height="222" frameX="-39" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nite0003" x="228" y="419" width="225" height="222" frameX="-32" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteblush0000" x="228" y="643" width="217" height="228" frameX="-83" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteblush0001" x="447" y="643" width="223" height="228" frameX="-64" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteblush0002" x="672" y="645" width="223" height="228" frameX="-45" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteblush0003" x="897" y="653" width="223" height="228" frameX="-32" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteevil0000" x="455" y="419" width="220" height="222" frameX="-80" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteevil0001" x="677" y="421" width="225" height="222" frameX="-61" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteevil0002" x="904" y="429" width="225" height="222" frameX="-45" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-niteevil0003" x="1131" y="429" width="225" height="222" frameX="-32" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nitesmirk0000" x="1358" y="435" width="225" height="222" frameX="-71" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nitesmirk0001" x="1585" y="435" width="225" height="222" frameX="-53" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nitesmirk0002" x="1812" y="435" width="225" height="222" frameX="-44" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-nitesmirk0003" x="1" y="643" width="225" height="222" frameX="-32" frameY="-28" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-transformone0000" x="1109" y="211" width="212" height="216" frameX="-32" frameY="-34" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-transformtwo0000" x="1323" y="211" width="212" height="216" frameX="-32" frameY="-34" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-united0000" x="1324" y="659" width="236" height="228" frameX="-58" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-united0001" x="1562" y="659" width="236" height="228" frameX="-38" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-united0002" x="1800" y="659" width="236" height="228" frameX="-17" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad-united0003" x="203" y="873" width="236" height="228" frameX="-8" frameY="-22" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad0000" x="1213" y="1125" width="200" height="234" frameX="-79" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad0001" x="1415" y="1125" width="200" height="234" frameX="-59" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad0002" x="1617" y="1125" width="200" height="234" frameX="-47" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="dad0003" x="1819" y="1125" width="200" height="234" frameX="-32" frameY="-16" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="gf0000" x="1" y="1" width="232" height="206" frameX="0" frameY="-44" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="gf0001" x="235" y="1" width="242" height="206" frameX="-19" frameY="-44" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="gf0002" x="479" y="1" width="242" height="206" frameX="-38" frameY="-44" frameWidth="300" frameHeight="250"/>
+    <SubTexture name="gf0003" x="723" y="1" width="242" height="206" frameX="-48" frameY="-44" frameWidth="300" frameHeight="250"/>
+</TextureAtlas>
