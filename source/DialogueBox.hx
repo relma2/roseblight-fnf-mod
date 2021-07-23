@@ -17,6 +17,7 @@ class DialogueBox extends FlxSpriteGroup
 	var box:FlxSprite;
 
 	var curCharacter:String = '';
+	var curBox:String = 'normal';
 
 	var dialogue:Alphabet;
 	var dialogueList:Array<String> = [];
@@ -33,7 +34,8 @@ class DialogueBox extends FlxSpriteGroup
 
 	var bgFade:FlxSprite;
 
-	var isPixel:Bool = true;
+	private var isPixel:Bool = true;
+	private var opening:Bool = false;
 
 	public function new(talkingRight:Bool = true, ?dialogueList:Array<String>)
 	{
@@ -95,6 +97,12 @@ class DialogueBox extends FlxSpriteGroup
 				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
 				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
 				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
+				box.animation.addByPrefix('loudOpen', 'speech bubble loud open', 24, false);
+				box.animation.addByIndices('loud', 'speech bubble loud open', [1], "", 24);
+				box.animation.addByPrefix('aaahOpen', 'AHH speech bubble', 24, false);
+				box.animation.addByIndices('aaah', 'AHH speech bubble', [1], "", 24);
+				box.animation.addByPrefix('timidOpen', 'speech bubble timid', 24, false);
+				box.animation.addByIndices('timid', 'speech bubble timid', [3], "", 24);
 				isPixel = false;
 		}
 
@@ -104,7 +112,7 @@ class DialogueBox extends FlxSpriteGroup
 			return;
 
 		portraitLeft = new FlxSprite(-20, 40);
-		// point to week7 file
+		// point to week7 file instead -- is ok if we muck up week 6
 		portraitLeft.frames = Paths.getSparrowAtlas('weeb/senpaiPortrait');
 		portraitLeft.animation.addByPrefix('enter', 'Senpai Portrait Enter', 24, false);
 		scaleAsset(portraitLeft);
@@ -125,20 +133,15 @@ class DialogueBox extends FlxSpriteGroup
 
 		// Add similar code for portraitCenter
 
-		box.animation.play('normalOpen');
+		box.animation.play(curBox + 'Open');
 		scaleAsset(box);
 		box.updateHitbox();
 		add(box);
 
 		if (!isPixel)
-			box.setPosition(0, 325);
+			box.setPosition(0, 350);
 		box.screenCenter(X);
 		portraitLeft.screenCenter(X);
-
-		if (!talkingRight)
-		{
-			// box.flipX = true;
-		}
 
 		dropText = new FlxText(242, 502, Std.int(FlxG.width * 0.6), "", 32);
 		dropText.font = 'Pixel Arial 11 Bold';
@@ -152,8 +155,6 @@ class DialogueBox extends FlxSpriteGroup
 		add(swagDialogue);
 
 		dialogue = new Alphabet(0, 80, "", false, true);
-		// dialogue.x = 90;
-		// add(dialogue);
 	}
 
 	var dialogueOpened:Bool = false;
@@ -173,13 +174,18 @@ class DialogueBox extends FlxSpriteGroup
 
 		dropText.text = swagDialogue.text;
 
-		if (box.animation.curAnim != null)
+		if (box.animation.curAnim != null && box.animation.curAnim.finished)
 		{
-			if (box.animation.curAnim.name == 'normalOpen' && box.animation.curAnim.finished)
+			if (!opening)
 			{
-				box.animation.play('normal');
-				dialogueOpened = true;
+				box.animation.play(curBox + 'Open');
+				opening = true;
 			}
+			else
+			{
+				box.animation.play(curBox);
+			}
+			dialogueOpened = true;
 		}
 
 		if (dialogueOpened && !dialogueStarted)
@@ -191,6 +197,7 @@ class DialogueBox extends FlxSpriteGroup
 		if (PlayerSettings.player1.controls.ACCEPT && dialogueStarted == true)
 		{
 			remove(dialogue);
+			opening = false;
 
 			FlxG.sound.play(Paths.sound('clickText'), 0.8);
 
@@ -235,17 +242,18 @@ class DialogueBox extends FlxSpriteGroup
 	function startDialogue():Void
 	{
 		cleanDialog();
-		// var theDialog:Alphabet = new Alphabet(0, 70, dialogueList[0], false, true);
-		// dialogue = theDialog;
-		// add(theDialog);
-
-		// swagDialogue.text = ;
 		swagDialogue.resetText(dialogueList[0]);
 		swagDialogue.start(0.04, true);
+
+		box.animation.play(curBox);
+		// move this logic to the switch case once portraits are nailed in
+		if (curCharacter.contains('dad'))
+			box.flipX = true;
 
 		switch (curCharacter)
 		{
 			case 'dad':
+				box.flipX = true;
 				portraitRight.visible = false;
 				if (!portraitLeft.visible)
 				{
@@ -253,6 +261,7 @@ class DialogueBox extends FlxSpriteGroup
 					portraitLeft.animation.play('enter');
 				}
 			case 'bf':
+				box.flipX = false;
 				portraitLeft.visible = false;
 				if (!portraitRight.visible)
 				{
@@ -260,6 +269,7 @@ class DialogueBox extends FlxSpriteGroup
 					portraitRight.animation.play('enter');
 				}
 			case 'gf':
+				box.flipX = false;
 				trace("centerportrait");
 				// relma2 -- add cases for other portraits?
 		}
@@ -268,8 +278,11 @@ class DialogueBox extends FlxSpriteGroup
 	function cleanDialog():Void
 	{
 		var splitName:Array<String> = dialogueList[0].split(":");
+		trace(splitName);
 		curCharacter = splitName[1];
-		dialogueList[0] = dialogueList[0].substr(splitName[1].length + 2).trim();
+		curBox = (splitName.length < 4 || StringTools.trim(splitName[3]) == "") ? 'normal' : splitName[3];
+		trace(curCharacter + ",  " + curBox);
+		dialogueList[0] = splitName[2].trim();
 	}
 
 	function scaleAsset(ass:FlxSprite):Void
