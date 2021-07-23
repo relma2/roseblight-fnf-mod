@@ -113,8 +113,8 @@ class DialogueBox extends FlxSpriteGroup
 
 		portraitLeft = new FlxSprite(-20, 40);
 		// point to week7 file instead -- is ok if we muck up week 6
-		portraitLeft.frames = Paths.getSparrowAtlas('weeb/senpaiPortrait');
-		portraitLeft.animation.addByPrefix('enter', 'Senpai Portrait Enter', 24, false);
+		portraitLeft.frames = Paths.getSparrowAtlas('griswell/portraits');
+		portraitLeft.animation.addByPrefix('enter', 'dad', 24, false);
 		scaleAsset(portraitLeft);
 		portraitLeft.updateHitbox();
 		portraitLeft.scrollFactor.set();
@@ -123,8 +123,8 @@ class DialogueBox extends FlxSpriteGroup
 
 		portraitRight = new FlxSprite(0, 40);
 		// point to week7 file
-		portraitRight.frames = Paths.getSparrowAtlas('weeb/bfPortrait');
-		portraitRight.animation.addByPrefix('enter', 'Boyfriend portrait enter', 24, false);
+		portraitRight.frames = Paths.getSparrowAtlas('griswell/portraits');
+		portraitRight.animation.addByPrefix('enter', 'bf', 24, false);
 		scaleAsset(portraitRight);
 		portraitRight.updateHitbox();
 		portraitRight.scrollFactor.set();
@@ -246,14 +246,14 @@ class DialogueBox extends FlxSpriteGroup
 		swagDialogue.start(0.04, true);
 
 		box.animation.play(curBox);
-		// move this logic to the switch case once portraits are nailed in
 		if (curCharacter.contains('dad'))
 			box.flipX = true;
+		else
+			box.flipX = false;
 
 		switch (curCharacter)
 		{
 			case 'dad':
-				box.flipX = true;
 				portraitRight.visible = false;
 				if (!portraitLeft.visible)
 				{
@@ -261,7 +261,6 @@ class DialogueBox extends FlxSpriteGroup
 					portraitLeft.animation.play('enter');
 				}
 			case 'bf':
-				box.flipX = false;
 				portraitLeft.visible = false;
 				if (!portraitRight.visible)
 				{
@@ -269,7 +268,6 @@ class DialogueBox extends FlxSpriteGroup
 					portraitRight.animation.play('enter');
 				}
 			case 'gf':
-				box.flipX = false;
 				trace("centerportrait");
 				// relma2 -- add cases for other portraits?
 		}
