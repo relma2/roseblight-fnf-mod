@@ -2,18 +2,21 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.math.FlxPoint;
 import flixel.animation.FlxBaseAnimation;
 import flixel.graphics.frames.FlxAtlasFrames;
 
 using StringTools;
+using flixel.math.FlxPoint;
 
-class Character extends FlxSprite
+class Character extends FlxSprite implements SpriteOffsetting
 {
-	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
+
+	public var animOffsets:Map<String, Array<Float>>;
 
 	public var holdTimer:Float = 0;
 
@@ -21,7 +24,7 @@ class Character extends FlxSprite
 	{
 		super(x, y);
 
-		animOffsets = new Map<String, Array<Dynamic>>();
+		animOffsets = new Map<String, Array<Float>>();
 		curCharacter = character;
 		this.isPlayer = isPlayer;
 

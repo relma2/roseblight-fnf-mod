@@ -1123,8 +1123,6 @@ class PlayState extends MusicBeatState
 		trace("SF CALC: " + Math.floor((PlayStateChangeables.safeFrames / 60) * 1000));
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
-		// doof.x += 70;
-		// doof.y = FlxG.height * 0.5;
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 
@@ -1338,6 +1336,8 @@ class PlayState extends MusicBeatState
 				case 'himbo':
 					schoolIntro(doof);
 				case 'aplovecraft':
+					grpChains.visible = false;
+					doof.cutsceneThing = aplovecraftCutscene;
 					schoolIntro(doof);
 				// case himbo:
 				// this is presumably the part where we animate cutscenes
@@ -1360,6 +1360,12 @@ class PlayState extends MusicBeatState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 
 		super.create();
+	}
+
+	function aplovecraftCutscene():Void {
+		grpChains.visible = true;
+		FlxG.sound.play(Paths.sound('Lights_Shut_off'));
+		trace("TODO: animate real cutscene");
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void

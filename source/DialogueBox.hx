@@ -12,9 +12,31 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
+class BoxSprite extends FlxSprite implements SpriteOffsetting
+{
+	public var animOffsets:Map<String, Array<Float>>;
+
+	public function new(x:Float, y:Float)
+	{
+		super(x, y);
+		animOffsets = new Map<String, Array<Float>>();
+	}
+
+	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
+	{
+		animation.play(AnimName, Force, Reversed, Frame);
+		offset.set(animOffsets.exists(AnimName) ? animOffsets.get(AnimName)[0] : 0, animOffsets.exists(AnimName) ? animOffsets.get(AnimName)[1] : 0);
+	}
+
+	public function addOffset(name:String, x:Float = 0, y:Float = 0)
+	{
+		animOffsets[name] = [x, y];
+	}
+}
+
 class DialogueBox extends FlxSpriteGroup
 {
-	var box:FlxSprite;
+	var box:BoxSprite;
 
 	var curCharacter:String = '';
 	var curBox:String = 'normal';
@@ -28,6 +50,7 @@ class DialogueBox extends FlxSpriteGroup
 	var dropText:FlxText;
 
 	public var finishThing:Void->Void;
+	public var cutsceneThing:Void->Void;
 
 	var portraitLeft:FlxSprite;
 	var portraitRight:FlxSprite;
@@ -63,8 +86,7 @@ class DialogueBox extends FlxSpriteGroup
 				bgFade.alpha = 0.7;
 		}, 5);
 
-		box = new FlxSprite(-20, 45);
-
+		box = new BoxSprite(-20, 45);
 		var hasDialog = false;
 		switch (PlayState.SONG.song.toLowerCase())
 		{
@@ -97,12 +119,20 @@ class DialogueBox extends FlxSpriteGroup
 				box.frames = Paths.getSparrowAtlas('dialogueshit/speech_bubble_talking');
 				box.animation.addByPrefix('normalOpen', 'Speech Bubble Normal Open', 24, false);
 				box.animation.addByIndices('normal', 'Speech Bubble Normal Open', [4], "", 24);
+				box.animation.addByPrefix('cutsceneOpen', 'Speech Bubble Normal Open', 24, false);
+				box.animation.addByIndices('cutscene', 'Speech Bubble Normal Open', [4], "", 24);
 				box.animation.addByPrefix('loudOpen', 'speech bubble loud open', 24, false);
 				box.animation.addByIndices('loud', 'speech bubble loud open', [1], "", 24);
 				box.animation.addByPrefix('aaahOpen', 'AHH speech bubble', 24, false);
 				box.animation.addByIndices('aaah', 'AHH speech bubble', [1], "", 24);
 				box.animation.addByPrefix('timidOpen', 'speech bubble timid', 24, false);
 				box.animation.addByIndices('timid', 'speech bubble timid', [3], "", 24);
+				// TODO -- hazel play with these offsets
+				box.addOffset('normal', 0, 50);
+				box.addOffset('normalOpen', 0, 50);
+				box.addOffset('aaah', -20, -10);
+				box.addOffset('aaahOpen', 0, 50);
+				// and similarly for all the other animations
 				isPixel = false;
 		}
 
@@ -111,29 +141,39 @@ class DialogueBox extends FlxSpriteGroup
 		if (!hasDialog)
 			return;
 
-		portraitLeft = new FlxSprite(-20, 40);
-		// point to week7 file instead -- is ok if we muck up week 6
-		portraitLeft.frames = Paths.getSparrowAtlas('griswell/portraits');
+		portraitLeft = new FlxSprite(-200, 250);
+		portraitLeft.frames = Paths.getSparrowAtlas('griswell/portraits', 'week7');
 		portraitLeft.animation.addByPrefix('enter', 'dad', 24, false);
+		portraitLeft.animation.addByPrefix('dad', 'dad', 24, false);
+		portraitLeft.animation.addByPrefix('dad-transform1', 'dad-transformone', 24, false);
+		portraitLeft.animation.addByPrefix('dad-transform2', 'dad-transformtwo', 24, false);
+		portraitLeft.animation.addByPrefix('dad-blaykangry', 'dad-blaykangry', 24, false);
+		portraitLeft.animation.addByPrefix('dad-blaykannoyed', 'dad-blaykannoyed', 24, false);
+		portraitLeft.animation.addByPrefix('dad-blaykstun', 'dad-blaykstun', 24, false);
+		portraitLeft.animation.addByPrefix('dad-blayknerv', 'dad-blayknerv', 24, false);
+		portraitLeft.animation.addByPrefix('dad-nite', 'dad-nite', 24, false);
+		portraitLeft.animation.addByPrefix('dad-niteevil', 'dad-niteevil', 24, false);
+		portraitLeft.animation.addByPrefix('dad-niteblush', 'dad-niteblush', 24, false);
+		portraitLeft.animation.addByPrefix('dad-nitesmirk', 'dad-nitesmirk', 24, false);
+		portraitLeft.animation.addByPrefix('dad-united', 'dad-united', 24, false);
 		scaleAsset(portraitLeft);
 		portraitLeft.updateHitbox();
 		portraitLeft.scrollFactor.set();
 		add(portraitLeft);
 		portraitLeft.visible = false;
 
-		portraitRight = new FlxSprite(0, 40);
-		// point to week7 file
-		portraitRight.frames = Paths.getSparrowAtlas('griswell/portraits');
+		portraitRight = new FlxSprite(700, 100);
+		portraitRight.frames = Paths.getSparrowAtlas('griswell/portraits', 'week7');
 		portraitRight.animation.addByPrefix('enter', 'bf', 24, false);
+		portraitRight.animation.addByPrefix('bf-angry', 'bf-angry', 24, false);
+		portraitRight.animation.addByPrefix('gf', 'gf', 24, false);
 		scaleAsset(portraitRight);
 		portraitRight.updateHitbox();
 		portraitRight.scrollFactor.set();
 		add(portraitRight);
 		portraitRight.visible = false;
 
-		// Add similar code for portraitCenter
-
-		box.animation.play(curBox + 'Open');
+		box.playAnim(curBox + 'Open');
 		scaleAsset(box);
 		box.updateHitbox();
 		add(box);
@@ -174,16 +214,20 @@ class DialogueBox extends FlxSpriteGroup
 
 		dropText.text = swagDialogue.text;
 
+		if (curBox == 'cutscene') {
+			cutsceneThing();
+		}
+
 		if (box.animation.curAnim != null && box.animation.curAnim.finished)
 		{
 			if (!opening)
 			{
-				box.animation.play(curBox + 'Open');
+				box.playAnim(curBox + 'Open');
 				opening = true;
 			}
 			else
 			{
-				box.animation.play(curBox);
+				box.playAnim(curBox);
 			}
 			dialogueOpened = true;
 		}
@@ -245,11 +289,11 @@ class DialogueBox extends FlxSpriteGroup
 		swagDialogue.resetText(dialogueList[0]);
 		swagDialogue.start(0.04, true);
 
-		box.animation.play(curBox);
-		if (curCharacter.contains('dad'))
-			box.flipX = true;
-		else
+		box.playAnim(curBox);
+		if (curCharacter.contains('bf') || curCharacter.contains('gf'))
 			box.flipX = false;
+		else
+			box.flipX = true;
 
 		switch (curCharacter)
 		{
@@ -267,9 +311,28 @@ class DialogueBox extends FlxSpriteGroup
 					portraitRight.visible = true;
 					portraitRight.animation.play('enter');
 				}
+			case 'bf-angry':
+				portraitLeft.visible = false;
+				if (!portraitRight.visible)
+				{
+					portraitRight.visible = true;
+					portraitRight.animation.play('bf-angry');
+				}
 			case 'gf':
-				trace("centerportrait");
-				// relma2 -- add cases for other portraits?
+				portraitLeft.visible = false;
+				if (!portraitRight.visible)
+				{
+					portraitRight.visible = true;
+					portraitRight.animation.play('gf');
+				}
+			case 'dad-empty' | 'empty':
+				portraitLeft.visible = false;
+				portraitRight.visible = false;
+			default:
+				portraitLeft.visible = false;
+				portraitRight.visible = false;
+				portraitLeft.visible = true;
+				portraitLeft.animation.play(curCharacter);
 		}
 	}
 
