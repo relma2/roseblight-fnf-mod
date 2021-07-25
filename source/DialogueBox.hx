@@ -74,7 +74,7 @@ class DialogueBox extends FlxSpriteGroup
 				FlxG.sound.music.fadeIn(1, 0, 0.8);
 		}
 
-		bgFade = new FlxSprite(-200, -200).makeGraphic(Std.int(FlxG.width * 1.3), Std.int(FlxG.height * 1.3), 0xFFB3DFd8);
+		bgFade = new FlxSprite(-200, -200).makeGraphic(Std.int(FlxG.width * 1.3), Std.int(FlxG.height * 1.3), 0xFFFFFFFF);
 		bgFade.scrollFactor.set();
 		bgFade.alpha = 0;
 		add(bgFade);
@@ -214,8 +214,16 @@ class DialogueBox extends FlxSpriteGroup
 
 		dropText.text = swagDialogue.text;
 
-		if (curBox == 'cutscene') {
+		if (curBox == 'cutscene')
+		{
+			remove(bgFade);
+			remove(box);
 			cutsceneThing();
+		}
+		else
+		{
+			add(bgFade);
+			add(box);
 		}
 
 		if (box.animation.curAnim != null && box.animation.curAnim.finished)
