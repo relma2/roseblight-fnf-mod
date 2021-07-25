@@ -1362,9 +1362,14 @@ class PlayState extends MusicBeatState
 		super.create();
 	}
 
-	function aplovecraftCutscene():Void {
+	function aplovecraftCutscene():Void
+	{
+		FlxG.sound.play(Paths.sound('Lights_Turn_on'), 0.8, false);
+		#if windows
+		Sys.sleep(1);
+		#end
 		grpChains.visible = true;
-		FlxG.sound.play(Paths.sound('Lights_Shut_off'));
+		FlxG.sound.play(Paths.sound('pausa_sfx'), 0.8, false);
 		trace("TODO: animate real cutscene");
 	}
 
