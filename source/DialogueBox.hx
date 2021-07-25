@@ -50,7 +50,6 @@ class DialogueBox extends FlxSpriteGroup
 	var dropText:FlxText;
 
 	public var finishThing:Void->Void;
-	public var cutsceneThing:Void->Void;
 
 	var portraitLeft:FlxSprite;
 	var portraitRight:FlxSprite;
@@ -213,18 +212,6 @@ class DialogueBox extends FlxSpriteGroup
 		}
 
 		dropText.text = swagDialogue.text;
-
-		if (curBox == 'cutscene')
-		{
-			remove(bgFade);
-			remove(box);
-			cutsceneThing();
-		}
-		else
-		{
-			add(bgFade);
-			add(box);
-		}
 
 		if (box.animation.curAnim != null && box.animation.curAnim.finished)
 		{

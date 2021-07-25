@@ -1337,7 +1337,7 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'aplovecraft':
 					grpChains.visible = false;
-					doof.cutsceneThing = aplovecraftCutscene;
+					doof.finishThing = aplovecraftCutscene;
 					schoolIntro(doof);
 				// case himbo:
 				// this is presumably the part where we animate cutscenes
@@ -1364,13 +1364,19 @@ class PlayState extends MusicBeatState
 
 	function aplovecraftCutscene():Void
 	{
-		FlxG.sound.play(Paths.sound('Lights_Turn_on'), 0.8, false);
-		#if windows
-		Sys.sleep(1);
-		#end
-		grpChains.visible = true;
-		FlxG.sound.play(Paths.sound('pausa_sfx'), 0.8, false);
+		inCutscene = true;
 		trace("TODO: animate real cutscene");
+		var doof2 = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue_next')));
+		doof2.scrollFactor.set();
+		doof2.cameras = [camHUD];
+		doof2.finishThing = startCountdown;
+		= FlxG.sound.play(Paths.sound('Lights_Turn_On'), 0.8);
+		new FlxTimer().start(1, function(tmr:FlxTimer)
+		{
+			grpChains.visible = true;
+			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.5, false);
+			add(doof2);
+		});
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void

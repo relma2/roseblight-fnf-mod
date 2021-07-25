@@ -8,6 +8,3 @@
 :dad-transform2: Admit it, you think this is fun too
 :dad-transform2: ...
 :dad-transform1: ... don't push your luck
-:dad-empty: :cutscene
-:dad-united: Allright, you wanna dance?
-:dad-united: LET'S DANCE.
