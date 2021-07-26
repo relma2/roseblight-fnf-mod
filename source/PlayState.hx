@@ -1370,7 +1370,7 @@ class PlayState extends MusicBeatState
 		doof2.scrollFactor.set();
 		doof2.cameras = [camHUD];
 		doof2.finishThing = startCountdown;
-		= FlxG.sound.play(Paths.sound('Lights_Turn_On'), 0.8);
+		FlxG.sound.play(Paths.sound('Lights_Turn_On'), 0.8);
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
 			grpChains.visible = true;

@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.FlxSound;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.text.FlxTypeText;
@@ -129,8 +130,8 @@ class DialogueBox extends FlxSpriteGroup
 				// TODO -- hazel play with these offsets
 				box.addOffset('normal', 0, 50);
 				box.addOffset('normalOpen', 0, 50);
-				box.addOffset('aaah', -20, -10);
-				box.addOffset('aaahOpen', 0, 50);
+				box.addOffset('aaah', -20, -30);
+				box.addOffset('aaahOpen', -20, -30);
 				// and similarly for all the other animations
 				isPixel = false;
 		}
@@ -140,7 +141,7 @@ class DialogueBox extends FlxSpriteGroup
 		if (!hasDialog)
 			return;
 
-		portraitLeft = new FlxSprite(-200, 250);
+		portraitLeft = new FlxSprite(-500, 250);
 		portraitLeft.frames = Paths.getSparrowAtlas('griswell/portraits', 'week7');
 		portraitLeft.animation.addByPrefix('enter', 'dad', 24, false);
 		portraitLeft.animation.addByPrefix('dad', 'dad', 24, false);
@@ -161,7 +162,7 @@ class DialogueBox extends FlxSpriteGroup
 		add(portraitLeft);
 		portraitLeft.visible = false;
 
-		portraitRight = new FlxSprite(700, 100);
+		portraitRight = new FlxSprite(750, 300);
 		portraitRight.frames = Paths.getSparrowAtlas('griswell/portraits', 'week7');
 		portraitRight.animation.addByPrefix('enter', 'bf', 24, false);
 		portraitRight.animation.addByPrefix('bf-angry', 'bf-angry', 24, false);
@@ -178,7 +179,7 @@ class DialogueBox extends FlxSpriteGroup
 		add(box);
 
 		if (!isPixel)
-			box.setPosition(0, 350);
+			box.setPosition(0, 400);
 		box.screenCenter(X);
 		portraitLeft.screenCenter(X);
 
@@ -281,6 +282,9 @@ class DialogueBox extends FlxSpriteGroup
 	function startDialogue():Void
 	{
 		cleanDialog();
+		// Bad hardcoded spaghetti line
+		if (dialogueList[0].contains("Ah! Much better!"))
+			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.5, false);
 		swagDialogue.resetText(dialogueList[0]);
 		swagDialogue.start(0.04, true);
 
