@@ -827,7 +827,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 						shop = new FlxSprite(500, -200).loadGraphic(Paths.image("griswell/shop_unbroken", 'week7'));
 						shop.antialiasing = true;
-						shop.scrollFactor.set(0.8, 1);
+						shop.scrollFactor.set(1, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
 						add(shop);
 
@@ -4363,6 +4363,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				dad.playAnim('danceLeft');
 			if (curBeat % 2 == 0 && dad.animOffsets.exists('danceRight'))
 				dad.playAnim('danceRight');
+		}
+
+		if (curSong.toLowerCase() == 'himbo' && curBeat == 300)
+		{
+			shop.loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
+			FlxG.sound.play(Paths.sound('glassbreak'));
 		}
 
 		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
