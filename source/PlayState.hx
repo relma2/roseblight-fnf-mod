@@ -196,6 +196,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	var shop:FlxSprite;
 	var grpChains:FlxTypedGroup<FlxSprite>;
 	var grpChains2:FlxTypedGroup<FlxSprite>;
+	var shopbg:FlxSprite;
 
 	var fc:Bool = true;
 
@@ -819,7 +820,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						shopbg: FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
 						shopbg.antialiasing = true;
 						shopbg.scrollFactor.set(0.8, 1);
 						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
@@ -890,7 +891,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						shopbg: FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
 						shopbg.antialiasing = true;
 						shopbg.scrollFactor.set(0.8, 1);
 						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
@@ -4365,7 +4366,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				dad.playAnim('danceRight');
 		}
 
-		if (curSong.toLowerCase() == 'himbo' && curBeat == 300)
+		if (curSong.toLowerCase() == 'himbo' && curBeat == 299)
 		{
 			shop.loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
 			FlxG.sound.play(Paths.sound('glassbreak'));
