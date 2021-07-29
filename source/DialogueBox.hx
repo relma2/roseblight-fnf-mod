@@ -127,14 +127,14 @@ class DialogueBox extends FlxSpriteGroup
 				box.animation.addByIndices('aaah', 'AHH speech bubble', [1], "", 24);
 				box.animation.addByPrefix('timidOpen', 'speech bubble timid', 24, false);
 				box.animation.addByIndices('timid', 'speech bubble timid', [3], "", 24);
-				box.addOffset('normal', 0, 0);
-				box.addOffset('normalOpen', 0, 0);
-				box.addOffset('loud', -80, -80);
-				box.addOffset('loudOpen', -80, -80);
-				box.addOffset('aaah', -80, -80);
-				box.addOffset('aaahOpen', -80, -80);
-				box.addOffset('timid', -30, -10);
-				box.addOffset('timidOpen', -30, -10);
+				box.addOffset('normal', 0, 20);
+				box.addOffset('normalOpen', 0, 20);
+				box.addOffset('loud', 0, 30);
+				box.addOffset('loudOpen', 0, 30);
+				box.addOffset('aaah', 0, 75);
+				box.addOffset('aaahOpen', 0, 75);
+				box.addOffset('timid', -30, 50);
+				box.addOffset('timidOpen', -30, 50);
 				// and similarly for all the other animations
 				isPixel = false;
 		}
@@ -285,6 +285,10 @@ class DialogueBox extends FlxSpriteGroup
 	function startDialogue():Void
 	{
 		cleanDialog();
+		var leftX:Int = 50;
+		var leftY:Int = 225;
+		var rightX:Int = 800;
+		var rightY:Int = leftY;
 		// Bad hardcoded spaghetti line
 		if (dialogueList[0].contains("Ah! Much better!"))
 			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.5, false);
@@ -300,30 +304,38 @@ class DialogueBox extends FlxSpriteGroup
 		switch (curCharacter)
 		{
 			case 'dad':
+				portraitLeft.visible = false;
 				portraitRight.visible = false;
 				if (!portraitLeft.visible)
 				{
+					portraitLeft.setPosition(leftX, leftY);
 					portraitLeft.visible = true;
 					portraitLeft.animation.play('enter');
 				}
 			case 'bf':
 				portraitLeft.visible = false;
+				portraitRight.visible = false;
 				if (!portraitRight.visible)
 				{
+					portraitRight.setPosition(rightX, rightY);
 					portraitRight.visible = true;
 					portraitRight.animation.play('enter');
 				}
 			case 'bf-angry':
 				portraitLeft.visible = false;
+				portraitRight.visible = false;
 				if (!portraitRight.visible)
 				{
+					portraitRight.setPosition(rightX, rightY);
 					portraitRight.visible = true;
 					portraitRight.animation.play('bf-angry');
 				}
 			case 'gf':
 				portraitLeft.visible = false;
+				portraitRight.visible = false;
 				if (!portraitRight.visible)
 				{
+					portraitRight.setPosition(rightX, rightY);
 					portraitRight.visible = true;
 					portraitRight.animation.play('gf');
 				}
@@ -333,6 +345,7 @@ class DialogueBox extends FlxSpriteGroup
 			default:
 				portraitLeft.visible = false;
 				portraitRight.visible = false;
+				portraitLeft.setPosition(leftX, leftY);
 				portraitLeft.visible = true;
 				portraitLeft.animation.play(curCharacter);
 		}
