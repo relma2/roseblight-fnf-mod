@@ -811,7 +811,7 @@ class PlayState extends MusicBeatState
 					{
 						defaultCamZoom = 0.60;
 						curStage = 'gray';
-						var bg:FlxSprite = new FlxSprite(-1100, -200);
+						var bg:FlxSprite = new FlxSprite(-400, -250);
 						var mtn = Paths.image('griswell/mountain', 'week7');
 						bg.loadGraphic(mtn);
 						bg.antialiasing = true;
@@ -821,7 +821,7 @@ class PlayState extends MusicBeatState
 						bg.updateHitbox();
 						add(bg);
 
-						var marmar:FlxSprite = new FlxSprite(500, -300).loadGraphic(Paths.image('griswell/glow', 'week7'), true);
+						var marmar:FlxSprite = new FlxSprite(1200, -350).loadGraphic(Paths.image('griswell/glow', 'week7'), true);
 						marmar.frames = Paths.getSparrowAtlas('griswell/glow', 'week7');
 						marmar.animation.addByPrefix('glow', 'glow', 24, true);
 						marmar.animation.play('glow');
@@ -830,26 +830,13 @@ class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
+						var shop:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
 						shop.antialiasing = true;
 						shop.scrollFactor.set(0.8, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
 						add(shop);
 
-						if (FlxG.save.data.distractions)
-						{
-							grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
-							add(grpLimoDancers);
-
-							for (i in 0...5)
-							{
-								var dancer:BackgroundDancer = new BackgroundDancer((500 * i) - 300, 300, 7);
-								dancer.scrollFactor.set(1, 0.6);
-								grpLimoDancers.add(dancer);
-							}
-						}
-
-						upperBoppers = new FlxSprite(-400, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
+						upperBoppers = new FlxSprite(0, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
 						upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop', 'week7');
 						upperBoppers.animation.addByPrefix('bop', "topbop", 24, false);
 						upperBoppers.antialiasing = true;
@@ -860,13 +847,33 @@ class PlayState extends MusicBeatState
 						{
 							add(upperBoppers);
 						}
+
+						if (FlxG.save.data.distractions)
+						{
+							grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
+							add(grpLimoDancers);
+							// x position of barbles
+							var stuff = [200, 660, 550 * 4 - 100, 550 * 4 + 300];
+							for (x in stuff)
+							{
+								var dancer:BackgroundDancer = new BackgroundDancer(x, 440, 7);
+								dancer.setGraphicSize(Std.int(dancer.width * 0.9));
+								dancer.scrollFactor.set(0.9, 1);
+								grpLimoDancers.add(dancer);
+							}
+							// this one motherfucker on the roof
+							var dancer:BackgroundDancer = new BackgroundDancer(1060, -230, 7);
+							dancer.setGraphicSize(Std.int(dancer.width * 0.9));
+							dancer.scrollFactor.set(0.8, 0.9);
+							grpLimoDancers.add(dancer);
+						}
 					}
 
 				case 'grayEvil':
 					{
 						defaultCamZoom = 0.60;
 						curStage = 'grayEvil';
-						var bg:FlxSprite = new FlxSprite(-1100, -200);
+						var bg:FlxSprite = new FlxSprite(-400, -250);
 						var mtn = Paths.image('griswell/mountain', 'week7');
 						bg.loadGraphic(mtn);
 						bg.antialiasing = true;
@@ -876,36 +883,32 @@ class PlayState extends MusicBeatState
 						bg.updateHitbox();
 						add(bg);
 
-						var shop:FlxSprite = new FlxSprite(-1200, -500).loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
+						var shop:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
 						shop.antialiasing = true;
-						shop.scrollFactor.set(1, 1);
+						shop.scrollFactor.set(0.8, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
 						add(shop);
 
 						dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3, 0.2, true, true, 3, 3);
 						dither.antialiasing = false;
+						dither.useScaleHack = true;
 						dither.blend = "multiply";
-						dither.path = new FlxPath().start([new FlxPoint(0, 0), new FlxPoint(-100, -100)], 100, FlxPath.FORWARD);
+						add(dither);
+						dither.path = new FlxPath().start([new FlxPoint(-200, -200), new FlxPoint(-150, -150)], 25, FlxPath.LOOP_FORWARD);
 						dither.updateHitbox();
 						dither.centerOffsets();
 						dither.centerOrigin();
-						add(dither);
-						dither.path = new FlxPath().start([new FlxPoint(-100, -100), new FlxPoint(-200, -200)], 25, FlxPath.LOOP_FORWARD);
 
-						var pausaNote = new FlxSprite(80, 0).loadGraphic(Paths.image("warningNote", "week7"));
-
-						var yUp = -100;
-						var yDown = 0;
 						grpChains = new FlxTypedGroup<FlxSprite>();
 						add(grpChains);
 
-						for (i in 0...7)
+						for (i in 0...10)
 						{
-							var chain:FlxSprite = new FlxSprite((500 * i) - 200, -900);
+							var chain:FlxSprite = new FlxSprite((400 * i) + 300, -900);
 							chain.frames = Paths.getSparrowAtlas('griswell/chains', 'week7');
 							chain.animation.addByPrefix('chain', 'chain', 4, true);
 							chain.animation.play('chain', true, true, 0);
-							chain.scrollFactor.set(0.8, 1);
+							chain.scrollFactor.set(0.9, 1);
 							grpChains.add(chain);
 						}
 					}
@@ -1044,10 +1047,10 @@ class PlayState extends MusicBeatState
 			case 'nite':
 				dad.x -= 50;
 				dad.y += 130;
-				camPos.y += 200;
+				camPos.y += 900;
 			case 'blayk' | 'blite':
 				dad.x += 0;
-				camPos.y += 200;
+				camPos.y += 900;
 		}
 
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -1090,8 +1093,9 @@ class PlayState extends MusicBeatState
 				gf.x += 180;
 				gf.y += 300;
 			case 'gray' | 'grayEvil':
-				boyfriend.x += 250;
-				gf.x += 150;
+				dad.x += 700;
+				boyfriend.x += 950;
+				gf.x += 750;
 				gf.y -= 100;
 		}
 
@@ -1332,26 +1336,24 @@ class PlayState extends MusicBeatState
 				case 'thorns':
 					schoolIntro(doof);
 				case 'brainjail':
+					camFollow.setPosition(boyfriend.x, gf.y);
+					FlxG.camera.focusOn(camFollow.getPosition());
 					schoolIntro(doof);
 				case 'himbo':
+					camFollow.setPosition(boyfriend.x, gf.y);
+					FlxG.camera.focusOn(camFollow.getPosition());
 					schoolIntro(doof);
 				case 'aplovecraft':
 					grpChains.visible = false;
 					doof.finishThing = aplovecraftCutscene;
 					schoolIntro(doof);
-				// case himbo:
-				// this is presumably the part where we animate cutscenes
 				default:
 					startCountdown();
 			}
 		}
 		else
 		{
-			switch (curSong.toLowerCase())
-			{
-				default:
-					startCountdown();
-			}
+			startCountdown();
 		}
 
 		if (!loadRep)
