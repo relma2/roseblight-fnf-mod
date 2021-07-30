@@ -418,12 +418,12 @@ class PlayState extends MusicBeatState
 				dialogue = CoolUtil.coolTextFile(Paths.txt('roses/rosesDialogue'));
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
-				// case 'himbo':
-				// dialogue = CoolUtil.coolTextFile(Paths.txt('himbo/himboDialogue'));
-				// case 'brainjail':
-				// dialogue = CoolUtil.coolTextFile(Paths.txt('brainjail/brainjailDialogue'));
-				// case 'aplovecraft':
-				// dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue'));
+			case 'himbo':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('himbo/himboDialogue'));
+			case 'brainjail':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('brainjail/brainjailDialogue'));
+			case 'aplovecraft':
+				dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue'));
 		}
 
 		// defaults if no stage was found in chart
@@ -1123,8 +1123,6 @@ class PlayState extends MusicBeatState
 		trace("SF CALC: " + Math.floor((PlayStateChangeables.safeFrames / 60) * 1000));
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
-		// doof.x += 70;
-		// doof.y = FlxG.height * 0.5;
 		doof.scrollFactor.set();
 		doof.finishThing = startCountdown;
 
@@ -1333,6 +1331,14 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
+				case 'brainjail':
+					schoolIntro(doof);
+				case 'himbo':
+					schoolIntro(doof);
+				case 'aplovecraft':
+					grpChains.visible = false;
+					doof.finishThing = aplovecraftCutscene;
+					schoolIntro(doof);
 				// case himbo:
 				// this is presumably the part where we animate cutscenes
 				default:
@@ -1354,6 +1360,23 @@ class PlayState extends MusicBeatState
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 
 		super.create();
+	}
+
+	function aplovecraftCutscene():Void
+	{
+		inCutscene = true;
+		trace("TODO: animate real cutscene");
+		var doof2 = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue_next')));
+		doof2.scrollFactor.set();
+		doof2.cameras = [camHUD];
+		doof2.finishThing = startCountdown;
+		FlxG.sound.play(Paths.sound('Lights_Turn_On'), 0.8);
+		new FlxTimer().start(1, function(tmr:FlxTimer)
+		{
+			grpChains.visible = true;
+			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.5, false);
+			add(doof2);
+		});
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
@@ -3033,7 +3056,9 @@ class PlayState extends MusicBeatState
 		}
 
 		if (isStoryMode)
+		{
 			campaignMisses = misses;
+		}
 
 		if (!loadRep)
 			rep.SaveReplay(saveNotes, saveJudge, replayAna);
@@ -3103,7 +3128,21 @@ class PlayState extends MusicBeatState
 
 					FlxG.sound.music.stop();
 					vocals.stop();
-					if (FlxG.save.data.scoreScreen)
+					if (curSong.toLowerCase() == 'aplovecraft')
+					{
+						// this technically skips results screen in story mode, but its hacky
+						dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftPostDialogue'));
+						var doof = new DialogueBox(false, dialogue);
+						doof.scrollFactor.set();
+						doof.cameras = [camHUD];
+						doof.finishThing = function():Void
+						{
+							FlxG.sound.playMusic(Paths.music('freakyMenu'));
+							FlxG.switchState(new MainMenuState());
+						};
+						schoolIntro(doof);
+					}
+					else if (FlxG.save.data.scoreScreen)
 						openSubState(new ResultsScreen());
 					else
 					{
@@ -3141,6 +3180,8 @@ class PlayState extends MusicBeatState
 							songFormat = 'Dadbattle';
 						case 'Philly-Nice':
 							songFormat = 'Philly';
+						case 'Brain-Jail':
+							songFormat = 'Brainjail';
 					}
 
 					var poop:String = Highscore.formatSong(songFormat, storyDifficulty);
