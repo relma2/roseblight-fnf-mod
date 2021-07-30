@@ -129,12 +129,12 @@ class DialogueBox extends FlxSpriteGroup
 				box.animation.addByIndices('timid', 'speech bubble timid', [3], "", 24);
 				box.addOffset('normal', 0, 20);
 				box.addOffset('normalOpen', 0, 20);
-				box.addOffset('loud', 0, 30);
-				box.addOffset('loudOpen', 0, 30);
+				box.addOffset('loud', 75, 100);
+				box.addOffset('loudOpen', 75, 100);
 				box.addOffset('aaah', 0, 75);
 				box.addOffset('aaahOpen', 0, 75);
-				box.addOffset('timid', -30, 50);
-				box.addOffset('timidOpen', -30, 50);
+				box.addOffset('timid', -30, 60);
+				box.addOffset('timidOpen', -30, 60);
 				// and similarly for all the other animations
 				isPixel = false;
 		}
