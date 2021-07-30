@@ -33,4 +33,8 @@
 	<SubTexture name="speech bubble normal0017" x="1171" y="1273" width="1156" height="311" frameX="-9" frameY="-5" frameWidth="1167" frameHeight="328"/>
 	<SubTexture name="speech bubble normal0018" x="1171" y="1273" width="1156" height="311" frameX="-9" frameY="-5" frameWidth="1167" frameHeight="328"/>
 	<SubTexture name="speech bubble normal0019" x="1171" y="1273" width="1156" height="311" frameX="-9" frameY="-5" frameWidth="1167" frameHeight="328"/>
+	<SubTexture name="speech bubble timid0000" x="2549" y = "1273" width="1156" height="311" frameX="-9" frameY="-5" frameWidth="1167" frameHeight="350" />
+	<SubTexture name="speech bubble timid0001" x="0" y="1596" width="1162" height="350" frameX="0" frameY="0" frameWidth="1167" frameHeight="350"/>
+	<SubTexture name="speech bubble timid0002" x="1167" y="1596" width="1167" height="507" frameX="0" frameY="0" frameWidth="1200" frameHeight="507"/>
+	<SubTexture name="speech bubble timid0003" x="1167" y="1596" width="1167" height="507" frameX="0" frameY="0" frameWidth="1200" frameHeight="507"/>
 </TextureAtlas>
