@@ -820,7 +820,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						shopbg: FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
 						shopbg.antialiasing = true;
 						shopbg.scrollFactor.set(0.8, 1);
 						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
@@ -828,7 +828,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 						shop = new FlxSprite(500, -200).loadGraphic(Paths.image("griswell/shop_unbroken", 'week7'));
 						shop.antialiasing = true;
-						shop.scrollFactor.set(1, 1);
+						shop.scrollFactor.set(0.8, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
 						add(shop);
 
@@ -891,7 +891,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						shopbg: FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
 						shopbg.antialiasing = true;
 						shopbg.scrollFactor.set(0.8, 1);
 						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
@@ -1378,6 +1378,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				case 'aplovecraft':
 					grpChains.visible = false;
 					grpChains2.visible = false;
+					camFollow.setPosition(gf.x, boyfriend.y);
+					FlxG.camera.focusOn(camFollow.getPosition());
 					doof.finishThing = aplovecraftCutscene;
 					schoolIntro(doof);
 				default:
