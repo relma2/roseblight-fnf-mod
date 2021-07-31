@@ -19,6 +19,7 @@ import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.FlxTrailArea;
 import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
+import flixel.addons.effects.chainable.FlxShakeEffect;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.atlas.FlxAtlas;
@@ -820,7 +821,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						shopbg = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
 						shopbg.antialiasing = true;
 						shopbg.scrollFactor.set(0.8, 1);
 						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
@@ -891,7 +892,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						shopbg = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
 						shopbg.antialiasing = true;
 						shopbg.scrollFactor.set(0.8, 1);
 						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
