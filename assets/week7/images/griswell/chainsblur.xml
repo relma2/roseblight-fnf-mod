@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:8b529b58974fbbfafeb8558d69e3584b:776c0fa7d0b679fb89588b1a99cddbc2:22048d1de47fbf41ed328bf0229e2f0a$ -->
+<TextureAtlas imagePath="chainsblur.png" width="1600" height="1600">
+    <SubTexture name="chain0000" x="0" y="0" width="200" height="1600"/>
+    <SubTexture name="chain0001" x="200" y="0" width="200" height="1600"/>
+    <SubTexture name="chain0002" x="400" y="0" width="200" height="1600"/>
+    <SubTexture name="chain0003" x="600" y="0" width="200" height="1600"/>
+    <SubTexture name="chain0004" x="800" y="0" width="200" height="1600"/>
+    <SubTexture name="chain0005" x="1000" y="0" width="200" height="1600"/>
+    <SubTexture name="chain0006" x="1200" y="0" width="200" height="1600"/>
+    <SubTexture name="chain0007" x="1400" y="0" width="200" height="1600"/>
+</TextureAtlas>
