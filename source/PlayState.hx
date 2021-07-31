@@ -14,8 +14,6 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxSubState;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.FlxTrailArea;
@@ -64,21 +62,11 @@ import openfl.utils.AssetLibrary;
 import openfl.utils.AssetManifest;
 import openfl.utils.AssetType;
 
-using StringTools;
+using StringTools; #if !web import haxe.macro.ExampleJSGenerator; #end#if cpp import webm.WebmPlayer; #end#if windows import Discord.DiscordClient;
 
-#if !web
-import haxe.macro.ExampleJSGenerator;
-#end
-#if cpp
-import webm.WebmPlayer;
-#end
-#if windows
-import Discord.DiscordClient;
 import Sys;
-import sys.FileSystem;
-#end
+import sys.FileSystem; #end class PlayState extends MusicBeatState
 
-class PlayState extends MusicBeatState
 {
 	public static var instance:PlayState = null;
 
@@ -204,10 +192,11 @@ class PlayState extends MusicBeatState
 	var bottomBoppers:FlxSprite;
 	var santa:FlxSprite;
 
-	var dither:FlxBackdrop;
+	var dither:FlxTileBackdrop;
+	var shop:FlxSprite;
 	var grpChains:FlxTypedGroup<FlxSprite>;
+	var grpChains2:FlxTypedGroup<FlxSprite>;
 
-	// var grpChains2:FlxTypedGroup<FlxSprite>;
 	var fc:Bool = true;
 
 	var bgGirls:BackgroundGirls;
@@ -830,7 +819,13 @@ class PlayState extends MusicBeatState
 						marmar.scrollFactor.set(0.1, 0.1);
 						add(marmar);
 
-						var shop:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/shop", 'week7'));
+						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						shopbg.antialiasing = true;
+						shopbg.scrollFactor.set(0.8, 1);
+						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
+						add(shopbg);
+
+						shop = new FlxSprite(500, -200).loadGraphic(Paths.image("griswell/shop_unbroken", 'week7'));
 						shop.antialiasing = true;
 						shop.scrollFactor.set(0.8, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
@@ -881,20 +876,41 @@ class PlayState extends MusicBeatState
 						bg.active = false;
 						bg.setGraphicSize(Std.int(bg.width * 0.8));
 						bg.updateHitbox();
+						bg.setColorTransform(0.8, 0.8, 0.8);
+
 						add(bg);
 
-						var shop:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
+						var marmar:FlxSprite = new FlxSprite(1200, -350).loadGraphic(Paths.image('griswell/glow', 'week7'), true);
+						marmar.frames = Paths.getSparrowAtlas('griswell/glow', 'week7');
+						marmar.animation.addByPrefix('glow', 'glow', 24, true);
+						marmar.animation.play('glow');
+						marmar.antialiasing = true;
+						marmar.alpha = 0.5;
+						marmar.setGraphicSize(Std.int(marmar.width * 0.7));
+						marmar.scrollFactor.set(0.1, 0.1);
+						add(marmar);
+
+						var shopbg:FlxSprite = new FlxSprite(-700, -500).loadGraphic(Paths.image("griswell/graybg", 'week7'));
+						shopbg.antialiasing = true;
+						shopbg.scrollFactor.set(0.8, 1);
+						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
+						shopbg.setColorTransform(0.8, 0.8, 0.8);
+						add(shopbg);
+
+						shop = new FlxSprite(500, -200).loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
 						shop.antialiasing = true;
 						shop.scrollFactor.set(0.8, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
 						add(shop);
 
-						dither = new FlxBackdrop(Paths.image("griswell/dither", "week7"), 0.3, 0.2, true, true, 3, 3);
+						dither = new FlxTileBackdrop(Paths.image("griswell/dither", "week7"), 0.3, 0.2, true, true, 3, 3);
 						dither.antialiasing = false;
 						dither.useScaleHack = true;
 						dither.blend = "multiply";
 						add(dither);
-						dither.path = new FlxPath().start([new FlxPoint(-200, -200), new FlxPoint(-150, -150)], 25, FlxPath.LOOP_FORWARD);
+						dither.screenCenter();
+						dither.scrollFactor.set(0, 0);
+						dither.path = new FlxPath().start([new FlxPoint(25, 25), new FlxPoint(-25, -25)], 25, FlxPath.LOOP_FORWARD);
 						dither.updateHitbox();
 						dither.centerOffsets();
 						dither.centerOrigin();
@@ -904,7 +920,7 @@ class PlayState extends MusicBeatState
 
 						for (i in 0...10)
 						{
-							var chain:FlxSprite = new FlxSprite((400 * i) + 300, -900);
+							var chain:FlxSprite = new FlxSprite((400 * i) + 100, -900);
 							chain.frames = Paths.getSparrowAtlas('griswell/chains', 'week7');
 							chain.animation.addByPrefix('chain', 'chain', 4, true);
 							chain.animation.play('chain', true, true, 0);
@@ -1106,9 +1122,24 @@ class PlayState extends MusicBeatState
 			// Shitty layering but whatev it works LOL
 			if (curStage == 'limo')
 				add(limo);
-
 			add(dad);
 			add(boyfriend);
+			if (curStage == 'grayEvil')
+			{
+				grpChains2 = new FlxTypedGroup<FlxSprite>();
+				add(grpChains2);
+				for (i in 0...4)
+				{
+					var chain:FlxSprite = new FlxSprite((800 * i) + 500, -350);
+					chain.setGraphicSize(Std.int(chain.width * 1.5));
+					chain.alpha = 0.75;
+					chain.frames = Paths.getSparrowAtlas('griswell/chainsblur', 'week7');
+					chain.animation.addByPrefix('chain', 'chain', 4, true);
+					chain.animation.play('chain', true, true, 0);
+					chain.scrollFactor.set(1.8, 1);
+					grpChains2.add(chain);
+				}
+			}
 		}
 
 		if (loadRep)
@@ -1345,6 +1376,7 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'aplovecraft':
 					grpChains.visible = false;
+					grpChains2.visible = false;
 					doof.finishThing = aplovecraftCutscene;
 					schoolIntro(doof);
 				default:
@@ -1371,7 +1403,11 @@ class PlayState extends MusicBeatState
 		var doof2 = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue_next')));
 		doof2.scrollFactor.set();
 		doof2.cameras = [camHUD];
-		doof2.finishThing = startCountdown;
+		doof2.finishThing = function()
+		{
+			grpChains2.visible = true;
+			startCountdown();
+		}
 		FlxG.sound.play(Paths.sound('Lights_Turn_On'), 0.8);
 		new FlxTimer().start(1, function(tmr:FlxTimer)
 		{
@@ -1466,7 +1502,6 @@ class PlayState extends MusicBeatState
 		});
 	}
 
-	// relma2: TODO: add cutscenes in funcions here??
 	var startTimer:FlxTimer;
 	var perfectMode:Bool = false;
 
@@ -4040,6 +4075,8 @@ class PlayState extends MusicBeatState
 			{
 				// eyyy look you dodged it
 				FlxG.sound.play(Paths.sound('pausa_sfx'), 3.5);
+				if (FlxG.save.data.distractions)
+					FlxG.camera.shake(0.06, 0.25);
 				dad.playAnim('pausa', true);
 				gf.playAnim('scared', true);
 			}
@@ -4139,7 +4176,8 @@ class PlayState extends MusicBeatState
 
 	function freezeBoyfriend(pen:Int = 4)
 	{
-		FlxG.sound.play(Paths.sound('pausa_sfx'), 7.0);
+		FlxG.sound.play(Paths.sound('pausa_sfx'), 9.0);
+		fc = false;
 		remove(dither);
 		remove(gf);
 		remove(dad);
@@ -4159,6 +4197,8 @@ class PlayState extends MusicBeatState
 			lastBeatPausad = curBeat; // no double penalty
 			pausaPenalty = pen;
 			lastConductorPausad = Conductor.songPosition;
+			if (FlxG.save.data.distractions)
+				FlxG.camera.shake(0.06, 0.25);
 		}
 		boyfriend.pausad = true;
 	}
