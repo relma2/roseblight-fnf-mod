@@ -1128,7 +1128,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			{
 				grpChains2 = new FlxTypedGroup<FlxSprite>();
 				add(grpChains2);
-				for (i in 0...4)
+				for (i in 0...5)
 				{
 					var chain:FlxSprite = new FlxSprite((800 * i) + 500, -350);
 					chain.setGraphicSize(Std.int(chain.width * 1.5));

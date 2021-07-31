@@ -19,12 +19,12 @@ class BackgroundDancer extends FlxSprite implements SpriteOffsetting
 		{
 			path = "griswell/barbleDancer";
 			name = "barble_instance";
-			offX = 50;
+			offX = -51;
 		}
 		frames = Paths.getSparrowAtlas(path, "week" + week);
 		animation.addByIndices('danceLeft', name, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		animation.addByIndices('danceRight', name, [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-		addOffset('danceRight', 1.0 * offX, 1.0 * offY);
+		addOffset('danceRight', offX, offY);
 		playAnim('danceLeft');
 		antialiasing = true;
 	}
