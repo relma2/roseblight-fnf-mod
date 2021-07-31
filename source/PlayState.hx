@@ -195,9 +195,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 	var dither:FlxTileBackdrop;
 	var shop:FlxSprite;
+	var shopbg:FlxSprite;
 	var grpChains:FlxTypedGroup<FlxSprite>;
 	var grpChains2:FlxTypedGroup<FlxSprite>;
-	var shopbg:FlxSprite;
 
 	var fc:Bool = true;
 
@@ -827,11 +827,29 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						shopbg.setGraphicSize(Std.int(shopbg.width * 0.7));
 						add(shopbg);
 
+						var pathsmall = new FlxPath();
+						pathsmall.nodes = new Array<FlxPoint>();
+						for (i in 0...20)
+						{
+							var x:Int = i % 2 == 0 ? 1 : -1;
+							pathsmall.nodes.push(new FlxPoint(-700 + shopbg.width / 2 + x * 10, -500 + shopbg.height / 2 + x * 2 * Math.random()));
+						}
+						shopbg.path = pathsmall;
+
 						shop = new FlxSprite(500, -200).loadGraphic(Paths.image("griswell/shop_unbroken", 'week7'));
 						shop.antialiasing = true;
 						shop.scrollFactor.set(0.8, 1);
 						shop.setGraphicSize(Std.int(shop.width * 0.7));
 						add(shop);
+
+						var path = new FlxPath();
+						path.nodes = new Array<FlxPoint>();
+						for (i in 0...20)
+						{
+							var x:Int = i % 2 == 0 ? 1 : -1;
+							path.nodes.push(new FlxPoint(500 + shop.width / 2 + x * 20, -200 + shop.height / 2 + x * 10 * Math.random()));
+						}
+						shop.path = path;
 
 						upperBoppers = new FlxSprite(0, 50).loadGraphic(Paths.image("griswell/topbop", 'week7'));
 						upperBoppers.frames = Paths.getSparrowAtlas('griswell/topbop', 'week7');
@@ -4182,6 +4200,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	{
 		FlxG.sound.play(Paths.sound('pausa_sfx'), 9.0);
 		fc = false;
+		remove(grpChains2);
 		remove(dither);
 		remove(gf);
 		remove(dad);
@@ -4190,6 +4209,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		add(gf);
 		add(dad);
 		add(dither);
+		add(grpChains2);
 		dad.playAnim('pausa', true);
 		gf.playAnim('scared', true);
 		boyfriend.playAnim('pausad', true);
@@ -4210,6 +4230,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	function unfreezeBoyfriend()
 	{
 		vocals.volume = 1;
+		remove(grpChains2);
 		remove(dither);
 		remove(gf);
 		remove(dad);
@@ -4218,6 +4239,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		add(grpChains);
 		add(gf);
 		add(dad);
+		add(grpChains2);
 		FlxG.sound.music.volume = prevVolume < 0.2 ? 1 : prevVolume;
 		boyfriend.pausad = false;
 	}
@@ -4369,10 +4391,33 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				dad.playAnim('danceRight');
 		}
 
-		if (curSong.toLowerCase() == 'himbo' && curBeat == 299)
+		if (curSong.toLowerCase() == 'himbo' && curBeat == 291)
 		{
+			trace("shaking shop");
+			trace(shop.path.nodes);
+			shop.path.start(shop.path.nodes, 1000, FlxPath.YOYO);
+			shopbg.path.start(shopbg.path.nodes, 800, FlxPath.YOYO);
+		}
+		else if (curSong.toLowerCase() == 'himbo' && curBeat == 296)
+		{
+			trace("intensifying shop shake");
+			var path = new FlxPath();
+			path.nodes = new Array<FlxPoint>();
+			for (i in 0...20)
+			{
+				var x:Int = i % 2 == 0 ? 1 : -1;
+				path.nodes.push(new FlxPoint(500 + shop.width / 2 + x * 35, -200 + shop.height / 2 + x * 20 * Math.random()));
+			}
+			trace(path.nodes);
+			shop.path = path;
+			shop.path.start(shop.path.nodes, 1000, FlxPath.YOYO);
+		}
+		else if (curSong.toLowerCase() == 'himbo' && curBeat == 299)
+		{
+			shop.path.cancel();
+			shopbg.path.cancel();
 			shop.loadGraphic(Paths.image("griswell/shop_broken", 'week7'));
-			FlxG.sound.play(Paths.sound('glassbreak'));
+			FlxG.sound.play(Paths.sound('glassbreak'), 1.5);
 		}
 
 		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
