@@ -47,7 +47,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 				animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 				animation.addByIndices('hairBlow', "GF Dancing Beat Blowing", [0, 1, 2, 3], "", 24);
 				animation.addByIndices('hairFall', "QF Dancing Beat Blowing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
-				animation.addByPrefix('scared', 'GF FEAR', 24);
+				animation.addByIndices('scared', 'GF FEAR ', [0, 1, 2, 3, 0, 1, 2, 3, 0, 1], "", 24, false);
 
 				addOffset('cheer');
 				addOffset('sad', -2, -2);
@@ -92,7 +92,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 				addOffset('hairBlow', 45, -8);
 				addOffset('hairFall', 0, -9);
 
-				addOffset('scared', -2, -17);
+				addOffset('scared', -2, -25);
 
 				playAnim('danceRight');
 
@@ -670,6 +670,11 @@ class Character extends FlxSprite implements SpriteOffsetting
 	{
 		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
 			trace("still laughing");
+		else if (animation.curAnim != null
+			&& animation.curAnim.name.startsWith('scared')
+			&& curCharacter == 'gf'
+			&& !animation.curAnim.finished)
+			trace("still scared");
 		else
 			animation.play(AnimName, Force, Reversed, Frame);
 

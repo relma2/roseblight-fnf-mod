@@ -133,8 +133,8 @@ class DialogueBox extends FlxSpriteGroup
 				box.addOffset('loudOpen', 75, 100);
 				box.addOffset('aaah', 0, 75);
 				box.addOffset('aaahOpen', 0, 75);
-				box.addOffset('timid', -30, 60);
-				box.addOffset('timidOpen', -30, 60);
+				box.addOffset('timid', -30, 90);
+				box.addOffset('timidOpen', -30, 90);
 				// and similarly for all the other animations
 				isPixel = false;
 		}
