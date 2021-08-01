@@ -4414,11 +4414,11 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			for (i in 0...20)
 			{
 				var x:Int = i % 2 == 0 ? 1 : -1;
-				path.nodes.push(new FlxPoint(500 + shop.width / 2 + x * 35, -200 + shop.height / 2 + x * 20 * 2 * (Math.random() - 1.0)));
+				path.nodes.push(new FlxPoint(500 + shop.width / 2 + x * 65, -200 + shop.height / 2 + x * 20 * 2 * (Math.random() - 1.0)));
 			}
 			trace(path.nodes);
 			shop.path = path;
-			shop.path.start(shop.path.nodes, 1000, FlxPath.YOYO);
+			shop.path.start(shop.path.nodes, 2000, FlxPath.YOYO);
 		}
 		else if (curSong.toLowerCase() == 'himbo' && curBeat == 299)
 		{
