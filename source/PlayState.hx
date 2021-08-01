@@ -238,6 +238,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 	// BotPlay text
 	private var botPlayState:FlxText;
+	private var beatText:FlxText;
 	// Replay shit
 	private var saveNotes:Array<Dynamic> = [];
 	private var saveJudge:Array<String> = [];
@@ -1292,6 +1293,11 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		botPlayState.borderQuality = 2;
 		if (PlayStateChangeables.botPlay && !loadRep)
 			add(botPlayState);
+		beatText = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 75, healthBarBG.y + (PlayStateChangeables.useDownscroll ? 100 : -100) + 100, 0,
+			"BOTPLAY", 20);
+		beatText.setFormat(Paths.font("vcr.ttf"), 42, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (PlayStateChangeables.botPlay && !loadRep)
+			add(beatText);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
@@ -4310,6 +4316,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			luaModchart.executeState('stepHit', [curStep]);
 		}
 		#end
+
+		beatText.text = "BEAT " + curBeat + ", step " + (curStep % 16 + 1);
+		beatText.scrollFactor.set();
 
 		// yes this updates every step.
 		// yes this is bad
