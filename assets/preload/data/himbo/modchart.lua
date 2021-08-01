@@ -14,10 +14,9 @@ function beatHit(beat)
     -- garbage spaghetti hardcoding
     if (beat == shopReverb) then 
         print("begin moving camera to focus on shop window")
-        tweenCameraPos(0, 700, 2.4, "nothing")  
+        tweenCameraPos(0, -50, 2.4, "nothing")  
     elseif (beat == shopReverb+1) then
-        setActorAlpha(0.5, "girlfriend")
-        tweenCameraZoom(0.75,2.0, "nothing")
+        tweenCameraZoom(0.8,2.0, "nothing")
     end
 end
 

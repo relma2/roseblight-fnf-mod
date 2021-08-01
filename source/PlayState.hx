@@ -4400,7 +4400,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				type: ONESHOT,
 				onComplete: function(tween):Void
 				{
-					FlxTween.tween(gf, {alpha: 0.5}, 2);
+					FlxTween.tween(gf, {alpha: 0.8}, 2);
 				}
 			});
 			shop.path.start(shop.path.nodes, 1000, FlxPath.YOYO);
