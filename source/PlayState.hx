@@ -4391,10 +4391,18 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				dad.playAnim('danceRight');
 		}
 
+		// Part where shop shakes and breaks
 		if (curSong.toLowerCase() == 'himbo' && curBeat == 291)
 		{
 			trace("shaking shop");
 			trace(shop.path.nodes);
+			FlxTween.tween(gf, {alpha: 0.99}, 0.4, {
+				type: ONESHOT,
+				onComplete: function(tween):Void
+				{
+					FlxTween.tween(gf, {alpha: 0.5}, 2);
+				}
+			});
 			shop.path.start(shop.path.nodes, 1000, FlxPath.YOYO);
 			shopbg.path.start(shopbg.path.nodes, 800, FlxPath.YOYO);
 		}
@@ -4406,7 +4414,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			for (i in 0...20)
 			{
 				var x:Int = i % 2 == 0 ? 1 : -1;
-				path.nodes.push(new FlxPoint(500 + shop.width / 2 + x * 35, -200 + shop.height / 2 + x * 20 * Math.random()));
+				path.nodes.push(new FlxPoint(500 + shop.width / 2 + x * 35, -200 + shop.height / 2 + x * 20 * 2 * (Math.random() - 1.0)));
 			}
 			trace(path.nodes);
 			shop.path = path;
