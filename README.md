@@ -26,34 +26,38 @@ TODO: Add Screenshots
  - [x] Mod Qrystal over girlfriend (skin; no actual code) (done!)
 
  - [x] Implement Pausa Notes (done!; and with sfx and Q bein scared!!)
+
+ - [x] Compose all 3 songs (mad props to Ikkrine)
+
+ - [x] Fix Barble Animation (Low Priority)
+ - [x] Fix stage offsets (Low Priority)
+
+ - [x] Modchart OR Code
+  - [x] Nite's pointing and laughing when Combo missed
+  - [x] Shop window breaking towards end of song 2
+  - [x] Pausa animation from Blite on Pausa notes
+  - [x] Screen shaking subtly on Pausa Notes
  
 ![div](art/div.png)
 </details>
 
- - [ ] Compose/Chart (30% done)
+ - [ ] Chart (30% done)
   - [x] Song 1
   - [ ] Song 2
-  - [ ] Song 3
+  - [ ] Song 3 (charted, will rechartbc I am dissatisfied)
 
 ![div](art/div.png)
 
- - [ ] Add Dialogue  (written; not inserted ingame) (20% done)
- - [ ] Implement Cutscene 3 (bad work item; will specify later)
- - [ ] Add *one* placeholder gif that displays between "allright, you wanna dance?" and "let's dance"
+ - [x] Add Dialogue  (written; not inserted ingame) (20% done)
+ - [ ] Implement Cutscene 3 (Placeholder cutscene done, need to)
+  - Pan camera over Blite, take one strap off
+  - snap animation, camera rapidly zooms over to bf
+  - while camera is zomming, have each of the chains in grpchains1 flash in
+  - have camera hold on bf_pausad 
 
 ![div](art/div.png)
 
- - [ ] Modchart OR Code
-  - [ ] Nite's pointing and laughing when Combo missed
-  - [ ] Blite puting straps on at end of song 1
-  - [ ] Shop window breaking towards end of song 2
-  - [ ] Pausa animation from Blite on Pausa notes
-  - [ ] Notes shaking subtly on Pausa Notes
-
-![div](art/div.png)
-
- - [ ] Fix Barble Animation (Low Priority)
- - [ ] Fix stage offsets (Low Priority)
+ - [ ] Blite puting straps on at end of song 1
 
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
@@ -63,17 +67,13 @@ TODO: Add Screenshots
 ### Roseblight Mod
  - [Relma](https://github.com/relma2)
  - [SuperEclipse](https://github.com/SundayMoonday)
+ - [Jake Neutron](https://twitter.com/TheJakeneutron)
  - Hazel
  - [Ikkrine](https://twitter.com/rexkuroblack?lang=en)
  - Kazooby
  - [Kirbos](https://github.com/Kirbos); charter
 
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
-
-### Friday Night Funkin'
- - [ninjamuffin99](https://twitter.com/ninja_muffin99) - Programming
- - [PhantomArcade3K](https://twitter.com/phantomarcade3k) and [Evilsk8r](https://twitter.com/evilsk8r) - Art
- - [Kawai Sprite](https://twitter.com/kawaisprite) - Music
 
 ### Kade Engine
 - [KadeDeveloper](https://twitter.com/KadeDeveloper) - Maintainer and lead programmer
