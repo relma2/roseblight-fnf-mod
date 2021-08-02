@@ -4309,6 +4309,13 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
+		// release bf one step before so we have some time to react
+		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
+		{
+			if (boyfriend.pausad && curStep % 4 == 3 && curBeat + 1 > lastBeatPausad + pausaPenalty)
+				unfreezeBoyfriend();
+		}
+
 		#if windows
 		if (executeModchart && luaModchart != null)
 		{
@@ -4372,12 +4379,6 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				dad.playAnim('danceLeft');
 			if (curBeat % 2 == 0 && dad.animOffsets.exists('danceRight'))
 				dad.playAnim('danceRight');
-		}
-
-		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
-		{
-			if (boyfriend.pausad && curBeat > lastBeatPausad + pausaPenalty)
-				unfreezeBoyfriend();
 		}
 
 		if (SONG.notes[Math.floor(curStep / 16)] != null)
