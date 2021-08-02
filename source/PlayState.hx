@@ -4311,6 +4311,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		// release bf one step before on hard so we have some time to react
 		// but TWO steps before on medium/easy
+		// and on final spree, release 3 steps before
 		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
 		{
 			if (CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() == "hard"
@@ -4319,6 +4320,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				&& curBeat + 1 > lastBeatPausad + pausaPenalty)
 				unfreezeBoyfriend();
 			else if (boyfriend.pausad && curStep % 4 >= 2 && curBeat + 1 > lastBeatPausad + pausaPenalty)
+				unfreezeBoyfriend();
+			else if (boyfriend.pausad && curBeat >= 472 && curStep % 4 >= 1 && curBeat + 1 > lastBeatPausad + pausaPenalty)
 				unfreezeBoyfriend();
 		}
 
