@@ -4309,10 +4309,16 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
-		// release bf one step before so we have some time to react
+		// release bf one step before on hard so we have some time to react
+		// but TWO steps before on medium/easy
 		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
 		{
-			if (boyfriend.pausad && curStep % 4 == 3 && curBeat + 1 > lastBeatPausad + pausaPenalty)
+			if (CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() == "hard"
+				&& boyfriend.pausad
+				&& curStep % 4 == 3
+				&& curBeat + 1 > lastBeatPausad + pausaPenalty)
+				unfreezeBoyfriend();
+			else if (boyfriend.pausad && curStep % 4 >= 2 && curBeat + 1 > lastBeatPausad + pausaPenalty)
 				unfreezeBoyfriend();
 		}
 
