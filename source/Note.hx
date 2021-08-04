@@ -1,6 +1,8 @@
 package;
 
+import flixel.graphics.frames.FlxFramesCollection;
 import PlayState;
+import Paths;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.effects.FlxSkewedSprite;
@@ -87,7 +89,7 @@ class Note extends FlxSprite
 			switch (noteTypeCheck)
 			{
 				case 'pixel':
-					loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels', 'week6'), true, 17, 17);
+					loadGraphic(Paths.image('weeb/`pixelUI/arrows-pixels', 'week6'), true, 17, 17);
 
 					animation.add('greenScroll', [6]);
 					animation.add('redScroll', [7]);
@@ -136,7 +138,8 @@ class Note extends FlxSprite
 		}
 		else
 		{
-			loadGraphic(Paths.image("griswell/warningNote", "week7"));
+			// TODO: I really want the note to flash but I cant seem to get it right
+			loadGraphic(Paths.image('griswell/warningNoteNormal', "week7"));
 			setGraphicSize(Std.int(width * 0.7));
 			updateHitbox();
 			antialiasing = true;
