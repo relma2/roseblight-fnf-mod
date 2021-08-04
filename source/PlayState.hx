@@ -4080,7 +4080,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			else
 			{
 				// eyyy look you dodged it
-				FlxG.sound.play(Paths.sound('pausa_sfx'), 3.5);
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
 				if (FlxG.save.data.distractions)
 					FlxG.camera.shake(0.06, 0.25);
 				dad.playAnim('pausa', true);

@@ -47,7 +47,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 				animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 				animation.addByIndices('hairBlow', "GF Dancing Beat Blowing", [0, 1, 2, 3], "", 24);
 				animation.addByIndices('hairFall', "QF Dancing Beat Blowing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
-				animation.addByIndices('scared', 'GF FEAR ', [0, 1, 2, 3, 0, 1, 2, 3, 0, 1], "", 24, false);
+				animation.addByIndices('scared', 'GF FEAR ', [0, 1, 2, 3, 0, 1, 2, 3], "", 24, false);
 
 				addOffset('cheer');
 				addOffset('sad', -2, -2);
