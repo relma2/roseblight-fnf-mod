@@ -519,9 +519,14 @@ class Character extends FlxSprite implements SpriteOffsetting
 				animation.addByPrefix('singLEFT-alt', 'nite_left-alt', 24, false);
 				animation.addByPrefix('singRIGHT-alt', 'nite_right', 24, false);
 
-				animation.addByPrefix('laugh', 'nite_laugh', 12, false);
+				animation.addByPrefix('laugh', 'nite_laugh', 24, false);
 
 				addOffset('laugh', 0, 80);
+
+			case 'blaykstatic':
+				var tex = Paths.getSparrowAtlas('characters/nite_assets');
+				animation.addByIndices('idle', 'nite_strap_on', [30], "", 24, false);
+				animation.addByPrefix('strapon', 'nite_strap_on', 24, false);
 
 			case 'blayk' | 'blite':
 				{
