@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:0aa42f58048adb7025e43d043933af73:46519f9e6fcb4bc6ce65f3e3c7fb8f16:2af7a5250c8e66461b00bb531c4446f3$ -->
+<TextureAtlas imagePath="warningNote.png" width="318" height="156">
+    <SubTexture name="warn0004" x="160" y="1" width="157" height="154"/>
+    <SubTexture name="warn0005" x="160" y="1" width="157" height="154"/>
+    <SubTexture name="warn0000" x="1" y="1" width="157" height="154"/>
+    <SubTexture name="warn0001" x="1" y="1" width="157" height="154"/>
+    <SubTexture name="warn0002" x="1" y="1" width="157" height="154"/>
+    <SubTexture name="warn0003" x="1" y="1" width="157" height="154"/>
+</TextureAtlas>
