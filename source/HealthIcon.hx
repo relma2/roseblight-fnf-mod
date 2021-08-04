@@ -12,7 +12,7 @@ class HealthIcon extends FlxSprite
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super();
-		
+
 		loadGraphic(Paths.image('iconGrid'), true, 150, 150);
 
 		antialiasing = true;
@@ -31,6 +31,7 @@ class HealthIcon extends FlxSprite
 		animation.add('senpai-angry', [22, 22], 0, false, isPlayer);
 		animation.add('spirit', [23, 23], 0, false, isPlayer);
 		animation.add('nite', [24, 25], 0, false, isPlayer);
+		animation.add('blaykstatic', [24, 25], 0, false, isPlayer);
 		animation.add('blayk', [26, 27], 0, false, isPlayer);
 		animation.add('blite', [28, 29], 0, false, isPlayer);
 		animation.add('bf-old', [14, 15], 0, false, isPlayer);
@@ -42,7 +43,7 @@ class HealthIcon extends FlxSprite
 		animation.add('monster-christmas', [19, 20], 0, false, isPlayer);
 		animation.play(char);
 
-		switch(char)
+		switch (char)
 		{
 			case 'bf-pixel' | 'senpai' | 'senpai-angry' | 'spirit' | 'gf-pixel':
 				antialiasing = false;

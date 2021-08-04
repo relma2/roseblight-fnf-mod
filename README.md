@@ -41,14 +41,14 @@ TODO: Add Screenshots
 ![div](art/div.png)
 </details>
 
- - [ ] Chart (30% done)
+ - [ ] Chart (66% done)
   - [x] Song 1
   - [ ] Song 2
-  - [ ] Song 3 (charted, will rechartbc I am dissatisfied)
+  - [x] Song 3
 
 ![div](art/div.png)
 
- - [x] Add Dialogue  (written; not inserted ingame) (20% done)
+ - [x] Add Dialogue (done!)
  - [ ] Implement Cutscene 3 (Placeholder cutscene done, need to)
   - Pan camera over Blite, take one strap off
   - snap animation, camera rapidly zooms over to bf
@@ -58,6 +58,8 @@ TODO: Add Screenshots
 ![div](art/div.png)
 
  - [ ] Blite puting straps on at end of song 1
+ - [ ] Jake Neutron creating Sprites for Blayk/United Blite
+ - [ ] Relma putting those sprites ingame
 
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
@@ -70,8 +72,8 @@ TODO: Add Screenshots
  - [Jake Neutron](https://twitter.com/TheJakeneutron)
  - Hazel
  - [Ikkrine](https://twitter.com/rexkuroblack?lang=en)
- - Kazooby
  - [Kirbos](https://github.com/Kirbos); charter
+ - ~~Kazooby~~
 
 Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
 

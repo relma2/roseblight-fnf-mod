@@ -34,9 +34,9 @@ function beatHit(beat)
     currentBeat = beat
     if (beat == cut) then 
         print("vocals cut")
-        -- change dad character to like a static blite with only one animation
-        -- have nite put straps back on
         -- change dad to static blayk for remainder of song
+        changeDadCharacter("blaykstatic")
+        playActorAnimation("dad", "strapon", true, false)
     elseif (beat > cut) then
         -- do nothing
     else

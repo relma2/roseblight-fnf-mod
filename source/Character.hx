@@ -508,25 +508,34 @@ class Character extends FlxSprite implements SpriteOffsetting
 			case 'nite':
 				tex = Paths.getSparrowAtlas('characters/nite_assets');
 				frames = tex;
-				animation.addByPrefix('idle', 'nite_idle', 24, false);
-				animation.addByPrefix('idle-alt', 'nite_idle', 24, false);
-				animation.addByPrefix('singUP', 'nite_up', 24, false);
-				animation.addByPrefix('singDOWN', 'nite_down', 24, false);
-				animation.addByPrefix('singLEFT', 'nite_left', 24, false);
-				animation.addByPrefix('singRIGHT', 'nite_right', 24, false);
-				animation.addByPrefix('singUP-alt', 'nite_up-alt', 24, false);
-				animation.addByPrefix('singDOWN-alt', 'nite_down-alt', 24, false);
-				animation.addByPrefix('singLEFT-alt', 'nite_left-alt', 24, false);
-				animation.addByPrefix('singRIGHT-alt', 'nite_right', 24, false);
+				animation.addByPrefix('idle', 'N_Idle', 24, false);
+				animation.addByPrefix('idle-alt', 'N_Idle', 24, false);
+				animation.addByPrefix('singUP', 'N_Up', 24, false);
+				animation.addByPrefix('singDOWN', 'N_Down', 24, false);
+				animation.addByPrefix('singLEFT', 'N_Left', 24, false);
+				animation.addByPrefix('singRIGHT', 'N_Right', 24, false);
+				animation.addByPrefix('singUP-alt', 'Alt_N_Up', 24, false);
+				animation.addByPrefix('singDOWN-alt', 'Alt_N_Down', 24, false);
+				animation.addByPrefix('singLEFT-alt', 'Alt_N_Left', 24, false);
+				animation.addByPrefix('singRIGHT-alt', 'Alt_N_Right', 24, false);
 
-				animation.addByPrefix('laugh', 'nite_laugh', 24, false);
+				animation.addByPrefix('laugh', 'N_Laugh', 24, false);
 
-				addOffset('laugh', 0, 80);
+				addOffset('singUP', -149, 61);
+				addOffset('singUP-alt', -149, 61);
+				addOffset('singLEFT', -35, -36);
+				addOffset('singLEFT-alt', -35, -36);
+				addOffset('singRIGHT', -77, -38);
+				addOffset('singRIGHT-alt', -77, -38);
+				addOffset('singDOWN', -116, -51);
+				addOffset('singDOWN-alt', -116, -51);
 
 			case 'blaykstatic':
 				var tex = Paths.getSparrowAtlas('characters/nite_assets');
-				animation.addByIndices('idle', 'nite_strap_on', [30], "", 24, false);
-				animation.addByPrefix('strapon', 'nite_strap_on', 24, false);
+				frames = tex;
+				animation.addByIndices('idle', 'N_Transition', [86], "", 24, false);
+				animation.addByIndices('idle-alt', 'N_Transition', [86], "", 24, false);
+				animation.addByPrefix('strapon', 'N_Transition', 24, false);
 
 			case 'blayk' | 'blite':
 				{
@@ -680,6 +689,11 @@ class Character extends FlxSprite implements SpriteOffsetting
 			&& curCharacter == 'gf'
 			&& !animation.curAnim.finished)
 			trace("still scared");
+		else if (animation.curAnim != null
+			&& animation.curAnim.name.startsWith('strapon')
+			&& (curCharacter == 'nite' || curCharacter == 'blaykstatic')
+			&& !animation.curAnim.finished)
+			trace("nuuuu blayks taking the seat");
 		else
 			animation.play(AnimName, Force, Reversed, Frame);
 
