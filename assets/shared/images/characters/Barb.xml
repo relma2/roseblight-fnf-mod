@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Barb.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="BarbleLeft instance 10000" x="0" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10001" x="269" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10002" x="538" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10003" x="807" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10004" x="1076" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10005" x="1076" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10006" x="1345" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10007" x="1345" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10008" x="1345" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10009" x="1345" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10010" x="1614" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10011" x="1614" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10012" x="1614" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10013" x="1614" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleLeft instance 10014" x="0" y="0" width="269" height="278"/>
+	<SubTexture name="BarbleRight instance 10000" x="0" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10001" x="332" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10002" x="332" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10003" x="664" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10004" x="996" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10005" x="996" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10006" x="1328" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10007" x="1328" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10008" x="1328" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10009" x="1328" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10010" x="1660" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10011" x="1660" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10012" x="1660" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10013" x="1660" y="278" width="332" height="285"/>
+	<SubTexture name="BarbleRight instance 10014" x="0" y="278" width="332" height="285"/>
+</TextureAtlas>
