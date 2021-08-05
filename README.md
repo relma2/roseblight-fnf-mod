@@ -57,9 +57,15 @@ TODO: Add Screenshots
 
 ![div](art/div.png)
 
- - [ ] Blite puting straps on at end of song 1
+ - [x] Blite puting straps on at end of song 1
  - [ ] Jake Neutron creating Sprites for Blayk/United Blite
  - [ ] Relma putting those sprites ingame
+
+### Minor TODO Items
+ - [ ] fix the beats at which Nite sings in song 1 so they actually do laugh when its not his turn
+ - [ ] fix the modchart cam zoom in song 2 so it stays zoomed in on the broken shop window
+ - [ ] tint bf miss animations dark
+ - [ ] make meme face blayks eyes smaller
 
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
@@ -70,7 +76,7 @@ TODO: Add Screenshots
  - [Relma](https://github.com/relma2)
  - [SuperEclipse](https://github.com/SundayMoonday)
  - [Jake Neutron](https://twitter.com/TheJakeneutron)
- - Hazel
+ - [Hazel](https://gamebanana.com/members/1806493)
  - [Ikkrine](https://twitter.com/rexkuroblack?lang=en)
  - [Kirbos](https://github.com/Kirbos); charter
  - ~~Kazooby~~
