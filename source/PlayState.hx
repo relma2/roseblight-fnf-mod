@@ -1130,7 +1130,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				gf.x += 180;
 				gf.y += 300;
 			case 'gray' | 'grayEvil':
-				dad.x += 700;
+				dad.x += 675;
+				dad.y += 25;
+				boyfriend.y += 25;
 				boyfriend.x += 950;
 				gf.x += 750;
 				gf.y -= 100;
