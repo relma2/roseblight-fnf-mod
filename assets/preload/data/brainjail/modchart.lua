@@ -1,5 +1,3 @@
--- 16 - 29, 48 - 63, 80 - 95, 112 - 129, 132 - 133, 136 - 137, 140 - 161, 176 - 179,
--- 184 - 199, 216 - 231, 248 - 297, 312 - 315 (312 - 329 if including solo)
 cut = 316
 niteSings = {{17,30}, {49,64}, {81,96}, {113,130}, {133,138}, {141,162}, {177, 180}, {185,200}, {217,232}, {249, 298}, {313,329}}
 singIdx = 1
@@ -30,7 +28,6 @@ function inSingRange(beat, increment)
 end
 
 function beatHit(beat)
-    prevCombo = getProperty("combo")
     currentBeat = beat
     if (beat == cut) then 
         print("vocals cut")
@@ -42,14 +39,22 @@ function beatHit(beat)
     else
         -- dont touch this if statement hazel
         if (inSingRange(beat, true)) then
-            --print ("n sing")
+            --print ("n sing" .. beat)
         end
     end
 end
 
+function update(elapsed)
+    -- querying combo on update for greater efficiency
+    c = getProperty("combo")
+    if c > prevCombo then
+        prevCombo = c
+    end
+end
+
 function playerOneMiss(dir, conductor)
-    if (prevCombo > 5 and (not inSingRange(currentBeat, false))) then
-        -- POINT AND LAUGH
+    if (prevCombo >= 4 and (not inSingRange(currentBeat, false))) then
+        -- POINT AND LAUGH, but only after missed streak so its not constant
         prevCombo = 0
         playActorAnimation("dad", "laugh", true, false)
     end
