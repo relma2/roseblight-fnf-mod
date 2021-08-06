@@ -64,8 +64,8 @@ TODO: Add Screenshots
 ### Minor TODO Items
  - [ ] fix the beats at which Nite sings in song 1 so they actually do laugh when its not his turn
  - [ ] fix the modchart cam zoom in song 2 so it stays zoomed in on the broken shop window
- - [ ] tint bf miss animations dark
- - [ ] make meme face blayks eyes smaller
+ - [x] tint bf miss animations dark
+ - [x] make meme face blayks eyes smaller
 
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
