@@ -2432,8 +2432,19 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			#end
 		}
 
-		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
-		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
+		// release bf one step before on medium/easy so we have some time to react
+		// and on final spree, release 2 steps before for any difficulty
+		if (boyfriend.pausad)
+		{
+			if (CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() != "hard"
+				&& curStep % 4 == 3
+				&& curBeat + 1 >= lastBeatPausad + pausaPenalty)
+				unfreezeBoyfriend();
+			else if (curBeat >= 472 && curStep % 4 >= 2 && curBeat + 1 >= lastBeatPausad + pausaPenalty)
+				unfreezeBoyfriend();
+			else if (curBeat >= lastBeatPausad + pausaPenalty)
+				unfreezeBoyfriend();
+		}
 
 		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
 		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
@@ -4337,25 +4348,6 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			resyncVocals();
 		}
 
-		// release bf one step before on hard so we have some time to react
-		// but TWO steps before on medium/easy
-		// and on final spree, release 3 steps before
-		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
-		{
-			if (CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() == "hard"
-				&& boyfriend.pausad
-				&& curStep % 4 == 3
-				&& curBeat + 1 > lastBeatPausad + pausaPenalty)
-				unfreezeBoyfriend();
-			else if (CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() != "hard"
-				&& boyfriend.pausad
-				&& curStep % 4 >= 2
-				&& curBeat + 1 > lastBeatPausad + pausaPenalty)
-				unfreezeBoyfriend();
-			else if (boyfriend.pausad && curBeat >= 472 && curStep % 4 >= 1 && curBeat + 1 > lastBeatPausad + pausaPenalty)
-				unfreezeBoyfriend();
-		}
-
 		#if windows
 		if (executeModchart && luaModchart != null)
 		{
@@ -4458,12 +4450,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('glassbreak'), 1.5);
 		}
 
-		if (curSong.toLowerCase() == 'aplovecraft' && dad.curCharacter == 'blite')
-		{
-			// failsafe
-			if (boyfriend.pausad && curBeat > lastBeatPausad + pausaPenalty)
-				unfreezeBoyfriend();
-		}
+		// failsafe
+		if (boyfriend.pausad && curBeat >= lastBeatPausad + pausaPenalty)
+			unfreezeBoyfriend();
 
 		if (SONG.notes[Math.floor(curStep / 16)] != null)
 		{
