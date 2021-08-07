@@ -2433,14 +2433,14 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		}
 
 		// release bf one step before on medium/easy so we have some time to react
-		// and on final spree, release 2 steps before for any difficulty
+		// and on final spree, release three steps before for any difficulty
 		if (boyfriend.pausad)
 		{
 			if (CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() != "hard"
 				&& curStep % 4 == 3
 				&& curBeat + 1 >= lastBeatPausad + pausaPenalty)
 				unfreezeBoyfriend();
-			else if (curBeat >= 472 && curStep % 4 >= 2 && curBeat + 1 >= lastBeatPausad + pausaPenalty)
+			else if (curBeat >= 472 && curStep % 4 >= 1 && curBeat + 1 >= lastBeatPausad + pausaPenalty)
 				unfreezeBoyfriend();
 			else if (curBeat >= lastBeatPausad + pausaPenalty)
 				unfreezeBoyfriend();
