@@ -4233,16 +4233,16 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		gf.playAnim('scared', true);
 		boyfriend.playAnim('pausad', true);
 		vocals.volume = 0;
-		prevVolume = FlxG.sound.music.volume;
-		FlxG.sound.music.volume = 0;
 		if (!boyfriend.pausad)
 		{
 			lastBeatPausad = curBeat; // no double penalty
+			prevVolume = FlxG.sound.music.volume;
 			pausaPenalty = pen;
 			lastConductorPausad = Conductor.songPosition;
 			if (FlxG.save.data.distractions)
 				FlxG.camera.shake(0.06, 0.25);
 		}
+		FlxG.sound.music.volume = prevVolume / 3;
 		boyfriend.pausad = true;
 	}
 
