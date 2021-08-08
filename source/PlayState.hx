@@ -939,9 +939,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						grpChains = new FlxTypedGroup<FlxSprite>();
 						add(grpChains);
 
-						for (i in 0...10)
+						for (i in 0...7)
 						{
-							var chain:FlxSprite = new FlxSprite((400 * i) + 100, -900);
+							var chain:FlxSprite = new FlxSprite((400 * i) + 500, -900);
 							chain.frames = Paths.getSparrowAtlas('griswell/chains', 'week7');
 							chain.animation.addByPrefix('chain', 'chain', 4, true);
 							chain.animation.play('chain', true, true, 0);
@@ -1355,7 +1355,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		trace('starting');
 
-		if (isStoryMode)
+		// relma2 -- fix this to only be storymode later
+		if (true)
 		{
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
 			{
@@ -1429,21 +1430,62 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	function aplovecraftCutscene():Void
 	{
 		inCutscene = true;
-		trace("TODO: animate real cutscene");
 		var doof2 = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue_next')));
 		doof2.scrollFactor.set();
 		doof2.cameras = [camHUD];
 		doof2.finishThing = function()
 		{
 			grpChains2.visible = true;
+			FlxG.camera.zoom = defaultCamZoom;
+			FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
 			startCountdown();
 		}
-		FlxG.sound.play(Paths.sound('Lights_Turn_On'), 0.8);
-		new FlxTimer().start(1, function(tmr:FlxTimer)
+		// camera set to chain 1
+		grpChains.visible = true;
+		grpChains.sort(function(ord:Int, a:FlxSprite, b:FlxSprite):Int
 		{
-			grpChains.visible = true;
-			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.5, false);
-			add(doof2);
+			return FlxSort.byValues(ord, a.x, b.x);
+		});
+		for (i in 0...7)
+		{
+			grpChains.members[i].visible = false;
+		}
+		FlxG.camera.focusOn(dad.getGraphicMidpoint());
+		FlxG.camera.zoom = 0.7;
+		FlxG.camera.followLerp = 0.05;
+		var interval:Float = 0.25;
+		var i:Int = 0;
+		new FlxTimer().start(interval, function(tmr:FlxTimer)
+		{
+			trace("flashing in chain  " + i);
+			var chain = grpChains.members[i];
+			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
+			camFollow.setPosition(chain.x, gf.y + 200);
+			chain.visible = true;
+
+			new FlxTimer().start(interval / 6, function(t:FlxTimer)
+			{
+				chain.setColorTransform(1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft));
+			}, 4);
+
+			i = i + 1;
+			// end scene
+			if (i >= 4)
+				boyfriend.playAnim("pausad", true);
+			if (i < 7)
+				tmr.reset(0.3);
+			else if (i == 7)
+			{
+				camFollow.setPosition(boyfriend.x, boyfriend.y + 50);
+				FlxTween.tween(FlxG.camera, {zoom: 0.8}, 2, {
+					ease: FlxEase.quadIn
+				});
+				FlxG.camera.followLerp = 0.02 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
+				new FlxTimer().start(5, function(t:FlxTimer)
+				{
+					add(doof2);
+				});
+			}
 		});
 	}
 
