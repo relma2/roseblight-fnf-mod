@@ -223,6 +223,29 @@ class Note extends FlxSprite
 	{
 		super.update(elapsed);
 
+		if (warning && isOnScreen())
+		{
+			if ((Conductor.songPosition / Conductor.stepCrochet) % 4 >= 3.0)
+			{
+				switch (this.noteData)
+				{
+					case 0:
+						this.setColorTransform(1.1, 0.9, 1.3);
+					case 2:
+						this.setColorTransform(0.9, 1.5, 0.9);
+					case 1:
+						this.setColorTransform(0.9, 0.9, 1.5);
+					case 3:
+						this.setColorTransform(1.5, 0.9, 0.9);
+				}
+			}
+			else
+			{
+				this.setColorTransform(1.0, 1.0, 1.0);
+			}
+			this.updateFramePixels();
+		}
+
 		if (mustPress)
 		{
 			// ass
