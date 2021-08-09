@@ -1355,8 +1355,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		trace('starting');
 
-		// relma2 -- fix this to only be storymode later
-		if (true)
+		if (isStoryMode)
 		{
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
 			{
@@ -3339,7 +3338,21 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				FlxG.sound.music.stop();
 				vocals.stop();
 
-				if (FlxG.save.data.scoreScreen)
+				// force ad play in freeplay
+				if (curSong.toLowerCase() == 'aplovecraft')
+				{
+					// this technically skips results screen in story mode, but its hacky
+					dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftPostDialogue'));
+					var doof = new DialogueBox(false, dialogue);
+					doof.scrollFactor.set();
+					doof.cameras = [camHUD];
+					doof.finishThing = function():Void
+					{
+						openSubState(new ResultsScreen());
+					};
+					schoolIntro(doof);
+				}
+				else if (FlxG.save.data.scoreScreen)
 					openSubState(new ResultsScreen());
 				else
 					FlxG.switchState(new FreeplayState());
@@ -4161,7 +4174,13 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				if (FlxG.save.data.distractions)
 					FlxG.camera.shake(0.06, 0.25);
 				dad.playAnim('pausa', true);
+				// stupid offsetting
+				gf.y -= 25;
 				gf.playAnim('scared', true);
+				new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
+				{
+					gf.y += 25;
+				});
 			}
 		}
 
@@ -4272,7 +4291,13 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		add(dither);
 		add(grpChains2);
 		dad.playAnim('pausa', true);
+		// stupid offsetting
+		gf.y -= 25;
 		gf.playAnim('scared', true);
+		new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
+		{
+			gf.y += 25;
+		});
 		boyfriend.playAnim('pausad', true);
 		vocals.volume = 0;
 		if (!boyfriend.pausad)
