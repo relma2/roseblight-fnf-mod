@@ -3425,6 +3425,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					health += 0.1;
 				if (FlxG.save.data.accuracyMod == 0)
 					totalNotesHit += 1;
+				var splash:NoteSplash = new NoteSplash(playerStrums.members[daNote.noteData].x, playerStrums.members[daNote.noteData].y, daNote.noteData);
+				splash.cameras = [camHUD];
+				add(splash);
 				sicks++;
 		}
 
