@@ -1,5 +1,7 @@
 package;
 
+import lime.utils.Float32Array;
+import flixel.util.helpers.FlxRange;
 import FreezeNotes;
 import Replay.Ana;
 import Replay.Analysis;
@@ -1355,7 +1357,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		trace('starting');
 
-		if (isStoryMode)
+		// relma2 -- remove cutscene forcing when done
+		if (true)
 		{
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
 			{
@@ -1461,6 +1464,10 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
 			camFollow.setPosition(FlxMath.bound(chain.x, 1000, 2800), gf.y + 200);
 			chain.visible = true;
+
+			var p = new BlightParticle(chain.x, gf.y + gf.height * 0.6, new FlxRange<Float>(0.75, 1.0), new FlxRange<Float>(interval * 3, interval * 4));
+			p.scrollFactor.set(chain.scrollFactor.x, chain.scrollFactor.y);
+			add(p);
 
 			new FlxTimer().start(interval / 6, function(t:FlxTimer)
 			{
