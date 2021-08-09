@@ -941,7 +941,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 						for (i in 0...7)
 						{
-							var chain:FlxSprite = new FlxSprite((400 * i) + 500, -900);
+							var chain:FlxSprite = new FlxSprite((400 * i) + 100, -900);
 							chain.frames = Paths.getSparrowAtlas('griswell/chains', 'week7');
 							chain.animation.addByPrefix('chain', 'chain', 4, true);
 							chain.animation.play('chain', true, true, 0);
@@ -1460,7 +1460,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			trace("flashing in chain  " + i);
 			var chain = grpChains.members[i];
 			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
-			camFollow.setPosition(chain.x, gf.y + 200);
+			camFollow.setPosition(FlxMath.bound(chain.x, 1000, 2800), gf.y + 200);
 			chain.visible = true;
 
 			new FlxTimer().start(interval / 6, function(t:FlxTimer)
@@ -1476,12 +1476,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				tmr.reset(0.3);
 			else if (i == 7)
 			{
-				camFollow.setPosition(boyfriend.x, boyfriend.y + 50);
+				camFollow.setPosition(boyfriend.x + 200, boyfriend.y + 75);
 				FlxTween.tween(FlxG.camera, {zoom: 0.8}, 2, {
-					ease: FlxEase.quadIn
+					ease: FlxEase.quartOut
 				});
-				FlxG.camera.followLerp = 0.02 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
-				new FlxTimer().start(5, function(t:FlxTimer)
+				FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
+				new FlxTimer().start(4, function(t:FlxTimer)
 				{
 					add(doof2);
 				});
