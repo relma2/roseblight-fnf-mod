@@ -1432,6 +1432,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	function aplovecraftCutscene():Void
 	{
 		inCutscene = true;
+		// initiaize secont part of dialogue
 		var doof2 = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue_next')));
 		doof2.scrollFactor.set();
 		doof2.cameras = [camHUD];
@@ -1452,6 +1453,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		{
 			grpChains.members[i].visible = false;
 		}
+		// Prepare camera to follow chains
 		FlxG.camera.focusOn(dad.getGraphicMidpoint());
 		FlxG.camera.zoom = 0.7;
 		FlxG.camera.followLerp = 0.05;
@@ -1465,10 +1467,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			camFollow.setPosition(FlxMath.bound(chain.x, 1000, 2800), gf.y + 200);
 			chain.visible = true;
 
-			var p = new BlightParticle(chain.x, gf.y + gf.height * 0.6, new FlxRange<Float>(0.75, 1.0), new FlxRange<Float>(interval * 3, interval * 4));
-			p.scrollFactor.set(chain.scrollFactor.x, chain.scrollFactor.y);
-			add(p);
-
+			// chain flash effect
 			new FlxTimer().start(interval / 6, function(t:FlxTimer)
 			{
 				chain.setColorTransform(1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft));
@@ -1482,10 +1481,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				tmr.reset(0.3);
 			else if (i == 7)
 			{
+				// pan ofver bf pausad
 				camFollow.setPosition(boyfriend.x + 200, boyfriend.y + 75);
 				FlxTween.tween(FlxG.camera, {zoom: 0.8}, 2, {
 					ease: FlxEase.quartOut
 				});
+				// end scene
 				FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
 				new FlxTimer().start(4, function(t:FlxTimer)
 				{
