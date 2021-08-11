@@ -13,11 +13,13 @@ class NoteSplash extends FlxSprite
 		antialiasing = true;
 		alpha = 0.69;
 
+		var myOffset:Int = 30;
+
 		updateHitbox();
 		if (direction == 0 || direction == 3)
-			offset.set(0.291 * this.width, 0.315 * this.height);
+			offset.set(0.291 * this.width + myOffset, 0.315 * this.height + myOffset);
 		else
-			offset.set(0.33 * this.width, 0.315 * this.height);
+			offset.set(0.33 * this.width + myOffset, 0.315 * this.height + myOffset);
 		animation.play('idle');
 
 		animation.finishCallback = function(t)
