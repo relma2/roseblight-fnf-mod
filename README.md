@@ -89,15 +89,7 @@ haxelib install assert 1.0.0
 # Credits
 
 ### Roseblight Mod
- - [Relma](https://github.com/relma2)
- - [SuperEclipse](https://github.com/SundayMoonday)
- - [Jake Neutron](https://twitter.com/TheJakeneutron)
- - [Hazel](https://gamebanana.com/members/1806493)
- - [Ikkrine](https://twitter.com/rexkuroblack?lang=en)
- - [Kirbos](https://github.com/Kirbos); charter
- - ~~Kazooby~~
-
-Special thanks to [\@AploveStudio](https://aplovestudio.itch.io/)
+![div](art/icon_credits.png)
 
 ### Kade Engine
 - [KadeDeveloper](https://twitter.com/KadeDeveloper) - Maintainer and lead programmer
