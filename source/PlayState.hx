@@ -1,5 +1,6 @@
 package;
 
+import flixel.effects.particles.FlxEmitter.FlxTypedEmitter;
 import lime.utils.Float32Array;
 import flixel.util.helpers.FlxRange;
 import FreezeNotes;
@@ -36,6 +37,8 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.effects.particles.FlxEmitter;
+import flixel.effects.particles.FlxParticle;
 import flixel.ui.FlxBar;
 import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
@@ -1472,6 +1475,30 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			{
 				chain.setColorTransform(1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft));
 			}, 4);
+
+			// emitter
+			var emit = new FlxEmitter(chain.x + chain.width, gf.y + 650, 50);
+			emit.makeParticles(20, 20, FlxColor.WHITE, 100);
+			emit.launchMode = FlxEmitterMode.SQUARE;
+			emit.lifespan.set(interval * 2, interval * 6);
+			emit.velocity.set(-chain.width / 1.5, -400, chain.width / 1.5, -250, 0, -50, 0, -20);
+			emit.alpha.set(0.95, 1.0, 0.85, 0.9);
+			var emit2 = new FlxEmitter(chain.x + chain.width, gf.y + 650, 50);
+			emit2.makeParticles(20, 20, FlxColor.WHITE, 100);
+			emit2.launchMode = FlxEmitterMode.SQUARE;
+			emit2.lifespan.set(interval * 2, interval * 6);
+			emit2.velocity.set(-chain.width / 1.5, -300, chain.width / 1.5, -250, 0, -50, 0, -20);
+			emit2.alpha.set(0.95, 1.0, 0.85, 0.9);
+			remove(gf);
+			remove(boyfriend);
+			remove(dad);
+			add(emit);
+			add(emit2);
+			add(gf);
+			add(boyfriend);
+			add(dad);
+			emit.start(true);
+			emit2.start(false, 0.05);
 
 			i = i + 1;
 			// end scene
