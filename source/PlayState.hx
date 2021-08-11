@@ -1482,7 +1482,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			emit.lifespan.set(interval * 2, interval * 6);
 			var emit2 = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
 			emit2.createParticles(100);
-			emit2.lifespan.set(interval * 2, interval * 6);
+			emit2.lifespan.set(interval * 3.5, interval * 9);
 			remove(gf);
 			remove(boyfriend);
 			remove(dad);
