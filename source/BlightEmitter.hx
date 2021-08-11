@@ -1,6 +1,8 @@
 package;
 
+import flixel.util.helpers.FlxBounds;
 import flixel.math.FlxRandom;
+import flixel.math.FlxMath;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
 import flixel.effects.particles.FlxParticle;
@@ -50,6 +52,9 @@ class BlightParticle extends FlxParticle
 {
 	private var _centerX:Float;
 	private var _wave:Bool;
+	private var prevElapsed:Float = 0;
+
+	public var amplitude:Float;
 
 	public function new(X, Y)
 	{
@@ -57,13 +62,36 @@ class BlightParticle extends FlxParticle
 		this.x = X;
 		this._centerX = x;
 		this.y = Y;
+		this.antialiasing = false;
 		this._wave = new FlxRandom().bool();
+		this.amplitude = new FlxRandom().float(25, 30);
+		this.loadGraphic(Paths.image("particle0", "shared"));
+	}
+
+	private function oscillate(elapsed:Float):Float
+	{
+		if (_wave)
+		{
+			return _centerX + amplitude * FlxMath.fastSin(elapsed);
+		}
+		else
+		{
+			return _centerX + amplitude * FlxMath.fastCos(elapsed);
+		}
+	}
+
+	override function update(elapsed:Float):Void
+	{
+		this.x = _centerX;
+		super.update(elapsed);
+		prevElapsed = prevElapsed + elapsed < 6.3 ? prevElapsed + elapsed : (prevElapsed + elapsed) % (2 * Math.PI);
+		_centerX = this.x;
+		this.x = oscillate(prevElapsed);
 	}
 
 	override function onEmit():Void
 	{
 		this._centerX = this.x;
-		this._wave = new FlxRandom().bool();
 		var b:String = new FlxRandom().bool() ? "0" : "1";
 		this.loadGraphic(Paths.image("particle" + b, "shared"));
 		this.updateFramePixels();
