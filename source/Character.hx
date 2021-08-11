@@ -1,5 +1,6 @@
 package;
 
+import haxe.Constraints.Function;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
@@ -47,7 +48,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 				animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 				animation.addByIndices('hairBlow', "GF Dancing Beat Blowing", [0, 1, 2, 3], "", 24);
 				animation.addByIndices('hairFall', "QF Dancing Beat Blowing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
-				animation.addByIndices('scared', 'GF FEAR ', [0, 1, 2, 3, 0, 1, 2, 3], "", 24, false);
+				animation.addByIndices('scared', 'GF FEAR ', [0, 1, 2, 3, 0, 1], "", 24, false);
 
 				addOffset('cheer');
 				addOffset('sad', -2, -2);
@@ -61,7 +62,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 				addOffset('hairBlow', 45, -8);
 				addOffset('hairFall', 0, -9);
 
-				addOffset('scared', -2, 0);
+				addOffset('scared', -2, -25);
 
 				playAnim('danceRight');
 
@@ -546,7 +547,9 @@ class Character extends FlxSprite implements SpriteOffsetting
 					animation.addByPrefix('singDOWN', 'note sing down', 24, false);
 					animation.addByPrefix('singLEFT', 'note sing left', 24, false);
 					animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
-					animation.addByPrefix('pausa', 'blite pausa', 24, false);
+					animation.addByIndices('pausa', 'blite pausa', [0, 0, 0, 0, 0], "", 12, false);
+					animation.addByIndices('onestrapoff', 'blite strapoff', [0, 0, 0, 0, 0, 0, 0], "", 4, false);
+					animation.addByPrefix('rargh', 'blite roar', 24, true);
 
 					addOffset('idle');
 					addOffset("singUP", -20);
@@ -682,21 +685,6 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
-			trace("still laughing");
-		else if (animation.curAnim != null
-			&& animation.curAnim.name.startsWith('scared')
-			&& curCharacter == 'gf'
-			&& !animation.curAnim.finished)
-			trace("still scared");
-		else if (animation.curAnim != null
-			&& animation.curAnim.name.startsWith('strapon')
-			&& (curCharacter == 'nite' || curCharacter == 'blaykstatic')
-			&& !animation.curAnim.finished)
-			trace("nuuuu blayks taking the seat");
-		else
-			animation.play(AnimName, Force, Reversed, Frame);
-
 		var daOffset = animOffsets.get(AnimName);
 		if (animOffsets.exists(AnimName))
 		{
@@ -704,6 +692,21 @@ class Character extends FlxSprite implements SpriteOffsetting
 		}
 		else
 			offset.set(0, 0);
+
+		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
+			return;
+		else if (animation.curAnim != null
+			&& animation.curAnim.name.startsWith('scared')
+			&& curCharacter == 'gf'
+			&& !animation.curAnim.finished)
+			return;
+		else if (animation.curAnim != null
+			&& animation.curAnim.name.startsWith('strapon')
+			&& (curCharacter == 'nite' || curCharacter == 'blaykstatic')
+			&& !animation.curAnim.finished)
+			return;
+
+		animation.play(AnimName, Force, Reversed, Frame);
 
 		if (curCharacter == 'gf')
 		{

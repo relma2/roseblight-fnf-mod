@@ -1,5 +1,8 @@
 package;
 
+import flixel.effects.particles.FlxEmitter.FlxTypedEmitter;
+import lime.utils.Float32Array;
+import flixel.util.helpers.FlxRange;
 import FreezeNotes;
 import Replay.Ana;
 import Replay.Analysis;
@@ -34,6 +37,8 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.effects.particles.FlxEmitter;
+import flixel.effects.particles.FlxParticle;
 import flixel.ui.FlxBar;
 import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
@@ -198,6 +203,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	var shopbg:FlxSprite;
 	var grpChains:FlxTypedGroup<FlxSprite>;
 	var grpChains2:FlxTypedGroup<FlxSprite>;
+	var middleparticles:BlightEmitter;
 
 	var fc:Bool = true;
 
@@ -939,7 +945,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						grpChains = new FlxTypedGroup<FlxSprite>();
 						add(grpChains);
 
-						for (i in 0...10)
+						for (i in 0...7)
 						{
 							var chain:FlxSprite = new FlxSprite((400 * i) + 100, -900);
 							chain.frames = Paths.getSparrowAtlas('griswell/chains', 'week7');
@@ -1429,22 +1435,101 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	function aplovecraftCutscene():Void
 	{
 		inCutscene = true;
-		trace("TODO: animate real cutscene");
+		// initiaize secont part of dialogue
 		var doof2 = new DialogueBox(false, CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftDialogue_next')));
 		doof2.scrollFactor.set();
 		doof2.cameras = [camHUD];
 		doof2.finishThing = function()
 		{
 			grpChains2.visible = true;
+			FlxG.camera.zoom = defaultCamZoom;
+			FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
 			startCountdown();
 		}
-		FlxG.sound.play(Paths.sound('Lights_Turn_On'), 0.8);
-		new FlxTimer().start(1, function(tmr:FlxTimer)
+		// camera set to chain 1
+		grpChains.visible = true;
+		grpChains.sort(function(ord:Int, a:FlxSprite, b:FlxSprite):Int
 		{
-			grpChains.visible = true;
-			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.5, false);
-			add(doof2);
+			return FlxSort.byValues(ord, a.x, b.x);
 		});
+		for (i in 0...7)
+		{
+			grpChains.members[i].visible = false;
+		}
+
+		// Play Blite strapoff animation
+		FlxTween.tween(FlxG.camera, {zoom: 0.75}, 0.3);
+		camFollow.setPosition(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		dad.playAnim("onestrapoff");
+		dad.animation.finishCallback = function(name:String)
+		{
+			dad.animation.finishCallback = null;
+			dad.playAnim("rargh", true);
+			// Prepare camera to follow chains
+
+			FlxG.camera.focusOn(dad.getGraphicMidpoint());
+			FlxG.camera.zoom = 0.7;
+			FlxG.camera.followLerp = 0.05;
+			var interval:Float = 0.25;
+			var i:Int = 0;
+			new FlxTimer().start(interval, function(tmr:FlxTimer)
+			{
+				trace("flashing in chain  " + i);
+				var chain = grpChains.members[i];
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
+				camFollow.setPosition(FlxMath.bound(chain.x, 1000, 2800), gf.y + 200);
+				chain.visible = true;
+
+				// chain flash effect
+				new FlxTimer().start(interval / 6, function(t:FlxTimer)
+				{
+					chain.setColorTransform(1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft));
+				}, 4);
+
+				// emitter
+				var emit = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
+				emit.createParticles(100);
+				emit.lifespan.set(interval * 2, interval * 6);
+				var emit2 = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
+				emit2.createParticles(100);
+				emit2.lifespan.set(interval * 3.5, interval * 9);
+				remove(gf);
+				remove(boyfriend);
+				remove(dad);
+				add(emit);
+				add(emit2);
+				add(gf);
+				add(boyfriend);
+				add(dad);
+				emit.start(true);
+				emit2.start(false, 0.09);
+
+				i = i + 1;
+				// end scene
+				if (i == 4)
+				{
+					middleparticles = emit2;
+					boyfriend.playAnim("pausad", true);
+					dad.playAnim("idle", true);
+				}
+				if (i < 7)
+					tmr.reset(0.3);
+				else if (i == 7)
+				{
+					// pan ofver bf pausad
+					camFollow.setPosition(boyfriend.x + 200, boyfriend.y + 75);
+					FlxTween.tween(FlxG.camera, {zoom: 0.8}, 2, {
+						ease: FlxEase.quartOut
+					});
+					// end scene
+					FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
+					new FlxTimer().start(4, function(t:FlxTimer)
+					{
+						add(doof2);
+					});
+				}
+			});
+		}
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
@@ -3297,7 +3382,21 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				FlxG.sound.music.stop();
 				vocals.stop();
 
-				if (FlxG.save.data.scoreScreen)
+				// force ad play in freeplay
+				if (curSong.toLowerCase() == 'aplovecraft')
+				{
+					// this technically skips results screen in story mode, but its hacky
+					dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftPostDialogue'));
+					var doof = new DialogueBox(false, dialogue);
+					doof.scrollFactor.set();
+					doof.cameras = [camHUD];
+					doof.finishThing = function():Void
+					{
+						openSubState(new ResultsScreen());
+					};
+					schoolIntro(doof);
+				}
+				else if (FlxG.save.data.scoreScreen)
 					openSubState(new ResultsScreen());
 				else
 					FlxG.switchState(new FreeplayState());
@@ -3370,6 +3469,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					health += 0.1;
 				if (FlxG.save.data.accuracyMod == 0)
 					totalNotesHit += 1;
+				var splash:NoteSplash = new NoteSplash(playerStrums.members[daNote.noteData].x, playerStrums.members[daNote.noteData].y, daNote.noteData);
+				splash.cameras = [camHUD];
+				add(splash);
 				sicks++;
 		}
 
@@ -4119,7 +4221,13 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				if (FlxG.save.data.distractions)
 					FlxG.camera.shake(0.06, 0.25);
 				dad.playAnim('pausa', true);
+				// stupid offsetting
+				gf.y -= 25;
 				gf.playAnim('scared', true);
+				new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
+				{
+					gf.y += 25;
+				});
 			}
 		}
 
@@ -4224,13 +4332,21 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		remove(gf);
 		remove(dad);
 		remove(grpChains);
+		remove(middleparticles);
 		add(grpChains);
+		add(middleparticles);
 		add(gf);
 		add(dad);
 		add(dither);
 		add(grpChains2);
 		dad.playAnim('pausa', true);
+		// stupid offsetting
+		gf.y -= 25;
 		gf.playAnim('scared', true);
+		new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
+		{
+			gf.y += 25;
+		});
 		boyfriend.playAnim('pausad', true);
 		vocals.volume = 0;
 		if (!boyfriend.pausad)
@@ -4252,10 +4368,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		remove(grpChains2);
 		remove(dither);
 		remove(gf);
+		remove(middleparticles);
 		remove(dad);
 		remove(grpChains);
 		add(dither);
 		add(grpChains);
+		add(middleparticles);
 		add(gf);
 		add(dad);
 		add(grpChains2);

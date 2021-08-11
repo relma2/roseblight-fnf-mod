@@ -17,6 +17,22 @@ Oh noes Blite has dethroned girlfriend and put THEIR girl atop the speakers!! (u
 
 TODO: Add Screenshots
 
+## TROUBLESHOOTING COMPILING
+```
+C:\HaxeToolkit\haxe\std\haxe\macro\ExampleJSGenerator.hx:102 characters 12-17 : Class<haxe.macro.Context> has no field error 
+```
+This one gave me trouble for absolutely no reason. Navigate to the file C:\HaxeToolkit\haxe\std\haxe\macro\ExampleJSGenerator.hx and comment out **lines 101 and 102**, or the body of the function `checkFieldName`.
+
+```
+C:\Path\to\roseblight-fnf-mod>lime build Windows
+Error: Could not find haxelib "assertion", does it need to be installed?
+```
+You need to install the assert library from haxe. Run
+```
+haxelib install assert 1.0.0
+```
+### I don't wanna see idiots who didnt read the README on the Issues page or I will roast your dumbass
+
 ### Major TODO items
 <details>
 <summary> Completed Items </summary>
