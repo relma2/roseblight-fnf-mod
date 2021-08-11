@@ -53,6 +53,13 @@ haxelib install assert 1.0.0
   - [x] Shop window breaking towards end of song 2
   - [x] Pausa animation from Blite on Pausa notes
   - [x] Screen shaking subtly on Pausa Notes
+
+ - [x] Add Dialogue (done!)
+ - [x] Implement Cutscene 3 (Placeholder cutscene done, need to)
+  - Pan camera over Blite, take one strap off
+  - snap animation, camera rapidly zooms over to bf
+  - while camera is zomming, have each of the chains in grpchains1 flash in
+  - have camera hold on bf_pausad 
  
 ![div](art/div.png)
 </details>
@@ -62,14 +69,6 @@ haxelib install assert 1.0.0
   - [ ] Song 2
   - [x] Song 3
 
-![div](art/div.png)
-
- - [x] Add Dialogue (done!)
- - [ ] Implement Cutscene 3 (Placeholder cutscene done, need to)
-  - Pan camera over Blite, take one strap off
-  - snap animation, camera rapidly zooms over to bf
-  - while camera is zomming, have each of the chains in grpchains1 flash in
-  - have camera hold on bf_pausad 
 
 ![div](art/div.png)
 
@@ -78,10 +77,12 @@ haxelib install assert 1.0.0
  - [ ] Relma putting those sprites ingame
 
 ### Minor TODO Items
- - [ ] fix the beats at which Nite sings in song 1 so they actually do laugh when its not his turn
- - [ ] fix the modchart cam zoom in song 2 so it stays zoomed in on the broken shop window
+ - [x] fix the beats at which Nite sings in song 1 so they actually do laugh when its not his turn
+ - [ ] ~~fix the modchart cam zoom in song 2 so it stays zoomed in on the broken shop window (wont fix; its fine)~~
  - [x] tint bf miss animations dark
  - [x] make meme face blayks eyes smaller
+ - [ ] Fix character sprite offsets
+ - [ ] Add Screenshots to README
 
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
