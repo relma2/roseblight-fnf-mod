@@ -1477,18 +1477,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			}, 4);
 
 			// emitter
-			var emit = new FlxEmitter(chain.x + chain.width, gf.y + 650, 50);
-			emit.makeParticles(20, 20, FlxColor.WHITE, 100);
-			emit.launchMode = FlxEmitterMode.SQUARE;
+			var emit = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
+			emit.createParticles(100);
 			emit.lifespan.set(interval * 2, interval * 6);
-			emit.velocity.set(-chain.width / 1.5, -400, chain.width / 1.5, -250, 0, -50, 0, -20);
-			emit.alpha.set(0.95, 1.0, 0.85, 0.9);
-			var emit2 = new FlxEmitter(chain.x + chain.width, gf.y + 650, 50);
-			emit2.makeParticles(20, 20, FlxColor.WHITE, 100);
-			emit2.launchMode = FlxEmitterMode.SQUARE;
+			var emit2 = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
+			emit2.createParticles(100);
 			emit2.lifespan.set(interval * 2, interval * 6);
-			emit2.velocity.set(-chain.width / 1.5, -300, chain.width / 1.5, -250, 0, -50, 0, -20);
-			emit2.alpha.set(0.95, 1.0, 0.85, 0.9);
 			remove(gf);
 			remove(boyfriend);
 			remove(dad);
@@ -1498,7 +1492,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			add(boyfriend);
 			add(dad);
 			emit.start(true);
-			emit2.start(false, 0.05);
+			emit2.start(false, 0.09);
 
 			i = i + 1;
 			// end scene
