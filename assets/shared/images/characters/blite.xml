@@ -2,10 +2,12 @@
 <TextureAtlas imagePath="blite.png">
 	<!-- Created with Adobe Animate version 20.0.0.17400 -->
 	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="note sing left0000" x="1430" y="0" height="500" width="525"/>
-	<SubTexture name="note sing right0000" height="500" x="1955" y="0" width="525"/>
-	<SubTexture name="note sing up0000" height="500"x="460" y="0" width="435"/>
-	<SubTexture name="note sing down0000" height="500" x="895" y="0" width="435"/>
-	<SubTexture name="idle0000" height="500" x="0" y="0" width="435"/>
-	<SubTexture name="blite pausa0000" height="500" x="2455" y="0" width="525"/>
+	<SubTexture name="note sing left0000" x="1430" y="0" height="800" width="525"/>
+	<SubTexture name="note sing right0000" height="800" x="1955" y="0" width="525"/>
+	<SubTexture name="note sing up0000" height="800"x="460" y="0" width="435"/>
+	<SubTexture name="note sing down0000" height="800" x="895" y="0" width="435"/>
+	<SubTexture name="idle0000" height="800" x="0" y="0" width="435"/>
+	<SubTexture name="blite pausa0000" height="800" x="2455" y="0" width="525"/>
+	<SubTexture name="blite strapoff0000" height="800" x="2920" y="0" width="700"/>
+	<SubTexture name="blite roar0000" height="800" x="3463" y="0" width="600"/>
 </TextureAtlas>
