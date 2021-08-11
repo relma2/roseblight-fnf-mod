@@ -203,6 +203,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	var shopbg:FlxSprite;
 	var grpChains:FlxTypedGroup<FlxSprite>;
 	var grpChains2:FlxTypedGroup<FlxSprite>;
+	var middleparticles:BlightEmitter;
 
 	var fc:Bool = true;
 
@@ -1360,8 +1361,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		trace('starting');
 
-		// relma2 -- remove cutscene forcing when done
-		if (true)
+		if (isStoryMode)
 		{
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
 			{
@@ -1456,65 +1456,80 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		{
 			grpChains.members[i].visible = false;
 		}
-		// Prepare camera to follow chains
-		FlxG.camera.focusOn(dad.getGraphicMidpoint());
-		FlxG.camera.zoom = 0.7;
-		FlxG.camera.followLerp = 0.05;
-		var interval:Float = 0.25;
-		var i:Int = 0;
-		new FlxTimer().start(interval, function(tmr:FlxTimer)
+
+		// Play Blite strapoff animation
+		FlxTween.tween(FlxG.camera, {zoom: 0.75}, 0.3);
+		camFollow.setPosition(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		dad.playAnim("onestrapoff");
+		dad.animation.finishCallback = function(name:String)
 		{
-			trace("flashing in chain  " + i);
-			var chain = grpChains.members[i];
-			FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
-			camFollow.setPosition(FlxMath.bound(chain.x, 1000, 2800), gf.y + 200);
-			chain.visible = true;
+			dad.animation.finishCallback = null;
+			dad.playAnim("rargh", true);
+			// Prepare camera to follow chains
 
-			// chain flash effect
-			new FlxTimer().start(interval / 6, function(t:FlxTimer)
+			FlxG.camera.focusOn(dad.getGraphicMidpoint());
+			FlxG.camera.zoom = 0.7;
+			FlxG.camera.followLerp = 0.05;
+			var interval:Float = 0.25;
+			var i:Int = 0;
+			new FlxTimer().start(interval, function(tmr:FlxTimer)
 			{
-				chain.setColorTransform(1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft));
-			}, 4);
+				trace("flashing in chain  " + i);
+				var chain = grpChains.members[i];
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
+				camFollow.setPosition(FlxMath.bound(chain.x, 1000, 2800), gf.y + 200);
+				chain.visible = true;
 
-			// emitter
-			var emit = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
-			emit.createParticles(100);
-			emit.lifespan.set(interval * 2, interval * 6);
-			var emit2 = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
-			emit2.createParticles(100);
-			emit2.lifespan.set(interval * 3.5, interval * 9);
-			remove(gf);
-			remove(boyfriend);
-			remove(dad);
-			add(emit);
-			add(emit2);
-			add(gf);
-			add(boyfriend);
-			add(dad);
-			emit.start(true);
-			emit2.start(false, 0.09);
-
-			i = i + 1;
-			// end scene
-			if (i >= 4)
-				boyfriend.playAnim("pausad", true);
-			if (i < 7)
-				tmr.reset(0.3);
-			else if (i == 7)
-			{
-				// pan ofver bf pausad
-				camFollow.setPosition(boyfriend.x + 200, boyfriend.y + 75);
-				FlxTween.tween(FlxG.camera, {zoom: 0.8}, 2, {
-					ease: FlxEase.quartOut
-				});
-				// end scene
-				FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
-				new FlxTimer().start(4, function(t:FlxTimer)
+				// chain flash effect
+				new FlxTimer().start(interval / 6, function(t:FlxTimer)
 				{
-					add(doof2);
-				});
-			}
-		});
+					chain.setColorTransform(1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft), 1.0 * (1 + t.loopsLeft));
+				}, 4);
+
+				// emitter
+				var emit = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
+				emit.createParticles(100);
+				emit.lifespan.set(interval * 2, interval * 6);
+				var emit2 = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
+				emit2.createParticles(100);
+				emit2.lifespan.set(interval * 3.5, interval * 9);
+				remove(gf);
+				remove(boyfriend);
+				remove(dad);
+				add(emit);
+				add(emit2);
+				add(gf);
+				add(boyfriend);
+				add(dad);
+				emit.start(true);
+				emit2.start(false, 0.09);
+
+				i = i + 1;
+				// end scene
+				if (i == 4)
+				{
+					middleparticles = emit2;
+					boyfriend.playAnim("pausad", true);
+					dad.playAnim("idle", true);
+				}
+				if (i < 7)
+					tmr.reset(0.3);
+				else if (i == 7)
+				{
+					// pan ofver bf pausad
+					camFollow.setPosition(boyfriend.x + 200, boyfriend.y + 75);
+					FlxTween.tween(FlxG.camera, {zoom: 0.8}, 2, {
+						ease: FlxEase.quartOut
+					});
+					// end scene
+					FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
+					new FlxTimer().start(4, function(t:FlxTimer)
+					{
+						add(doof2);
+					});
+				}
+			});
+		}
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
@@ -4317,7 +4332,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		remove(gf);
 		remove(dad);
 		remove(grpChains);
+		remove(middleparticles);
 		add(grpChains);
+		add(middleparticles);
 		add(gf);
 		add(dad);
 		add(dither);
@@ -4351,10 +4368,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		remove(grpChains2);
 		remove(dither);
 		remove(gf);
+		remove(middleparticles);
 		remove(dad);
 		remove(grpChains);
 		add(dither);
 		add(grpChains);
+		add(middleparticles);
 		add(gf);
 		add(dad);
 		add(grpChains2);
