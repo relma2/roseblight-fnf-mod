@@ -1,5 +1,7 @@
 package;
 
+import flixel.util.helpers.FlxRange;
+import flixel.util.FlxColor;
 import flixel.util.helpers.FlxBounds;
 import flixel.math.FlxRandom;
 import flixel.math.FlxMath;
@@ -20,7 +22,7 @@ class BlightEmitter extends FlxTypedEmitter<BlightParticle>
 		super(X, Y, quantity);
 		this._chainWidth = chain.width;
 		this.launchMode = FlxEmitterMode.SQUARE;
-		this.blend = HARDLIGHT;
+		this.blend = ADD;
 		this.velocity.set(-_chainWidth / 1.5, -450, _chainWidth / 1.5, -350, 0, -50, 0, -20);
 		this.alpha.set(0.7, 0.8, 0.3, 0.5);
 		this.scrollFactor = new FlxPoint(chain.scrollFactor.x, chain.scrollFactor.y);
@@ -92,6 +94,22 @@ class BlightParticle extends FlxParticle
 	override function onEmit():Void
 	{
 		this._centerX = this.x;
+		// some are dark and some are bright
+		var i:Int = new FlxRandom().int(0, 4);
+		if (i == 0)
+		{
+			this.color = FlxColor.fromString("0x3F3A3A");
+			this.blend = MULTIPLY;
+		}
+		else if (i == 4)
+		{
+			this.blend = ADD;
+			this.alphaRange = new FlxRange<Float>(0.95, 0.7);
+		}
+		else
+		{
+			this.color = FlxColor.fromString("0xD0CAC6");
+		}
 		var b:String = new FlxRandom().bool() ? "0" : "1";
 		this.loadGraphic(Paths.image("particle" + b, "shared"));
 		this.updateFramePixels();
