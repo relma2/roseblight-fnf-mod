@@ -547,7 +547,9 @@ class Character extends FlxSprite implements SpriteOffsetting
 					animation.addByPrefix('singDOWN', 'note sing down', 24, false);
 					animation.addByPrefix('singLEFT', 'note sing left', 24, false);
 					animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
-					animation.addByPrefix('pausa', 'blite pausa', 24, false);
+					animation.addByIndices('pausa', 'blite pausa', [0, 0, 0, 0, 0]12, "" false);
+					animation.addByIndices('onestrapoff', 'blite strapoff', [0, 0, 0, 0, 0, 0, 0], "" 8, false);
+					animation.addByPrefix('rargh', 'blite roar', 24, false);
 
 					addOffset('idle');
 					addOffset("singUP", -20);
