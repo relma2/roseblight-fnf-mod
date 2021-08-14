@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="blayk_assets.png">
+	<!-- Created with Adobe Animate version 21.0.7.42652 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Blayk_Down0000" x="0" y="0" width="457" height="565" frameX="0" frameY="-2" frameWidth="457" frameHeight="567"/>
+	<SubTexture name="Blayk_Down0001" x="0" y="0" width="457" height="565" frameX="0" frameY="-2" frameWidth="457" frameHeight="567"/>
+	<SubTexture name="Blayk_Down0002" x="457" y="0" width="433" height="567" frameX="-10" frameY="0" frameWidth="457" frameHeight="567"/>
+	<SubTexture name="Blayk_Down0003" x="457" y="0" width="433" height="567" frameX="-10" frameY="0" frameWidth="457" frameHeight="567"/>
+	<SubTexture name="Blayk_Down0004" x="457" y="0" width="433" height="567" frameX="-10" frameY="0" frameWidth="457" frameHeight="567"/>
+	<SubTexture name="Blayk_Down0005" x="457" y="0" width="433" height="567" frameX="-10" frameY="0" frameWidth="457" frameHeight="567"/>
+	<SubTexture name="Blayk_Idle0000" x="890" y="0" width="373" height="573" frameX="-2" frameY="-28" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0001" x="890" y="0" width="373" height="573" frameX="-2" frameY="-28" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0002" x="1263" y="0" width="343" height="589" frameX="0" frameY="-12" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0003" x="1263" y="0" width="343" height="589" frameX="0" frameY="-12" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0004" x="1606" y="0" width="426" height="592" frameX="-2" frameY="-9" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0005" x="1606" y="0" width="426" height="592" frameX="-2" frameY="-9" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0006" x="2032" y="0" width="435" height="575" frameX="-18" frameY="-26" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0007" x="2032" y="0" width="435" height="575" frameX="-18" frameY="-26" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0008" x="2467" y="0" width="405" height="585" frameX="-42" frameY="-16" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0009" x="2872" y="0" width="382" height="597" frameX="-67" frameY="-4" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0010" x="2872" y="0" width="382" height="597" frameX="-67" frameY="-4" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0011" x="3254" y="0" width="360" height="598" frameX="-75" frameY="-3" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0012" x="3254" y="0" width="360" height="598" frameX="-75" frameY="-3" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0013" x="3614" y="0" width="329" height="601" frameX="-76" frameY="0" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0014" x="0" y="601" width="375" height="598" frameX="-72" frameY="-3" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0015" x="0" y="601" width="375" height="598" frameX="-72" frameY="-3" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0016" x="375" y="601" width="325" height="574" frameX="-34" frameY="-27" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0017" x="375" y="601" width="325" height="574" frameX="-34" frameY="-27" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Idle0018" x="700" y="601" width="331" height="596" frameX="-1" frameY="-5" frameWidth="453" frameHeight="601"/>
+	<SubTexture name="Blayk_Left0000" x="1031" y="601" width="391" height="593" frameX="0" frameY="-12" frameWidth="391" frameHeight="605"/>
+	<SubTexture name="Blayk_Left0001" x="1031" y="601" width="391" height="593" frameX="0" frameY="-12" frameWidth="391" frameHeight="605"/>
+	<SubTexture name="Blayk_Left0002" x="1422" y="601" width="369" height="605" frameX="-19" frameY="0" frameWidth="391" frameHeight="605"/>
+	<SubTexture name="Blayk_Left0003" x="1422" y="601" width="369" height="605" frameX="-19" frameY="0" frameWidth="391" frameHeight="605"/>
+	<SubTexture name="Blayk_Left0004" x="1422" y="601" width="369" height="605" frameX="-19" frameY="0" frameWidth="391" frameHeight="605"/>
+	<SubTexture name="Blayk_Left0005" x="1422" y="601" width="369" height="605" frameX="-19" frameY="0" frameWidth="391" frameHeight="605"/>
+	<SubTexture name="Blayk_Right0000" x="1791" y="601" width="359" height="585" frameX="-2" frameY="0" frameWidth="361" frameHeight="585"/>
+	<SubTexture name="Blayk_Right0001" x="1791" y="601" width="359" height="585" frameX="-2" frameY="0" frameWidth="361" frameHeight="585"/>
+	<SubTexture name="Blayk_Right0002" x="2150" y="601" width="357" height="577" frameX="0" frameY="-8" frameWidth="361" frameHeight="585"/>
+	<SubTexture name="Blayk_Right0003" x="2150" y="601" width="357" height="577" frameX="0" frameY="-8" frameWidth="361" frameHeight="585"/>
+	<SubTexture name="Blayk_Right0004" x="2150" y="601" width="357" height="577" frameX="0" frameY="-8" frameWidth="361" frameHeight="585"/>
+	<SubTexture name="Blayk_Right0005" x="2150" y="601" width="357" height="577" frameX="0" frameY="-8" frameWidth="361" frameHeight="585"/>
+	<SubTexture name="Blayk_Up0000" x="2507" y="601" width="397" height="667" frameX="-22" frameY="0" frameWidth="425" frameHeight="667"/>
+	<SubTexture name="Blayk_Up0001" x="2507" y="601" width="397" height="667" frameX="-22" frameY="0" frameWidth="425" frameHeight="667"/>
+	<SubTexture name="Blayk_Up0002" x="2904" y="601" width="425" height="665" frameX="0" frameY="-1" frameWidth="425" frameHeight="667"/>
+	<SubTexture name="Blayk_Up0003" x="2904" y="601" width="425" height="665" frameX="0" frameY="-1" frameWidth="425" frameHeight="667"/>
+	<SubTexture name="Blayk_Up0004" x="2904" y="601" width="425" height="665" frameX="0" frameY="-1" frameWidth="425" frameHeight="667"/>
+	<SubTexture name="Blayk_Up0005" x="2904" y="601" width="425" height="665" frameX="0" frameY="-1" frameWidth="425" frameHeight="667"/>
+	<SubTexture name="Blayk_Static0000" x="1610" y="1869" width="258" height="726" frameX="-265" frameY="-38" frameWidth="557" frameHeight="764"/>
+	<SubTexture name="Blayk_Static0001" x="1610" y="1869" width="258" height="726" frameX="-265" frameY="-38" frameWidth="557" frameHeight="764"/>
+	<SubTexture name="Blayk_Static0002" x="1868" y="1869" width="266" height="725" frameX="-265" frameY="-37" frameWidth="557" frameHeight="764"/>
+	<SubTexture name="Blayk_Static0003" x="1868" y="1869" width="266" height="725" frameX="-265" frameY="-37" frameWidth="557" frameHeight="764"/>
+</TextureAtlas>
