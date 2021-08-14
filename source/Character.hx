@@ -547,7 +547,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 				animation.addByPrefix('singDOWN', 'Blayk_Down', 24, false);
 				animation.addByPrefix('singLEFT', 'Blayk_Left', 24, false);
 				animation.addByPrefix('singRIGHT', 'Blayk_Right', 24, false);
-				animation.addByPrefix('static', 'Blayk_Static', 4, false);
+				animation.addByPrefix('static', 'Blayk_Static', 4, true);
 
 				addOffset('singUP', 76, 60);
 				addOffset('singLEFT', 17, 0);

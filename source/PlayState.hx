@@ -1089,10 +1089,11 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 			case 'nite':
 				dad.x -= 50;
-				dad.y += 130;
+				dad.y += 140;
 				camPos.y += 900;
 			case 'blayk':
-				dad.y += 400;
+				dad.x -= 50;
+				dad.y += 140;
 				camPos.y += 900;
 			case 'blite':
 				dad.x += 0;
@@ -1409,6 +1410,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'himbo':
 					camFollow.setPosition(boyfriend.x, gf.y);
+					dad.playAnim('static');
 					FlxG.camera.focusOn(camFollow.getPosition());
 					schoolIntro(doof);
 				case 'aplovecraft':
