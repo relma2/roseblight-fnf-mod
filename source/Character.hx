@@ -541,8 +541,9 @@ class Character extends FlxSprite implements SpriteOffsetting
 			case 'blayk':
 				var tex = Paths.getSparrowAtlas('characters/blayk_assets');
 				frames = tex;
-				animation.addByIndices('danceLeft', 'Blayk_Idle', [0, 1, 2, 3, 4, 5, 6, 7, 8], "", 24, false);
-				animation.addByIndices('danceRight', 'Blayk_Idle', [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], "", 24, false);
+				animation.addByPrefix('idle', 'Blayk_Idle', 24, true);
+				animation.addByIndices('danceLeft', 'Blayk_Idle', [18, 0, 1, 2, 3, 4, 5, 6, 7, 8], "", 24, false);
+				animation.addByIndices('danceRight', 'Blayk_Idle', [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0], "", 24, false);
 				animation.addByPrefix('singUP', 'Blayk_Up', 24, false);
 				animation.addByPrefix('singDOWN', 'Blayk_Down', 24, false);
 				animation.addByPrefix('singLEFT', 'Blayk_Left', 24, false);
