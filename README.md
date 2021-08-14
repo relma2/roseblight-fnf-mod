@@ -61,6 +61,11 @@ haxelib install assert 1.0.0
   - while camera is zomming, have each of the chains in grpchains1 flash in
   - have camera hold on bf_pausad 
  
+ - [x] fix the beats at which Nite sings in song 1 so they actually do laugh when its not his turn
+ - [x] fix the modchart cam zoom in song 2 so it stays zoomed in on the broken shop window
+ - [x] tint bf miss animations dark
+ - [x] make meme face blayks eyes smaller
+ 
 ![div](art/div.png)
 </details>
 
@@ -77,11 +82,8 @@ haxelib install assert 1.0.0
  - [ ] Relma putting those sprites ingame
 
 ### Minor TODO Items
- - [x] fix the beats at which Nite sings in song 1 so they actually do laugh when its not his turn
- - [ ] ~~fix the modchart cam zoom in song 2 so it stays zoomed in on the broken shop window (wont fix; its fine)~~
- - [x] tint bf miss animations dark
- - [x] make meme face blayks eyes smaller
- - [ ] Fix character sprite offsets
+
+ - [ ] Fix character sprite offsets (only united blite left)
  - [ ] Add Screenshots to README
 
 ## Kade Engine
