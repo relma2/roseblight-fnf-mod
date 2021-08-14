@@ -538,7 +538,24 @@ class Character extends FlxSprite implements SpriteOffsetting
 				animation.addByIndices('idle-alt', 'N_Transition', [86], "", 24, false);
 				animation.addByPrefix('strapon', 'N_Transition', 24, false);
 
-			case 'blayk' | 'blite':
+			case 'blayk':
+				var tex = Paths.getSparrowAtlas('characters/blayk_assets');
+				frames = tex;
+				animation.addByIndices('danceLeft', 'Blayk_Idle', [0, 1, 2, 3, 4, 5, 6, 7, 8], "", 24, false);
+				animation.addByIndices('danceRight', 'Blayk_Idle', [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], "", 24, false);
+				animation.addByPrefix('singUP', 'Blayk_Up', 24, false);
+				animation.addByPrefix('singDOWN', 'Blayk_Down', 24, false);
+				animation.addByPrefix('singLEFT', 'Blayk_Left', 24, false);
+				animation.addByPrefix('singRIGHT', 'Blayk_Right', 24, false);
+				animation.addByPrefix('static', 'Blayk_Static', 4, false);
+
+				addOffset('singUP', 76, 60);
+				addOffset('singLEFT', 17, 0);
+				addOffset('singRIGHT', -47, -23);
+				addOffset('singDOWN', 45, -24);
+				addOffset('static', 217, 31);
+
+			case 'blite':
 				{
 					tex = Paths.getSparrowAtlas('characters/blite');
 					frames = tex;
@@ -627,56 +644,23 @@ class Character extends FlxSprite implements SpriteOffsetting
 		{
 			switch (curCharacter)
 			{
-				case 'gf':
-					if (animation.curAnim == null || !animation.curAnim.name.startsWith('hair'))
+				case 'gf' | 'gf-christmas' | 'gf-car' | 'gf-pixel':
+					if ((curCharacter == 'gf' && animation.curAnim == null) || !animation.curAnim.name.startsWith('hair'))
 					{
 						danced = !danced;
-
 						if (danced)
 							playAnim('danceRight');
 						else
 							playAnim('danceLeft');
 					}
-
-				case 'gf-christmas':
-					if (!animation.curAnim.name.startsWith('hair'))
+				case 'spooky' | 'blayk':
 					{
 						danced = !danced;
-
 						if (danced)
 							playAnim('danceRight');
 						else
 							playAnim('danceLeft');
 					}
-
-				case 'gf-car':
-					if (!animation.curAnim.name.startsWith('hair'))
-					{
-						danced = !danced;
-
-						if (danced)
-							playAnim('danceRight');
-						else
-							playAnim('danceLeft');
-					}
-				case 'gf-pixel':
-					if (!animation.curAnim.name.startsWith('hair'))
-					{
-						danced = !danced;
-
-						if (danced)
-							playAnim('danceRight');
-						else
-							playAnim('danceLeft');
-					}
-
-				case 'spooky':
-					danced = !danced;
-
-					if (danced)
-						playAnim('danceRight');
-					else
-						playAnim('danceLeft');
 				default:
 					playAnim('idle');
 			}

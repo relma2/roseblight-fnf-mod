@@ -1091,7 +1091,10 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				dad.x -= 50;
 				dad.y += 130;
 				camPos.y += 900;
-			case 'blayk' | 'blite':
+			case 'blayk':
+				dad.y += 400;
+				camPos.y += 900;
+			case 'blite':
 				dad.x += 0;
 				camPos.y += 900;
 		}
