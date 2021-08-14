@@ -1446,6 +1446,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		doof2.cameras = [camHUD];
 		doof2.finishThing = function()
 		{
+			remove(grpChains2);
+			add(grpChains2);
 			grpChains2.visible = true;
 			FlxG.camera.zoom = defaultCamZoom;
 			FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
@@ -1510,6 +1512,18 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				emit2.start(false, 0.09);
 
 				i = i + 1;
+				if (!FlxG.save.data.distractions)
+				{
+					new FlxTimer().start(10, function(t:FlxTimer)
+					{
+						if (i != 4)
+						{
+							remove(emit);
+							remove(emit2);
+						}
+					});
+				}
+
 				// end scene
 				if (i == 4)
 				{
