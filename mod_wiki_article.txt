@@ -1,0 +1,144 @@
+{{NoticeScrollbox|Notices={{Place Holder|As the mod is currently unreleased, placeholders are being used temporarily.}}{{Unreleased}}{{Stub|Erm... we gotta fill in the todos}}}}
+
+{{Character|headercolor=#9d9997|name=Blite{{Icon|Blite}}|aliases=Blayk/Nite/Overals/Underalls|gender=Male<span style="text-decoration:underline;text-decoration-style:dotted;cursor:help" title="transgender"><nowiki>*</nowiki></span>|image=<gallery>NiteAnim.gif|Nite
+BlaykAnim.gif|Blayk
+BliteAnim.gif|United</gallery>|icons=<gallery> Nite_icons.png|Nite
+Blayk_icons.png|Blayk
+Blite_Icons.png|United</gallery>|relationships=Qrystal (girlfriend; mod only)<br>|occupation=Florist
+created by=Alex Loverde|relatives=Zyra (younger sister)|status=Alive|species=Ahokan|eyes=Dark|hair color=White|appearsin=* Roseblight (main character(s))
+* Friday Night Funkin' (as a mod)|debut=Roseblight}}
+{{Quote+|Allright, you wanna dance? LET'S DANCE.|Blite|Aplovecraft|QUOTEPORT_UnitedBlite.png}} 
+
+Blite is the protagonist of the upcoming RPG [https://aplovestudio.itch.io/roseblight ''Roseblight'']. They appear as a mod in Friday Night Funkin' and were created by Alex Loverde. They are comprised of two identities: Blayk and Nite.
+
+TODO mod excuse plot desc
+
+==Appearance==
+Blite is an Ahokan with light-colored hair matching their skin. They wear a polo shirt and overalls.<br />Whenever Blayk is in charge, their short hair is upright and overalls are fastened. Whenever Nite takes control, their hair is flopped over, obscuring part of their face, and their shoulder straps are pulled down and hanging at their waist. <ref>https://roseblight.fandom.com/wiki/Blite</ref>
+
+==Trivia==
+TODO add game origin
+
+TODO add pausa ability desc
+
+
+==Music==
+{{SongInfo|icon=NiteIcon.png|px=100|name=Brain Jail|file=Brainjail.mp3|bpm=170|bordercolor=#625d5d}}
+<small><span style="color:gray;text-align:center">changes to 180 bpm midway thru song</span></small>
+{{SongInfo|icon=BlaykIcon.png|px=100|name=Himbo|file=Himbo.mp3|bpm=150|bordercolor=#d0cac6}}
+{{SongInfo|icon=BliteIcon.png|px=100|name=Aplovecraft|file=Aplovecraft.mp3|bpm=210|bordercolor=#000000}}
+
+==Dialogue==
+{{#tag:tabber|
+{{!}}-{{!}}Brain Jail=
+====Brain Jail Dialogue====
+Narrator: This week on "Boyfriend Seeking Out Total Strangers to Rap-battle..."
+
+''(Pausa sfx plays)''
+
+{{Nametag|Nite}}: Ah! Much better!
+
+{{Nametag|BF}}: beep! beep! beep!!!
+
+{{Nametag|Nite}}: Well... MY girlfriend wanted that front-row seat, so I was happy to punt yours off of it!
+
+{{Nametag|Nite}}: You comfy up there, Qrystal?
+
+{{Nametag|Qrystal}}: mhm yeah sure
+
+{{Nametag|BF}}: beep boop!
+
+{{Nametag|Nite}}: Name's Blite. Saw you having a sing fest outside my flower shop so I figured I'd join in
+
+{{Nametag|BF}}: beep bop skedoop!
+
+{{Nametag|Nite}}: 'Put Girlfriend back up there...?' Well if you want Qrystal's SEATWARMER back on that bass-boosting throne...
+
+{{Nametag|Nite}}: Fight me for it.
+
+{{Nametag|Nite}}: And when I WIN I think I'll take that shiny palette shard hanging from your mic!
+
+
+{{!}}-{{!}}Himbo=
+====Himbo Dialogue====
+{{Nametag|Blayk}}: Um... hi, my name's Blite; I kind of... own this shop so I'd like to ask that you please keep it down?
+
+{{Nametag|Blayk}}: Your speakers are being kind of... loud
+
+{{Nametag|BF}}: beep!
+
+{{Nametag|Blayk}}: What do you MEAN I already told you my name-
+
+{{Nametag|Blayk}}: ...you are so grounded.
+
+{{Nametag|BF}}: beep! beep!
+
+{{Nametag|Blayk}}: Wh-what rap battle?
+
+{{Nametag|BF}}: bop boop!
+
+{{Nametag|Blayk}}: Can I... forfeit or something?
+
+{{!}}-{{!}}Aplovecraft=
+====Aplovecraft Dialogue====
+{{Nametag|Blayk}}: OH COME ON!! I JUST had that window fixed! You-you're gonna pay for that, right?
+
+{{Nametag|BF}}: beep!
+
+{{Nametag|Blayk}}: You can't just solve all your problems with a rap battle, you know.
+
+{{Nametag|BliteTransform}}: ...
+
+{{Nametag|BliteTransform}}: ...What? No, Nite, he's just a kid. I can talk things out.
+
+{{Nametag|BliteTransform}}: ...Can I at least scare him a little bit?
+
+{{Nametag|BliteTransform}}: ...Fine, but I'll be with you so you DON'T. Go overboard.
+
+{{Nametag|BliteTransform}}: Admit it, Blayk, you think this is fun too
+
+{{Nametag|BliteTransform}}: ...
+
+{{Nametag|BliteTransform}}: ...don't push your luck
+
+''(They take off one shoulder strap and chains fill the stage)''
+
+{{Nametag|Blite}}: Allright, you wanna dance?
+
+{{Nametag|Blite}}: LET'S DANCE.
+
+{{!}}-{{!}}Post-Aplovecraft=
+====Post-Aplovecraft Dialogue====
+Narrator: If you liked this mod and want to see more, check out Roseblight by AploveStudio
+<br />It's a masterpiece in development about a gardener who investigates the strange glow you saw 
+<br />on that mountain in the background while repairing the relationship with their other half.
+<br />It's a story of pent-up repressed rage, reconcilliation,invasion by alien colours, and the chains binding them all.
+<br />You can download the Roseblight demo on Itch io, and the full game is estimated to release by the end of 2021.
+<br />And be sure to support the developer's other games set in the same universe!<br />With Love, Relma
+}}
+
+==Gallery==
+TODO: add gallery
+<gallery widths="185" bordercolor="#9d9997" bordersize="medium" orientation="none">
+
+</gallery>
+
+==References==
+<references />
+
+==Download Link==
+[https://gamebanana.com/wips/56972 GameBanana]
+
+[https://aplovestudio.itch.io/roseblight Roseblight Game]
+
+[https://github.com/relma2/roseblight-fnf-mod Mod Source Code]
+
+{{Lineup}}
+[[Category:Page noticed by mod creator]]
+[[Category:Full Week]]
+[[Category:Mods using the Kade engine]]
+[[Category:Mods that shakes screen]]
+[[Category:Mods]]
+[[Category:Non-Human Characters]]
+[[Category:Open Source]]
+[[Category:Characters that actively hit notes]]
