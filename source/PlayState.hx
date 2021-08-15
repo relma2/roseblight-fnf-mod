@@ -203,7 +203,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	var shopbg:FlxSprite;
 	var grpChains:FlxTypedGroup<FlxSprite>;
 	var grpChains2:FlxTypedGroup<FlxSprite>;
-	var middleparticles:BlightEmitter;
+	var grpParticles:FlxTypedGroup<BlightEmitter>;
 
 	var fc:Bool = true;
 
@@ -943,16 +943,24 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						dither.centerOrigin();
 
 						grpChains = new FlxTypedGroup<FlxSprite>();
+						grpParticles = new FlxTypedGroup<BlightEmitter>();
 						add(grpChains);
+						add(grpParticles);
 
 						for (i in 0...7)
 						{
+							trace("we loopin");
 							var chain:FlxSprite = new FlxSprite((400 * i) + 100, -900);
 							chain.frames = Paths.getSparrowAtlas('griswell/chains', 'week7');
 							chain.animation.addByPrefix('chain', 'chain', 4, true);
 							chain.animation.play('chain', true, true, 0);
 							chain.scrollFactor.set(0.9, 1);
 							grpChains.add(chain);
+							var emit = new BlightEmitter(chain.x + chain.width - 100, 650, 50, chain);
+							grpParticles.add(emit);
+							emit.createParticles(100);
+							emit.lifespan.set(0.25 * 3.5, 0.25 * 9);
+							emit.start(false, 0.09);
 						}
 					}
 				case 'stage':
@@ -1415,6 +1423,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'aplovecraft':
 					grpChains.visible = false;
+					grpParticles.visible = false;
 					grpChains2.visible = false;
 					camFollow.setPosition(gf.x, boyfriend.y);
 					FlxG.camera.focusOn(camFollow.getPosition());
@@ -1455,6 +1464,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		}
 		// camera set to chain 1
 		grpChains.visible = true;
+		grpParticles.visible = true;
 		grpChains.sort(function(ord:Int, a:FlxSprite, b:FlxSprite):Int
 		{
 			return FlxSort.byValues(ord, a.x, b.x);
@@ -1462,6 +1472,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		for (i in 0...7)
 		{
 			grpChains.members[i].visible = false;
+			grpParticles.members[i].visible = false;
 		}
 
 		// Play Blite strapoff animation
@@ -1497,37 +1508,22 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				var emit = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
 				emit.createParticles(100);
 				emit.lifespan.set(interval * 2, interval * 6);
-				var emit2 = new BlightEmitter(chain.x + chain.width - 100, gf.y + 650, 50, chain);
-				emit2.createParticles(100);
-				emit2.lifespan.set(interval * 3.5, interval * 9);
+				var emit2 = grpParticles.members[i];
+
 				remove(gf);
 				remove(boyfriend);
 				remove(dad);
 				add(emit);
-				add(emit2);
 				add(gf);
 				add(boyfriend);
 				add(dad);
 				emit.start(true);
-				emit2.start(false, 0.09);
+				emit2.visible = true;
 
 				i = i + 1;
-				if (!FlxG.save.data.distractions)
-				{
-					new FlxTimer().start(10, function(t:FlxTimer)
-					{
-						if (i != 4)
-						{
-							remove(emit);
-							remove(emit2);
-						}
-					});
-				}
-
 				// end scene
 				if (i == 4)
 				{
-					middleparticles = emit2;
 					boyfriend.playAnim("pausad", true);
 					dad.playAnim("idle", true);
 				}
@@ -4351,9 +4347,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		remove(gf);
 		remove(dad);
 		remove(grpChains);
-		remove(middleparticles);
+		remove(grpParticles);
 		add(grpChains);
-		add(middleparticles);
+		add(grpParticles);
 		add(gf);
 		add(dad);
 		add(dither);
@@ -4387,12 +4383,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		remove(grpChains2);
 		remove(dither);
 		remove(gf);
-		remove(middleparticles);
+		remove(grpParticles);
 		remove(dad);
 		remove(grpChains);
 		add(dither);
 		add(grpChains);
-		add(middleparticles);
+		add(grpParticles);
 		add(gf);
 		add(dad);
 		add(grpChains2);
