@@ -2017,6 +2017,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					daStrumTime = 0;
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 
+				var isWarning:Bool = false;
+				var penalty:Int = 0;
+
 				var gottaHitNote:Bool = section.mustHitSection;
 
 				if (songNotes[1] > 3)
@@ -2030,7 +2033,15 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+				if (songNotes.length > 3)
+				{
+					trace("relma2 -- we found a pausa have entered here");
+					isWarning = songNotes[4];
+					penalty = Std.int(songNotes[5]);
+				}
+
+				var swagNote:Note = new Note(daStrumTime, daNoteData, null, false, true, (isWarning && songNotes[2] <= 0));
+				swagNote.penalty = (penalty > 0 && isWarning && songNotes[2] <= 0) ? penalty : null;
 
 				if (!gottaHitNote && PlayStateChangeables.Optimize)
 					continue;
