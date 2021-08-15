@@ -1483,6 +1483,11 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		{
 			dad.animation.finishCallback = null;
 			dad.playAnim("rargh", true);
+			FlxG.sound.play(Paths.sound('chainboom'), 7.0);
+			new FlxTimer().start(0.03, function(t:FlxTimer)
+			{
+				FlxG.sound.play(Paths.sound('chainboom'), 4.0);
+			});
 			// Prepare camera to follow chains
 
 			FlxG.camera.focusOn(dad.getGraphicMidpoint());
