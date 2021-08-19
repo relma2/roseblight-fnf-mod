@@ -9,6 +9,7 @@ import flixel.addons.effects.FlxSkewedSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
+import flixel.math.FlxRandom;
 
 using StringTools;
 
@@ -42,10 +43,12 @@ class Note extends FlxSprite
 
 	public var rating:String = "shit";
 
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false, ?isWarning:Bool = false)
+	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inCharter:Bool = false, ?isWarning:Bool = false,
+			?gottaHit:Bool = false)
 	{
 		super();
 		this.warning = isWarning;
+		this.mustPress = gottaHit;
 
 		if (prevNote == null)
 			prevNote = this;
@@ -70,6 +73,47 @@ class Note extends FlxSprite
 
 		// defaults if no noteStyle was found in chart
 		var noteTypeCheck:String = 'normal';
+
+		// Randomly convert normal notes that occur on whole beat numbers
+		// into warns. DEATH TO like, everyone i guess... im not very good
+		// at sadistic battle cries.
+		// BOW DOWN TO THE CHAIN HIMBO.
+		var diffculty:String = CoolUtil.difficultyFromInt(PlayState.storyDifficulty);
+		var EPSILON:Float = 3.5;
+		var probability:Int;
+		var myPenalty:Int = 0;
+		switch (diffculty.toLowerCase())
+		{
+			case 'easy':
+				probability = 20;
+				myPenalty = 2;
+			case 'medium':
+				probability = 35;
+				myPenalty = 3;
+			case 'normal':
+				probability = 35;
+				myPenalty = 3;
+			case 'hard':
+				probability = 50;
+				// uncomment the following line to make every whole beat note pausa
+				// i mean you get TWO chain doms for the price of one >:)
+				// probability = 100;
+				// ORRR... uncomment this line for EVERY note to be a freeze note
+				// probability = 777;
+				myPenalty = 4;
+			default:
+				probability = 50;
+				myPenalty = 3;
+		}
+
+		if (mustPress && !warning && (probability == 777 || (strumTime % Conductor.crochet) < EPSILON))
+		{
+			if (probability == 777 || new FlxRandom().bool(probability))
+			{
+				warning = true;
+				this.penalty = myPenalty;
+			}
+		}
 
 		if (PlayState.SONG.noteStyle == null)
 		{

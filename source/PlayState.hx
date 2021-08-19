@@ -2031,10 +2031,10 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
-
 				if (!gottaHitNote && PlayStateChangeables.Optimize)
 					continue;
+
+				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, false, false, false, gottaHitNote);
 
 				swagNote.sustainLength = songNotes[2];
 				swagNote.scrollFactor.set(0, 0);
@@ -2060,7 +2060,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					}
 				}
 
-				swagNote.mustPress = gottaHitNote;
+				// swagNote.mustPress = gottaHitNote;
 
 				if (swagNote.mustPress)
 				{
