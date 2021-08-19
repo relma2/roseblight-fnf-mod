@@ -558,23 +558,38 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 			case 'blite':
 				{
-					tex = Paths.getSparrowAtlas('characters/blite');
+					tex = Paths.getSparrowAtlas('characters/blite_assets');
 					frames = tex;
-					animation.addByPrefix('idle', 'idle', 24, false);
-					animation.addByPrefix('singUP', 'note sing up', 24, false);
-					animation.addByPrefix('singDOWN', 'note sing down', 24, false);
-					animation.addByPrefix('singLEFT', 'note sing left', 24, false);
-					animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
-					animation.addByIndices('pausa', 'blite pausa', [0, 0, 0, 0, 0], "", 12, false);
-					animation.addByIndices('onestrapoff', 'blite strapoff', [0, 0, 0, 0, 0, 0, 0], "", 4, false);
-					animation.addByPrefix('rargh', 'blite roar', 24, true);
+					animation.addByPrefix('idle', 'B_Idle', 24, false);
+					animation.addByPrefix('singUP', 'B_Up', 24, false);
+					animation.addByPrefix('singDOWN', 'B_Down', 24, false);
+					animation.addByPrefix('singLEFT', 'B_Left', 24, false);
+					animation.addByPrefix('singRIGHT', 'B_Right', 24, false);
+					animation.addByPrefix('pausa', 'B_Attack', 30, false);
+					animation.addByPrefix('rargh', 'B_RoarLoop', 24, true);
+					animation.addByIndices('static', 'B_GrabsSleeve', [0], "");
+
+					// pausa anim code, stringing together more than one prefix
+					animation.addByPrefix('onestrapoff0', 'B_GrabsSleeve', 24, false);
+					animation.addByPrefix('onestrapoff1', 'B_Chuckle', 24, false);
+					animation.addByPrefix('onestrapoff2', 'B_ThrowsOffSleeve', 24, false);
+					animation.addByPrefix('onestrapoff3', 'B_Crouch', 24, false);
+					animation.addByPrefix('onestrapoff4', 'B_RAAUGHH', 24, false);
 
 					addOffset('idle');
-					addOffset("singUP", -20);
-					addOffset("singRIGHT", -51);
-					addOffset("singLEFT", -30);
-					addOffset("singDOWN", -40);
-					addOffset("pausa", -51);
+					addOffset('singUP', 35, 120);
+					addOffset('singLEFT', 100, 0);
+					addOffset('singRIGHT', -54, 9);
+					addOffset('singDown', -28, -39);
+					addOffset('pausa', 100, 150);
+					addOffset('rargh', 0, 159);
+					addOffset('static', -60, 37);
+
+					addOffset('onestrapoff0', -60, 37);
+					addOffset('onestrapoff1', -124, 0);
+					addOffset('onestrapoff2', 34, 28);
+					addOffset('onestrapoff3', 18, 31);
+					addOffset('onestrapoff4', -9, 162);
 					playAnim('idle');
 				}
 		}
@@ -675,6 +690,11 @@ class Character extends FlxSprite implements SpriteOffsetting
 		{
 			offset.set(daOffset[0], daOffset[1]);
 		}
+		else if (animOffsets.exists('default'))
+		{
+			daOffset = animOffsets.get('default');
+			offset.set(daOffset[0], daOffset[1]);
+		}
 		else
 			offset.set(0, 0);
 
@@ -690,8 +710,20 @@ class Character extends FlxSprite implements SpriteOffsetting
 			&& (curCharacter == 'nite' || curCharacter == 'blaykstatic')
 			&& !animation.curAnim.finished)
 			return;
-
-		animation.play(AnimName, Force, Reversed, Frame);
+		else if (curCharacter == 'blite'
+			&& animation.curAnim != null
+			&& animation.curAnim.name.startsWith('pausa')
+			&& !animation.curAnim.finished)
+		{
+			animation.finishCallback = function(name:String):Void
+			{
+				animation.finishCallback = null;
+				animation.play('idle');
+			}
+			return;
+		}
+		else
+			animation.play(AnimName, Force, Reversed, Frame);
 
 		if (curCharacter == 'gf')
 		{
@@ -714,5 +746,33 @@ class Character extends FlxSprite implements SpriteOffsetting
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)
 	{
 		animOffsets[name] = [x, y];
+	}
+
+	public function blitePlayOneStrapScene(onFinish:String->Void):Void
+	{
+		if (curCharacter != 'blite')
+		{
+			trace("Warning: special animation called on non-blite character");
+			return;
+		}
+		var s:String = 'onestrapoff';
+		playAnim(s + '0');
+		animation.finishCallback = function(name:String)
+		{
+			playAnim(s + '1');
+			animation.finishCallback = function(name:String)
+			{
+				playAnim(s + '2');
+				animation.finishCallback = function(name:String)
+				{
+					playAnim(s + '3');
+					animation.finishCallback = function(name:String)
+					{
+						playAnim(s + '4');
+						animation.finishCallback = onFinish;
+					};
+				};
+			};
+		};
 	}
 }

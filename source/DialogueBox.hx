@@ -354,10 +354,8 @@ class DialogueBox extends FlxSpriteGroup
 	function cleanDialog():Void
 	{
 		var splitName:Array<String> = dialogueList[0].split(":");
-		trace(splitName);
 		curCharacter = splitName[1];
 		curBox = (splitName.length < 4 || StringTools.trim(splitName[3]) == "") ? 'normal' : splitName[3];
-		trace(curCharacter + ",  " + curBox);
 		dialogueList[0] = splitName[2].trim();
 	}
 
