@@ -1149,10 +1149,17 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
-			case 'gray' | 'grayEvil':
+			case 'gray':
 				dad.x += 675;
 				dad.y += 25;
 				boyfriend.y += 25;
+				boyfriend.x += 950;
+				gf.x += 750;
+				gf.y -= 100;
+			case 'grayEvil':
+				dad.x += 675;
+				dad.y += 50;
+				boyfriend.y += 50;
 				boyfriend.x += 950;
 				gf.x += 750;
 				gf.y -= 100;
@@ -1365,7 +1372,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
-		if (true)
+		if (isStoryMode)
 		{
 			trace('starting cutscene for ' + curSong);
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
@@ -2027,10 +2034,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				if (!gottaHitNote && PlayStateChangeables.Optimize)
 					continue;
 
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, false, false, false, gottaHitNote);
+				// Putting the and conditional here so the note constructor doesent turn it into a pausa note on not the third song
+				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, false, false, false, gottaHitNote && curSong.toLowerCase() == 'aplovecraft');
 
 				swagNote.sustainLength = songNotes[2];
 				swagNote.scrollFactor.set(0, 0);
+				swagNote.mustPress = gottaHitNote;
 
 				var susLength:Float = swagNote.sustainLength;
 
@@ -2829,7 +2838,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						camFollow.y = dad.getMidpoint().y + 50 + offsetY;
 					case 'grayEvil':
 						camFollow.x = boyfriend.getMidpoint().x - 100 + offsetX;
-						camFollow.y = dad.getMidpoint().y - 150 + 30 + offsetY;
+						camFollow.y = dad.getMidpoint().y - 150 + 40 + offsetY;
 				}
 			}
 		}
@@ -4239,9 +4248,11 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
 				if (FlxG.save.data.distractions)
 					FlxG.camera.shake(0.06, 0.25);
-				dad.playAnim('pausa', true);
 				// stupid offsetting
+				if (FlxG.save.data.distractions)
+					FlxG.camera.shake(0.06, 0.25);
 				gf.y -= 25;
+				dad.blitePlayPausa();
 				gf.playAnim('scared', true);
 				new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
 				{
@@ -4358,9 +4369,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		add(dad);
 		add(dither);
 		add(grpChains2);
-		dad.playAnim('pausa', true);
+
 		// stupid offsetting
+		if (!boyfriend.pausad && FlxG.save.data.distractions)
+			FlxG.camera.shake(0.06, 0.25);
 		gf.y -= 25;
+		dad.blitePlayPausa();
 		gf.playAnim('scared', true);
 		new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
 		{
@@ -4374,8 +4388,6 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			prevVolume = FlxG.sound.music.volume;
 			pausaPenalty = pen;
 			lastConductorPausad = Conductor.songPosition;
-			if (FlxG.save.data.distractions)
-				FlxG.camera.shake(0.06, 0.25);
 		}
 		FlxG.sound.music.volume = prevVolume / 3;
 		boyfriend.pausad = true;
