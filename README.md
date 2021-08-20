@@ -15,7 +15,10 @@ Links: [**Game Banana WIP Page**](https://gamebanana.com/wips/56972) • [**Newg
 
 Oh noes Blite has dethroned girlfriend and put THEIR girl atop the speakers!! (u gotta put her back lol)
 
-TODO: Add Screenshots
+![Screenshot1](https://images.gamebanana.com/img/ss/mods/611f2949c2713.jpg)
+![Screenshot2](https://images.gamebanana.com/img/ss/mods/611f29b5030fd.jpg)
+![Screenshot3](https://images.gamebanana.com/img/ss/mods/61202122123c6.jpg)
+![Screenshot4](https://images.gamebanana.com/img/ss/mods/612021267fe76.jpg)
 
 ## TROUBLESHOOTING COMPILING
 ```
@@ -84,7 +87,6 @@ haxelib install assert 1.0.0
 ### Minor TODO Items
 
  - [ ] Fix character sprite offsets (only united blite left)
- - [ ] Add Screenshots to README
 
 ## Kade Engine
 **Kade Engine** is a mod for Friday Night Funkin', including a full engine rework, replays, and more.
