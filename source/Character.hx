@@ -21,6 +21,10 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 	public var holdTimer:Float = 0;
 
+	private var bliteBaseX:Float;
+	private var bliteBaseY:Float;
+	private var bliteBaseSettable:Bool = true;
+
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
 	{
 		super(x, y);
@@ -578,10 +582,10 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 					addOffset('idle');
 					addOffset('singUP', 35, 120);
-					addOffset('singLEFT', 100, 0);
-					addOffset('singRIGHT', -54, 9);
+					addOffset('singLEFT', 100, 15);
+					addOffset('singRIGHT', -54, 20);
 					addOffset('singDown', -28, -39);
-					addOffset('pausa', 100, 150);
+					addOffset('pausa', -100, -500);
 					addOffset('rargh', 0, 159);
 					addOffset('static', -60, 37);
 
@@ -696,7 +700,10 @@ class Character extends FlxSprite implements SpriteOffsetting
 			offset.set(daOffset[0], daOffset[1]);
 		}
 		else
+		{
+			daOffset = [0, 0];
 			offset.set(0, 0);
+		}
 
 		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
 			return;
@@ -704,7 +711,10 @@ class Character extends FlxSprite implements SpriteOffsetting
 			&& animation.curAnim.name.startsWith('scared')
 			&& curCharacter == 'gf'
 			&& !animation.curAnim.finished)
+		{
+			this.updateHitbox();
 			return;
+		}
 		else if (animation.curAnim != null
 			&& animation.curAnim.name.startsWith('strapon')
 			&& (curCharacter == 'nite' || curCharacter == 'blaykstatic')
@@ -714,14 +724,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 			&& animation.curAnim != null
 			&& animation.curAnim.name.startsWith('pausa')
 			&& !animation.curAnim.finished)
-		{
-			animation.finishCallback = function(name:String):Void
-			{
-				animation.finishCallback = null;
-				animation.play('idle');
-			}
 			return;
-		}
 		else
 			animation.play(AnimName, Force, Reversed, Frame);
 
@@ -746,6 +749,38 @@ class Character extends FlxSprite implements SpriteOffsetting
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)
 	{
 		animOffsets[name] = [x, y];
+	}
+
+	// Workaround for visual glitch of screenshake not working with certain animations
+	public function blitePlayPausa()
+	{
+		// stupid offsets
+		if (curCharacter != 'blite')
+		{
+			trace("Warning: special animation called on non-blite character");
+			return;
+		}
+		if (bliteBaseSettable)
+		{
+			bliteBaseSettable = false;
+			bliteBaseX = this.x;
+			bliteBaseY = this.y;
+		}
+		var daOffset = animOffsets.get('pausa');
+		// so, if it tries to play a pausa while the settable flag is
+		// dirty, theres no drift.
+		this.x = bliteBaseX + daOffset[0];
+		this.y = bliteBaseX + daOffset[1];
+		animation.play('pausa', true);
+		animation.finishCallback = function(name:String):Void
+		{
+			animation.finishCallback = null;
+			this.x = bliteBaseX;
+			this.y = bliteBaseY;
+			animation.play('idle');
+			bliteBaseSettable = true;
+		}
+		this.updateFramePixels();
 	}
 
 	public function blitePlayOneStrapScene(onFinish:String->Void):Void
