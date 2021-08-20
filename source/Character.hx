@@ -798,12 +798,15 @@ class Character extends FlxSprite implements SpriteOffsetting
 			animation.finishCallback = function(name:String)
 			{
 				playAnim(s + '2');
+				FlxG.sound.play(Paths.sound('chainboom'), 0.6);
 				animation.finishCallback = function(name:String)
 				{
 					playAnim(s + '3');
+					FlxG.sound.play(Paths.sound('chainboom'), 5.0);
 					animation.finishCallback = function(name:String)
 					{
 						playAnim(s + '4');
+						FlxG.sound.play(Paths.sound('chainboom'), 4.0);
 						animation.finishCallback = onFinish;
 					};
 				};
