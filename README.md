@@ -69,17 +69,17 @@ haxelib install assert 1.0.0
 ![div](art/div.png)
 </details>
 
- - [ ] Chart (66% done)
+ - [x] Chart (100% done)
   - [x] Song 1
-  - [ ] Song 2
+  - [x] Song 2
   - [x] Song 3
 
 
 ![div](art/div.png)
 
  - [x] Blite puting straps on at end of song 1
- - [ ] Jake Neutron creating Sprites for Blayk/United Blite
- - [ ] Relma putting those sprites ingame
+ - [x] Jake Neutron creating Sprites for Blayk/United Blite
+ - [x] Relma putting those sprites ingame
 
 ### Minor TODO Items
 
