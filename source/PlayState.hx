@@ -959,7 +959,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 							grpParticles.add(emit);
 							emit.createParticles(100);
 							emit.lifespan.set(0.25 * 3.5, 0.25 * 9);
-							emit.start(false, 0.09);
+							if (FlxG.save.data.distractions)
+								emit.start(false, 0.09);
 						}
 					}
 				case 'stage':
@@ -2799,7 +2800,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						camFollow.y = dad.getMidpoint().y - 430;
 						camFollow.x = dad.getMidpoint().x - 100;
 					case 'blite':
-						camFollow.y = dad.getMidpoint().y - 150;
+						camFollow.y = dad.getMidpoint().y - 170 - 50;
 				}
 			}
 
@@ -2838,7 +2839,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 						camFollow.y = dad.getMidpoint().y + 50 + offsetY;
 					case 'grayEvil':
 						camFollow.x = boyfriend.getMidpoint().x - 100 + offsetX;
-						camFollow.y = dad.getMidpoint().y - 150 + 40 + offsetY;
+						camFollow.y = dad.getMidpoint().y - 170 + offsetY;
 				}
 			}
 		}
