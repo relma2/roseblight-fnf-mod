@@ -949,7 +949,6 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 						for (i in 0...7)
 						{
-							trace("we loopin");
 							var chain:FlxSprite = new FlxSprite((400 * i) + 100, -900);
 							chain.frames = Paths.getSparrowAtlas('griswell/chains', 'week7');
 							chain.animation.addByPrefix('chain', 'chain', 4, true);
@@ -960,7 +959,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 							grpParticles.add(emit);
 							emit.createParticles(100);
 							emit.lifespan.set(0.25 * 3.5, 0.25 * 9);
-							emit.start(false, 0.09);
+							if (FlxG.save.data.distractions)
+								emit.start(false, 0.09);
 						}
 					}
 				case 'stage':
@@ -1019,6 +1019,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					}
 			}
 		}
+
+		trace("stage created");
 		// defaults if no gf was found in chart
 		var gfCheck:String = 'gf';
 
@@ -1104,7 +1106,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				dad.y += 140;
 				camPos.y += 900;
 			case 'blite':
-				dad.x += 0;
+				dad.x -= 50;
+				dad.y += 200;
 				camPos.y += 900;
 		}
 
@@ -1147,10 +1150,17 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				boyfriend.y += 220;
 				gf.x += 180;
 				gf.y += 300;
-			case 'gray' | 'grayEvil':
+			case 'gray':
 				dad.x += 675;
 				dad.y += 25;
 				boyfriend.y += 25;
+				boyfriend.x += 950;
+				gf.x += 750;
+				gf.y -= 100;
+			case 'grayEvil':
+				dad.x += 675;
+				dad.y += 50;
+				boyfriend.y += 50;
 				boyfriend.x += 950;
 				gf.x += 750;
 				gf.y -= 100;
@@ -1216,16 +1226,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		playerStrums = new FlxTypedGroup<FlxSprite>();
 		cpuStrums = new FlxTypedGroup<FlxSprite>();
 
-		// startCountdown();
-
-		if (SONG.song == null)
-			trace('song is null???');
-		else
-			trace('song looks gucci');
-
 		generateSong(SONG.song);
 
-		trace('generated');
+		trace('generated SONG');
 
 		// add(strumLine);
 
@@ -1370,11 +1373,9 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
-
-		trace('starting');
-
 		if (isStoryMode)
 		{
+			trace('starting cutscene for ' + curSong);
 			switch (StringTools.replace(curSong, " ", "-").toLowerCase())
 			{
 				case "winter-horrorland":
@@ -1425,6 +1426,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					grpChains.visible = false;
 					grpParticles.visible = false;
 					grpChains2.visible = false;
+					dad.playAnim('static');
 					camFollow.setPosition(gf.x, boyfriend.y);
 					FlxG.camera.focusOn(camFollow.getPosition());
 					doof.finishThing = aplovecraftCutscene;
@@ -1455,9 +1457,10 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		doof2.cameras = [camHUD];
 		doof2.finishThing = function()
 		{
-			remove(grpChains2);
-			add(grpChains2);
+			// calling the un-pausa function cause it fixes layering
+			unfreezeBoyfriend(true);
 			grpChains2.visible = true;
+			// restoring camera settings
 			FlxG.camera.zoom = defaultCamZoom;
 			FlxG.camera.followLerp = 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS());
 			startCountdown();
@@ -1478,8 +1481,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		// Play Blite strapoff animation
 		FlxTween.tween(FlxG.camera, {zoom: 0.75}, 0.3);
 		camFollow.setPosition(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
-		dad.playAnim("onestrapoff");
-		dad.animation.finishCallback = function(name:String)
+		dad.blitePlayOneStrapScene(function(name:String)
 		{
 			dad.animation.finishCallback = null;
 			dad.playAnim("rargh", true);
@@ -1497,7 +1499,6 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			var i:Int = 0;
 			new FlxTimer().start(interval, function(tmr:FlxTimer)
 			{
-				trace("flashing in chain  " + i);
 				var chain = grpChains.members[i];
 				FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
 				camFollow.setPosition(FlxMath.bound(chain.x, 1000, 2800), gf.y + 200);
@@ -1530,12 +1531,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				if (i == 4)
 				{
 					boyfriend.playAnim("pausad", true);
-					dad.playAnim("idle", true);
 				}
 				if (i < 7)
 					tmr.reset(0.3);
 				else if (i == 7)
 				{
+					dad.playAnim("idle", true);
 					// pan ofver bf pausad
 					camFollow.setPosition(boyfriend.x + 200, boyfriend.y + 75);
 					FlxTween.tween(FlxG.camera, {zoom: 0.8}, 2, {
@@ -1549,7 +1550,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					});
 				}
 			});
-		}
+		});
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
@@ -2031,13 +2032,15 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
-
 				if (!gottaHitNote && PlayStateChangeables.Optimize)
 					continue;
 
+				// Putting the and conditional here so the note constructor doesent turn it into a pausa note on not the third song
+				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, false, false, false, gottaHitNote && curSong.toLowerCase() == 'aplovecraft');
+
 				swagNote.sustainLength = songNotes[2];
 				swagNote.scrollFactor.set(0, 0);
+				swagNote.mustPress = gottaHitNote;
 
 				var susLength:Float = swagNote.sustainLength;
 
@@ -2060,7 +2063,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					}
 				}
 
-				swagNote.mustPress = gottaHitNote;
+				// swagNote.mustPress = gottaHitNote;
 
 				if (swagNote.mustPress)
 				{
@@ -2788,16 +2791,17 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				{
 					case 'mom':
 						camFollow.y = dad.getMidpoint().y;
+						// always set momvocals
+						vocals.volume = 1;
 					case 'senpai':
 						camFollow.y = dad.getMidpoint().y - 430;
 						camFollow.x = dad.getMidpoint().x - 100;
 					case 'senpai-angry':
 						camFollow.y = dad.getMidpoint().y - 430;
 						camFollow.x = dad.getMidpoint().x - 100;
+					case 'blite':
+						camFollow.y = dad.getMidpoint().y - 170 - 50;
 				}
-
-				if (dad.curCharacter == 'mom')
-					vocals.volume = 1;
 			}
 
 			if (PlayState.SONG.notes[Std.int(curStep / 16)].mustHitSection && camFollow.x != boyfriend.getMidpoint().x - 100)
@@ -2811,10 +2815,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					offsetY = luaModchart.getVar("followYOffset", "float");
 				}
 				#end
-				if (curStage.contains('gray'))
-					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, dad.getMidpoint().y + 50 + offsetY);
-				else
-					camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y + 100 + offsetY);
+				camFollow.setPosition(boyfriend.getMidpoint().x - 100 + offsetX, boyfriend.getMidpoint().y + 100 + offsetY);
 
 				#if windows
 				if (luaModchart != null)
@@ -2833,6 +2834,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					case 'schoolEvil':
 						camFollow.x = boyfriend.getMidpoint().x - 200;
 						camFollow.y = boyfriend.getMidpoint().y - 200;
+					case 'gray':
+						camFollow.x = boyfriend.getMidpoint().x - 100 + offsetX;
+						camFollow.y = dad.getMidpoint().y + 50 + offsetY;
+					case 'grayEvil':
+						camFollow.x = boyfriend.getMidpoint().x - 100 + offsetX;
+						camFollow.y = dad.getMidpoint().y - 170 + offsetY;
 				}
 			}
 		}
@@ -3315,6 +3322,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					{
 						// this technically skips results screen in story mode, but its hacky
 						dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftPostDialogue'));
+						trace("PLAY ROSEBLIGHT. Trust me, its incredible.\nhttps://aplovestudio.itch.io/roseblight");
 						var doof = new DialogueBox(false, dialogue);
 						doof.scrollFactor.set();
 						doof.cameras = [camHUD];
@@ -3407,6 +3415,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				{
 					// this technically skips results screen in story mode, but its hacky
 					dialogue = CoolUtil.coolTextFile(Paths.txt('aplovecraft/aplovecraftPostDialogue'));
+					trace("PLAY ROSEBLIGHT. Trust me, its incredible.\nhttps://aplovestudio.itch.io/roseblight");
 					var doof = new DialogueBox(false, dialogue);
 					doof.scrollFactor.set();
 					doof.cameras = [camHUD];
@@ -4240,9 +4249,11 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('pausa_sfx'), 2.9);
 				if (FlxG.save.data.distractions)
 					FlxG.camera.shake(0.06, 0.25);
-				dad.playAnim('pausa', true);
 				// stupid offsetting
+				if (FlxG.save.data.distractions)
+					FlxG.camera.shake(0.06, 0.25);
 				gf.y -= 25;
+				dad.blitePlayPausa();
 				gf.playAnim('scared', true);
 				new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
 				{
@@ -4359,9 +4370,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		add(dad);
 		add(dither);
 		add(grpChains2);
-		dad.playAnim('pausa', true);
+
 		// stupid offsetting
+		if (!boyfriend.pausad && FlxG.save.data.distractions)
+			FlxG.camera.shake(0.06, 0.25);
 		gf.y -= 25;
+		dad.blitePlayPausa();
 		gf.playAnim('scared', true);
 		new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
 		{
@@ -4375,16 +4389,13 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			prevVolume = FlxG.sound.music.volume;
 			pausaPenalty = pen;
 			lastConductorPausad = Conductor.songPosition;
-			if (FlxG.save.data.distractions)
-				FlxG.camera.shake(0.06, 0.25);
 		}
 		FlxG.sound.music.volume = prevVolume / 3;
 		boyfriend.pausad = true;
 	}
 
-	function unfreezeBoyfriend()
+	function unfreezeBoyfriend(inCutscene:Bool = false)
 	{
-		vocals.volume = 1;
 		remove(grpChains2);
 		remove(dither);
 		remove(gf);
@@ -4397,8 +4408,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		add(gf);
 		add(dad);
 		add(grpChains2);
-		FlxG.sound.music.volume = prevVolume < 0.2 ? 1 : prevVolume;
-		boyfriend.pausad = false;
+		if (!inCutscene)
+		{
+			vocals.volume = 1;
+			FlxG.sound.music.volume = prevVolume < 0.2 ? 1 : prevVolume;
+			boyfriend.pausad = false;
+		}
 	}
 
 	var trainMoving:Bool = false;

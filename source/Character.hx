@@ -21,6 +21,10 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 	public var holdTimer:Float = 0;
 
+	private var bliteBaseX:Float;
+	private var bliteBaseY:Float;
+	private var bliteBaseSettable:Bool = true;
+
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
 	{
 		super(x, y);
@@ -558,23 +562,38 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 			case 'blite':
 				{
-					tex = Paths.getSparrowAtlas('characters/blite');
+					tex = Paths.getSparrowAtlas('characters/blite_assets');
 					frames = tex;
-					animation.addByPrefix('idle', 'idle', 24, false);
-					animation.addByPrefix('singUP', 'note sing up', 24, false);
-					animation.addByPrefix('singDOWN', 'note sing down', 24, false);
-					animation.addByPrefix('singLEFT', 'note sing left', 24, false);
-					animation.addByPrefix('singRIGHT', 'note sing right', 24, false);
-					animation.addByIndices('pausa', 'blite pausa', [0, 0, 0, 0, 0], "", 12, false);
-					animation.addByIndices('onestrapoff', 'blite strapoff', [0, 0, 0, 0, 0, 0, 0], "", 4, false);
-					animation.addByPrefix('rargh', 'blite roar', 24, true);
+					animation.addByPrefix('idle', 'B_Idle', 24, false);
+					animation.addByPrefix('singUP', 'B_Up', 24, false);
+					animation.addByPrefix('singDOWN', 'B_Down', 24, false);
+					animation.addByPrefix('singLEFT', 'B_Left', 24, false);
+					animation.addByPrefix('singRIGHT', 'B_Right', 24, false);
+					animation.addByPrefix('pausa', 'B_Attack', 30, false);
+					animation.addByPrefix('rargh', 'B_RoarLoop', 24, true);
+					animation.addByIndices('static', 'B_GrabsSleeve', [0], "");
+
+					// pausa anim code, stringing together more than one prefix
+					animation.addByPrefix('onestrapoff0', 'B_GrabsSleeve', 24, false);
+					animation.addByPrefix('onestrapoff1', 'B_Chuckle', 24, false);
+					animation.addByPrefix('onestrapoff2', 'B_ThrowsOffSleeve', 24, false);
+					animation.addByPrefix('onestrapoff3', 'B_Crouch', 24, false);
+					animation.addByPrefix('onestrapoff4', 'B_RAAUGHH', 24, false);
 
 					addOffset('idle');
-					addOffset("singUP", -20);
-					addOffset("singRIGHT", -51);
-					addOffset("singLEFT", -30);
-					addOffset("singDOWN", -40);
-					addOffset("pausa", -51);
+					addOffset('singUP', 35, 120);
+					addOffset('singLEFT', 100, 15);
+					addOffset('singRIGHT', -54, 20);
+					addOffset('singDown', -28, -39);
+					addOffset('pausa', -100, -500);
+					addOffset('rargh', 0, 159);
+					addOffset('static', -60, 37);
+
+					addOffset('onestrapoff0', -60, 37);
+					addOffset('onestrapoff1', -124, 0);
+					addOffset('onestrapoff2', 34, 28);
+					addOffset('onestrapoff3', 18, 31);
+					addOffset('onestrapoff4', -9, 162);
 					playAnim('idle');
 				}
 		}
@@ -675,8 +694,16 @@ class Character extends FlxSprite implements SpriteOffsetting
 		{
 			offset.set(daOffset[0], daOffset[1]);
 		}
+		else if (animOffsets.exists('default'))
+		{
+			daOffset = animOffsets.get('default');
+			offset.set(daOffset[0], daOffset[1]);
+		}
 		else
+		{
+			daOffset = [0, 0];
 			offset.set(0, 0);
+		}
 
 		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
 			return;
@@ -684,14 +711,22 @@ class Character extends FlxSprite implements SpriteOffsetting
 			&& animation.curAnim.name.startsWith('scared')
 			&& curCharacter == 'gf'
 			&& !animation.curAnim.finished)
+		{
+			this.updateHitbox();
 			return;
+		}
 		else if (animation.curAnim != null
 			&& animation.curAnim.name.startsWith('strapon')
 			&& (curCharacter == 'nite' || curCharacter == 'blaykstatic')
 			&& !animation.curAnim.finished)
 			return;
-
-		animation.play(AnimName, Force, Reversed, Frame);
+		else if (curCharacter == 'blite'
+			&& animation.curAnim != null
+			&& animation.curAnim.name.startsWith('pausa')
+			&& !animation.curAnim.finished)
+			return;
+		else
+			animation.play(AnimName, Force, Reversed, Frame);
 
 		if (curCharacter == 'gf')
 		{
@@ -714,5 +749,68 @@ class Character extends FlxSprite implements SpriteOffsetting
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)
 	{
 		animOffsets[name] = [x, y];
+	}
+
+	// Workaround for visual glitch of screenshake not working with certain animations
+	public function blitePlayPausa()
+	{
+		// stupid offsets
+		if (curCharacter != 'blite')
+		{
+			trace("Warning: special animation called on non-blite character");
+			return;
+		}
+		if (bliteBaseSettable)
+		{
+			bliteBaseSettable = false;
+			bliteBaseX = this.x;
+			bliteBaseY = this.y;
+		}
+		var daOffset = animOffsets.get('pausa');
+		// so, if it tries to play a pausa while the settable flag is
+		// dirty, theres no drift.
+		this.x = bliteBaseX + daOffset[0];
+		this.y = bliteBaseX + daOffset[1];
+		animation.play('pausa', true);
+		animation.finishCallback = function(name:String):Void
+		{
+			animation.finishCallback = null;
+			this.x = bliteBaseX;
+			this.y = bliteBaseY;
+			animation.play('idle');
+			bliteBaseSettable = true;
+		}
+		this.updateFramePixels();
+	}
+
+	public function blitePlayOneStrapScene(onFinish:String->Void):Void
+	{
+		if (curCharacter != 'blite')
+		{
+			trace("Warning: special animation called on non-blite character");
+			return;
+		}
+		var s:String = 'onestrapoff';
+		playAnim(s + '0');
+		animation.finishCallback = function(name:String)
+		{
+			playAnim(s + '1');
+			animation.finishCallback = function(name:String)
+			{
+				playAnim(s + '2');
+				FlxG.sound.play(Paths.sound('chainboom'), 0.6);
+				animation.finishCallback = function(name:String)
+				{
+					playAnim(s + '3');
+					FlxG.sound.play(Paths.sound('chainboom'), 5.0);
+					animation.finishCallback = function(name:String)
+					{
+						playAnim(s + '4');
+						FlxG.sound.play(Paths.sound('chainboom'), 4.0);
+						animation.finishCallback = onFinish;
+					};
+				};
+			};
+		};
 	}
 }
