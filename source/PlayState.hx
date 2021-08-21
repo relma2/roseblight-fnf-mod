@@ -4356,6 +4356,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 	function freezeBoyfriend(pen:Int = 4)
 	{
+		if (boyfriend.isInvincible())
+			return;
 		FlxG.sound.play(Paths.sound('pausa_sfx'), 9.0);
 		fc = false;
 		remove(grpChains2);
@@ -4413,6 +4415,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			vocals.volume = 1;
 			FlxG.sound.music.volume = prevVolume < 0.2 ? 1 : prevVolume;
 			boyfriend.pausad = false;
+			// iFrames for a beat
+			boyfriend.iFrames(Conductor.crochet / 1000);
 		}
 	}
 
