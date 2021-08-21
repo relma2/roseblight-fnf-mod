@@ -310,7 +310,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 				addOffset("hey", 7, 4);
 				addOffset('firstDeath', 37, 11);
 				addOffset('deathLoop', 37, 5);
-				addOffset('deathConfirm', 37, 69);
+				addOffset('deathConfirm', 37, 4);
 				addOffset('scared', -4);
 				addOffset('pausad', -5);
 
@@ -573,7 +573,7 @@ class Character extends FlxSprite implements SpriteOffsetting
 					animation.addByPrefix('rargh', 'B_RoarLoop', 24, true);
 					animation.addByIndices('static', 'B_GrabsSleeve', [0], "");
 
-					// pausa anim code, stringing together more than one prefix
+					// cutscene anim code, stringing together more than one prefix
 					animation.addByPrefix('onestrapoff0', 'B_GrabsSleeve', 24, false);
 					animation.addByPrefix('onestrapoff1', 'B_Chuckle', 24, false);
 					animation.addByPrefix('onestrapoff2', 'B_ThrowsOffSleeve', 24, false);
@@ -582,10 +582,10 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 					addOffset('idle');
 					addOffset('singUP', 35, 120);
-					addOffset('singLEFT', 100, 15);
+					addOffset('singLEFT', 100, 0);
 					addOffset('singRIGHT', -54, 20);
-					addOffset('singDown', -28, -39);
-					addOffset('pausa', -100, -500);
+					addOffset('singDown', -28, 39);
+					addOffset('pausa', -130, -90);
 					addOffset('rargh', 0, 159);
 					addOffset('static', -60, 37);
 
@@ -689,22 +689,6 @@ class Character extends FlxSprite implements SpriteOffsetting
 
 	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-		var daOffset = animOffsets.get(AnimName);
-		if (animOffsets.exists(AnimName))
-		{
-			offset.set(daOffset[0], daOffset[1]);
-		}
-		else if (animOffsets.exists('default'))
-		{
-			daOffset = animOffsets.get('default');
-			offset.set(daOffset[0], daOffset[1]);
-		}
-		else
-		{
-			daOffset = [0, 0];
-			offset.set(0, 0);
-		}
-
 		if (animation.curAnim != null && animation.curAnim.name.startsWith('laugh') && !animation.curAnim.finished)
 			return;
 		else if (animation.curAnim != null
@@ -726,7 +710,24 @@ class Character extends FlxSprite implements SpriteOffsetting
 			&& !animation.curAnim.finished)
 			return;
 		else
+		{
+			var daOffset = animOffsets.get(AnimName);
+			if (animOffsets.exists(AnimName))
+			{
+				offset.set(daOffset[0], daOffset[1]);
+			}
+			else if (animOffsets.exists('default'))
+			{
+				daOffset = animOffsets.get('default');
+				offset.set(daOffset[0], daOffset[1]);
+			}
+			else
+			{
+				daOffset = [0, 0];
+				offset.set(0, 0);
+			}
 			animation.play(AnimName, Force, Reversed, Frame);
+		}
 
 		if (curCharacter == 'gf')
 		{
@@ -760,25 +761,30 @@ class Character extends FlxSprite implements SpriteOffsetting
 			trace("Warning: special animation called on non-blite character");
 			return;
 		}
+		if (animation.curAnim != null && animation.curAnim.name == 'pausa')
+			return;
+
 		if (bliteBaseSettable)
 		{
 			bliteBaseSettable = false;
 			bliteBaseX = this.x;
 			bliteBaseY = this.y;
 		}
-		var daOffset = animOffsets.get('pausa');
+
 		// so, if it tries to play a pausa while the settable flag is
 		// dirty, theres no drift.
+		var daOffset = animOffsets.get('pausa');
+		offset.set(0, 0);
 		this.x = bliteBaseX + daOffset[0];
-		this.y = bliteBaseX + daOffset[1];
+		this.y = bliteBaseY + daOffset[1];
 		animation.play('pausa', true);
 		animation.finishCallback = function(name:String):Void
 		{
 			animation.finishCallback = null;
 			this.x = bliteBaseX;
 			this.y = bliteBaseY;
-			animation.play('idle');
-			bliteBaseSettable = true;
+			// bliteBaseSettable = true;
+			playAnim("idle");
 		}
 		this.updateFramePixels();
 	}
