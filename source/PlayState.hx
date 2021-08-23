@@ -4112,6 +4112,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				else if (daNote.warning && loadRep)
 				{
 					// duct tape to prevent bullshit death on replay and looking like u missed
+					dad.blitePlayPausa();
+					FlxG.sound.play(Paths.sound('pausa_sfx'), 1.7);
 					switch (direction)
 					{
 						case 0:
@@ -4148,7 +4150,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			if (!daNote.warning || !loadRep)
 			{
 				FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-				dad.blitePlayPausa();
+
 				switch (direction)
 				{
 					case 0:
