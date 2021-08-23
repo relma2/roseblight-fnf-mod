@@ -1,3 +1,4 @@
+import flixel.math.FlxPoint;
 #if sys
 import sys.io.File;
 #end
@@ -18,7 +19,9 @@ class Ana
 	public var hit:Bool;
 	public var hitJudge:String;
 	public var key:Int;
-	public function new(_hitTime:Float,_nearestNote:Array<Dynamic>,_hit:Bool,_hitJudge:String, _key:Int) {
+
+	public function new(_hitTime:Float, _nearestNote:Array<Dynamic>, _hit:Bool, _hitJudge:String, _key:Int)
+	{
 		hitTime = _hitTime;
 		nearestNote = _nearestNote;
 		hit = _hit;
@@ -31,7 +34,8 @@ class Analysis
 {
 	public var anaArray:Array<Ana>;
 
-	public function new() {
+	public function new()
+	{
 		anaArray = [];
 	}
 }
@@ -48,6 +52,7 @@ typedef ReplayJSON =
 	public var isDownscroll:Bool;
 	public var sf:Int;
 	public var ana:Analysis;
+	public var frozenSteps:Array<Int>;
 }
 
 class Replay
@@ -56,11 +61,12 @@ class Replay
 
 	public var path:String = "";
 	public var replay:ReplayJSON;
+
 	public function new(path:String)
 	{
 		this.path = path;
 		replay = {
-			songName: "No Song Found", 
+			songName: "No Song Found",
 			songDiff: 1,
 			noteSpeed: 1.5,
 			isDownscroll: false,
@@ -69,12 +75,13 @@ class Replay
 			timestamp: Date.now(),
 			sf: Conductor.safeFrames,
 			ana: new Analysis(),
-			songJudgements: []
+			songJudgements: [],
+			frozenSteps: []
 		};
 	}
 
 	public static function LoadReplay(path:String):Replay
-    {
+	{
 		var rep:Replay = new Replay(path);
 
 		rep.LoadFromJSON();
@@ -84,7 +91,7 @@ class Replay
 		return rep;
 	}
 
-	public function SaveReplay(notearray:Array<Dynamic>, judge:Array<String>, ana:Analysis)
+	public function SaveReplay(notearray:Array<Dynamic>, judge:Array<String>, ana:Analysis, frozen:Array<Int>)
 	{
 		var json = {
 			"songName": PlayState.SONG.song,
@@ -96,14 +103,17 @@ class Replay
 			"timestamp": Date.now(),
 			"replayGameVer": version,
 			"sf": Conductor.safeFrames,
-			"ana": ana
+			"ana": ana,
+			"frozenSteps": frozen
 		};
 
-		var data:String = Json.stringify(json);
-		
-		var time = Date.now().getTime();
+		trace('relma2 -- ranges frozen:');
+		trace('\t' + frozen);
 
 		#if sys
+		var data:String = Json.stringify(json);
+		var time = Date.now().getTime();
+
 		File.saveContent("assets/replays/replay-" + PlayState.SONG.song + "-time" + time + ".kadeReplay", data);
 
 		path = "replay-" + PlayState.SONG.song + "-time" + time + ".kadeReplay"; // for score screen shit
@@ -123,11 +133,10 @@ class Replay
 			var repl:ReplayJSON = cast Json.parse(File.getContent(Sys.getCwd() + "assets/replays/" + path));
 			replay = repl;
 		}
-		catch(e)
+		catch (e)
 		{
 			trace('failed!\n' + e.message);
 		}
 		#end
 	}
-
 }

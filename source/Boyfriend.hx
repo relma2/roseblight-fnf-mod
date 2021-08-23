@@ -11,6 +11,8 @@ class Boyfriend extends Character
 {
 	public var stunned:Bool = false;
 	public var pausad:Bool = false;
+	// Fake pausa anim for replays
+	public var fakepausa:Bool = false;
 
 	private var iframes:Bool = false;
 	private var itoggle:Bool = true;
@@ -44,7 +46,7 @@ class Boyfriend extends Character
 			}
 		}
 		itoggle = !itoggle;
-		this.visible = !iframes || (iframes && itoggle);
+		this.visible = !iframes || itoggle;
 
 		super.update(elapsed);
 	}
@@ -65,9 +67,6 @@ class Boyfriend extends Character
 
 	override function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
 	{
-		if (pausad)
-			super.playAnim('pausad', Force, Reversed, Frame);
-		else
-			super.playAnim(AnimName, Force, Reversed, Frame);
+		super.playAnim((pausad || fakepausa) ? 'pausad' : AnimName, Force, Reversed, Frame);
 	}
 }

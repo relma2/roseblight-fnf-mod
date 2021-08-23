@@ -1,5 +1,6 @@
 package;
 
+import openfl.media.SoundLoaderContext;
 import flixel.effects.particles.FlxEmitter.FlxTypedEmitter;
 import lime.utils.Float32Array;
 import flixel.util.helpers.FlxRange;
@@ -105,6 +106,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	var lastBeatPausad:Int = -10;
 	// last conductor position bf was pausad at
 	var lastConductorPausad:Float = -5000;
+	// last conductor position recorded
+	var lastConductorRecorded:Float = -5000;
 
 	var halloweenLevel:Bool = false;
 
@@ -250,6 +253,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	// Replay shit
 	private var saveNotes:Array<Dynamic> = [];
 	private var saveJudge:Array<String> = [];
+	private var saveFrozen:Array<Int> = [];
 	private var replayAna:Analysis = new Analysis(); // replay analysis
 
 	public static var highestCombo:Int = 0;
@@ -1874,6 +1878,10 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
 
+		// is the replay even freezing?
+		if (loadRep)
+			trace("relma2 -- frozen shit  " + rep.replay.frozenSteps);
+
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
 
@@ -2542,7 +2550,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 		// release bf one step before on medium/easy so we have some time to react
 		// and on final spree, release three steps before for any difficulty
-		if (boyfriend.pausad)
+		if (boyfriend.pausad && !loadRep)
 		{
 			if (CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() != "hard"
 				&& curStep % 4 == 3
@@ -3251,7 +3259,7 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		}
 
 		if (!loadRep)
-			rep.SaveReplay(saveNotes, saveJudge, replayAna);
+			rep.SaveReplay(saveNotes, saveJudge, replayAna, saveFrozen);
 		else
 		{
 			PlayStateChangeables.botPlay = false;
@@ -3893,9 +3901,8 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 				{
 					if (loadRep)
 					{
-						// trace('ReplayNote ' + tmpRepNote.strumtime + ' | ' + tmpRepNote.direction);
 						var n = findByTime(daNote.strumTime);
-						trace(n);
+						// trace('ReplayNote ' + n);
 						if (n != null)
 						{
 							goodNoteHit(daNote);
@@ -4046,6 +4053,34 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		#end
 	}
 
+	function shouldFakePausa(frz:Array<Int>):Bool
+	{
+		var i:Int = 0;
+		if (!loadRep)
+			return false;
+		while (i < frz.length)
+		{
+			if (frz[i] == curStep)
+				return true;
+			i += 2;
+		}
+		return false;
+	}
+
+	function shouldFakeUnPausa(frz:Array<Int>):Bool
+	{
+		var i:Int = 1;
+		if (!loadRep || !boyfriend.fakepausa)
+			return false;
+		while (i < frz.length)
+		{
+			if (frz[i] == curStep)
+				return true;
+			i += 2;
+		}
+		return false;
+	}
+
 	function noteMiss(direction:Int = 1, daNote:Note):Void
 	{
 		if (!boyfriend.stunned)
@@ -4070,9 +4105,25 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 					]);
 					saveJudge.push("miss");
 				}
-				if (daNote.warning)
+				if (daNote.warning && !loadRep)
 				{
 					freezeBoyfriend(daNote.penalty);
+				}
+				else if (daNote.warning && loadRep)
+				{
+					// duct tape to prevent bullshit death on replay and looking like u missed
+					switch (direction)
+					{
+						case 0:
+							boyfriend.playAnim('singLEFT', true);
+						case 1:
+							boyfriend.playAnim('singDOWN', true);
+						case 2:
+							boyfriend.playAnim('singUP', true);
+						case 3:
+							boyfriend.playAnim('singRIGHT', true);
+					}
+					health += 0.2;
 				}
 			}
 			else if (!loadRep)
@@ -4094,18 +4145,21 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 
 			songScore -= 10;
 
-			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-
-			switch (direction)
+			if (!daNote.warning || !loadRep)
 			{
-				case 0:
-					boyfriend.playAnim('singLEFTmiss', true);
-				case 1:
-					boyfriend.playAnim('singDOWNmiss', true);
-				case 2:
-					boyfriend.playAnim('singUPmiss', true);
-				case 3:
-					boyfriend.playAnim('singRIGHTmiss', true);
+				FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+				dad.blitePlayPausa();
+				switch (direction)
+				{
+					case 0:
+						boyfriend.playAnim('singLEFTmiss', true);
+					case 1:
+						boyfriend.playAnim('singDOWNmiss', true);
+					case 2:
+						boyfriend.playAnim('singUPmiss', true);
+					case 3:
+						boyfriend.playAnim('singRIGHTmiss', true);
+				}
 			}
 
 			#if windows
@@ -4239,9 +4293,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		{
 			if (note.rating == "shit" || (note.rating == "bad" && CoolUtil.difficultyFromInt(storyDifficulty).toLowerCase() == "hard"))
 			{
-				// still get frozen. git gud scrub
-				trace("git gud scrub");
-				freezeBoyfriend(note.penalty);
+				if (!loadRep)
+				{
+					// still get frozen. git gud scrub
+					trace("git gud scrub");
+					freezeBoyfriend(note.penalty);
+				}
 			}
 			else
 			{
@@ -4358,33 +4415,62 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 	{
 		if (boyfriend.isInvincible())
 			return;
-		FlxG.sound.play(Paths.sound('pausa_sfx'), 9.0);
-		fc = false;
-		remove(grpChains2);
-		remove(dither);
-		remove(gf);
-		remove(dad);
-		remove(grpChains);
-		remove(grpParticles);
-		add(grpChains);
-		add(grpParticles);
-		add(gf);
-		add(dad);
-		add(dither);
-		add(grpChains2);
+		if (!loadRep)
+		{
+			FlxG.sound.play(Paths.sound('pausa_sfx'), 9.0);
+			fc = false;
+			remove(grpChains2);
+			remove(dither);
+			remove(gf);
+			remove(dad);
+			remove(grpChains);
+			remove(grpParticles);
+			add(grpChains);
+			add(grpParticles);
+			add(gf);
+			add(dad);
+			add(dither);
+			add(grpChains2);
+		}
 
 		// stupid offsetting
-		if (!boyfriend.pausad && FlxG.save.data.distractions)
+		if (!boyfriend.pausad && !boyfriend.fakepausa && FlxG.save.data.distractions)
 			FlxG.camera.shake(0.06, 0.25);
 		gf.y -= 25;
-		dad.blitePlayPausa();
 		gf.playAnim('scared', true);
 		new FlxTimer().start(1.0 / 3.0, function(t:FlxTimer)
 		{
 			gf.y += 25;
 		});
+
+		if (loadRep)
+		{
+			// only cosmetic stuff here
+			remove(grpChains2);
+			remove(dither);
+			remove(gf);
+			remove(dad);
+			remove(grpChains);
+			remove(grpParticles);
+			add(dither);
+			add(grpChains);
+			add(grpParticles);
+			add(gf);
+			add(dad);
+			add(grpChains2);
+			if (boyfriend.fakepausa)
+				boyfriend.playAnim('pausad', true);
+			dad.blitePlayPausa();
+			// duct tape to prevent bullshit death on replay
+			health += 0.2;
+			return;
+		}
 		boyfriend.playAnim('pausad', true);
-		vocals.volume = 0;
+		dad.blitePlayPausa();
+		if (!loadRep && !boyfriend.pausad)
+		{
+			saveFrozen.push(curStep);
+		}
 		if (!boyfriend.pausad)
 		{
 			lastBeatPausad = curBeat; // no double penalty
@@ -4392,8 +4478,12 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 			pausaPenalty = pen;
 			lastConductorPausad = Conductor.songPosition;
 		}
-		FlxG.sound.music.volume = prevVolume / 3;
-		boyfriend.pausad = true;
+		if (!loadRep)
+		{
+			vocals.volume = 0;
+			FlxG.sound.music.volume = prevVolume / 3;
+			boyfriend.pausad = true;
+		}
 	}
 
 	function unfreezeBoyfriend(inCutscene:Bool = false)
@@ -4410,14 +4500,25 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		add(gf);
 		add(dad);
 		add(grpChains2);
+
+		if ((!loadRep && !boyfriend.pausad) && (loadRep && !boyfriend.fakepausa))
+			return;
+
+		if (loadRep)
+		{
+			// again, only cosmetic; volume stuff is handled in update function
+			return;
+		}
+		if (!loadRep && boyfriend.pausad)
+			saveFrozen.push(curStep);
 		if (!inCutscene)
 		{
 			vocals.volume = 1;
 			FlxG.sound.music.volume = prevVolume < 0.2 ? 1 : prevVolume;
-			boyfriend.pausad = false;
 			// iFrames for a beat
 			boyfriend.iFrames(Conductor.crochet / 1000);
 		}
+		boyfriend.pausad = false;
 	}
 
 	var trainMoving:Bool = false;
@@ -4503,6 +4604,31 @@ import sys.FileSystem; #end class PlayState extends MusicBeatState
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20)
 		{
 			resyncVocals();
+		}
+
+		// handle fake pausa on replay
+		if (loadRep)
+		{
+			var EPSILON:Float = 0.1;
+			if (shouldFakeUnPausa(rep.replay.frozenSteps))
+			{
+				trace("relma2 -- entered unfakepausa");
+				unfreezeBoyfriend();
+				boyfriend.fakepausa = false;
+				// more duct tape
+				FlxG.sound.music.volume = 1;
+				vocals.volume = 1;
+			}
+			else if (shouldFakePausa(rep.replay.frozenSteps))
+			{
+				trace("relma2 -- entered fakepausa");
+				boyfriend.fakepausa = true;
+				freezeBoyfriend(); // purely cosmetic on replay
+				// duct tape
+				FlxG.sound.play(Paths.sound('pausa_sfx'), 9.0);
+				FlxG.sound.music.volume = 0.5;
+				vocals.volume = 0;
+			}
 		}
 
 		#if windows
